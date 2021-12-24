@@ -12,21 +12,25 @@
 	<context:property-placeholder location="classpath:db.properties"/>
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- <bean id="dataSource" class="org.mariadb.jdbc.MariaDbPoolDataSource" destroy-method="close">
+	<!-- mybatis -->
+	<bean id="dataSource" class="org.mariadb.jdbc.MariaDbPoolDataSource" destroy-method="close">
 		<property name="url" value="${db.url}"></property>
 		<property name="user" value="${db.user}"></property>
 		<property name="password" value="${db.password}"></property>
 		<property name="maxPoolSize" value="1"></property>
-	</bean> -->
+	</bean> 
 	
-	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-	</bean> -->
+	</bean>
 
 	<context:component-scan base-package="com.pj.service"></context:component-scan>	
 	
+	<!-- mybatis -->
 	<mybatis-spring:scan base-package="com.pj.mapper"/>
 	
+	<!-- transaction 처리  -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
