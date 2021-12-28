@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.nav_container{
+	width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+    background-color: #FC9918;
+}
+.nav_logo{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav_logo>span{
+    font-size: 25px;
+    font-weight: 600;
+}
+.nav_menu_box{
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.nav_menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav_menu>span{
+    font-size: 20px;
+    font-weight: 600;
+}
+.nav_user{
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.nav_user_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav_user_box>a>span{
+    font-size: 20px;
+    font-weight: 600;
+}

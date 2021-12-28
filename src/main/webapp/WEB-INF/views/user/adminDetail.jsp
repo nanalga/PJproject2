@@ -9,30 +9,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/css/icon/css/all.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<title>login page</title>
+<title>Admin Detail</title>
 </head>
 <body>
-<div class="user_container">
-	<c:url value="/user" var="userUrl"></c:url>
+<div class="user_detail_container">
 	<tag:nav></tag:nav>
-	<div class="login_main_box">
-		<div class="login_main_wrapper">
-            <span>login</span>
-			<form method="post" action="${userUrl }/login" class="login_main_form">
-				<input type="text" name="email" class="login_input_id" />
-				<input type="text" name="password" class="login_input_pw"/>
-				<input type="submit" class="login_input_submit" value="LogIn"/>
-			</form>
+	<div class="user_detail_wrapper">
+		<div class="user_detail_box">
+			<label for="user_detail_input1" class="user_detail_label">Name</label>
+			<input type="text" class="user_detail_input" id="user_detail_input1" />
 		</div>
+		<div class="user_detail_box">
+			<label for="user_detail_input2" class="user_detail_label">Eamil</label>
+			<input type="text" class="user_detail_input" id="user_detail_input2" />
+		</div>
+		<div class="user_detail_box">
+			<label for="user_detail_input3" class="user_detail_label">Password</label>
+			<input type="text" class="user_detail_input" id="user_detail_input3" />
+		</div>
+		<%-- <c:forEach>
+			<!-- user list -->
+		</c:forEach> --%>
 	</div>
-	<tag:footer></tag:footer>
 </div>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
