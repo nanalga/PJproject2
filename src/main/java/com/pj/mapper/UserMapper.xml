@@ -25,4 +25,12 @@
 		WHERE
 			email = #{email}
 	</select>
+	<select id="checkEmail" resultType="com.pj.domain.UserVO">
+		SELECT 
+			email
+		FROM
+			User
+		WHERE
+			email = #{email}
+	</select>
 </mapper>

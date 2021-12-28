@@ -27,4 +27,13 @@ public class UserService {
 		return userMapper.getUser(email);
 	}
 
+	public String checkEmail(String email) {
+		UserVO vo = userMapper.checkEmail(email);
+		if(vo != null) {
+			return "unable";
+		}else {
+			return "able";
+		}
+	}
+
 }

@@ -73,12 +73,13 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping("/join/emailCheck")
+	@RequestMapping("/join/checkEmail")
 	@ResponseBody
-	public String emailCheck(@RequestBody Map<String, String> map) {
+	public String emailCheck(@RequestBody Map<String, Object> req) {
 		System.out.println("access");
-		System.out.println(map);
-		return "wellcome";
+		String email = (String) req.get("email");
+		String message = userSerivce.checkEmail(email);
+		return message;
 	}
 	
 	@RequestMapping("/userDetail")

@@ -28,6 +28,7 @@
 				 <div class="join_input_group">
                     <input type="text" name="email" class="join_email" placeholder="email"/>
                     <input type="button" class="join_email_check" value="check">
+                    <div class="join_email_message"></div>
                 </div>
 				<input type="text" name="password" class="join_pw" placeholder="password"/>
 				<input type="text" class="join_pw_check" placeholder="passwordCheck"/>
