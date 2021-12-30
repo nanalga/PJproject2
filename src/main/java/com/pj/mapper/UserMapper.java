@@ -8,8 +8,12 @@ public interface UserMapper {
 
 	public int insert(UserVO vo);
 
-	public UserVO getUser(String email);
+	public UserVO getUserEmail(String email);
 
 	public UserVO checkEmail(String email);
+
+	public int deleteUserEmail(String emailInfo);
+
+	public boolean update(UserVO vo);
 	
 }

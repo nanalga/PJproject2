@@ -23,8 +23,8 @@ public class UserService {
 		return userMapper.insert(vo) == 1;
 	}
 
-	public UserVO getUser(String email) {
-		return userMapper.getUser(email);
+	public UserVO getUserEmail(String email) {
+		return userMapper.getUserEmail(email);
 	}
 
 	public String checkEmail(String email) {
@@ -34,6 +34,14 @@ public class UserService {
 		}else {
 			return "able";
 		}
+	}
+
+	public boolean deleteUserEmail(String emailInfo) {
+		return userMapper.deleteUserEmail(emailInfo) == 1;
+	}
+
+	public boolean update(UserVO vo) {
+		return userMapper.update(vo);
 	}
 
 }

@@ -23,8 +23,8 @@
 		<div class="login_main_wrapper">
             <span>login</span>
 			<form method="post" action="${userUrl }/login" class="login_main_form">
-				<input type="text" name="email" class="login_input_id" />
-				<input type="text" name="password" class="login_input_pw"/>
+				<input type="text" name="email" class="login_input_id" placeholder="email"/>
+				<input type="text" name="password" class="login_input_pw" placeholder="password"/>
 				<input type="submit" class="login_input_submit" value="LogIn"/>
 			</form>
 		</div>

@@ -39,7 +39,7 @@ function makeRequest() {
       return false;
     }
     httpRequest.onreadystatechange = alertContents;
-    httpRequest.open('POST', 'http://localhost:8080/controller/user/join/checkEmail',false);
+    httpRequest.open('POST', 'http://localhost:8080/controller/user/checkEmail',false);
 	httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     httpRequest.send(jsonData);
@@ -51,13 +51,13 @@ function alertContents() {
 		const message = httpRequest.responseText
 		if(message == 'able'){
 			emailAlertMessage.innerText = "사용가능한 이메일 입니다."
-			email.disabled=true;
+			email.readOnly=true;
 			emailCheckBtn.value="again"
 			canUseEamil = true;
 			emailCheckBtn.removeEventListener("click",makeRequest);
 			emailCheckBtn.addEventListener("click",()=>{
 				email.innerText ="";
-				email.disabled=false;
+				email.readOnly=false;
 				canUseEamil = false;
 				emailCheckBtn.value="check"
 				checkCanPushSubmitBtn();
@@ -87,4 +87,7 @@ const init = () =>{
     emailCheckBtn.addEventListener("click",makeRequest);
 }
 
-init();
+if(pw1!=null){
+	console.log("join.js file work")
+	init();	
+}

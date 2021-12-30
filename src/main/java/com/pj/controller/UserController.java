@@ -26,14 +26,6 @@ public class UserController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService userSerivce;
 	
-	@RequestMapping("")
-	public String dbCheck(Model model) {
-		System.out.println("user controller work");
-		String userInfo = userSerivce.getUserInfo();
-		model.addAttribute("info", userInfo);
-		return "user/dbCheck";
-	}
-	
 	@GetMapping("/login")
 	public String getLogin() {
 		
@@ -43,7 +35,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String postLogin(String email,String password,HttpSession session) {
 //		System.out.println(email+":"+password);
-		UserVO vo = userSerivce.getUser(email);
+		UserVO vo = userSerivce.getUserEmail(email);
 //		System.out.println(vo);
 		if(vo != null&&vo.getPassword().equals(password)) {
 			session.setAttribute("loggedUser", vo);
@@ -73,18 +65,17 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping("/join/checkEmail")
+	@RequestMapping("/checkEmail")
 	@ResponseBody
 	public String emailCheck(@RequestBody Map<String, Object> req) {
-		System.out.println("access");
 		String email = (String) req.get("email");
 		String message = userSerivce.checkEmail(email);
 		return message;
 	}
 	
 	@RequestMapping("/userDetail")
-	public String userDetail() {
-		
+	public String userDetail(Model model,HttpSession session) {
+	
 		return "user/userDetail";
 	}
 	
@@ -92,6 +83,41 @@ public class UserController {
 	public String adminDetail() {
 		
 		return "user/adminDetail";
+	}
+	
+	@RequestMapping("/edit")
+	public String edit() {
+		
+		return "user/edit";
+	}
+	
+	@PostMapping("/update")
+	public String update(UserVO vo,HttpSession session) {
+		boolean ok = userSerivce.update(vo);
+		if(ok) {
+			session.setAttribute("loggedUser", userSerivce.getUserEmail(vo.getEmail()));
+			return "redirect:/";
+		}else {
+			return "redirect:/user/userDetail";
+		}
+	}
+	
+	@PostMapping("/userDelete")
+	public String userDetele(String emailInfo,HttpSession session) {
+		boolean ok = userSerivce.deleteUserEmail(emailInfo);
+		System.out.println(ok);
+		if(ok) {
+			session.invalidate();
+			return "redirect:/";
+		}else {
+			return "redirect:/user/edit";
+		}
+	}
+	
+	@PostMapping("/adminDelete")
+	public String adminDelete() {
+		
+		return "redirect:/user/adminDetail";
 	}
 	
 }

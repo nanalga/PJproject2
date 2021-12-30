@@ -17,7 +17,7 @@
 		User(name,email,password)
 		VALUES(#{name},#{email},#{password})
 	</insert>
-	<select id="getUser" resultType="com.pj.domain.UserVO">
+	<select id="getUserEmail" resultType="com.pj.domain.UserVO">
 		SELECT 
 			* 
 		FROM 
@@ -33,4 +33,24 @@
 		WHERE
 			email = #{email}
 	</select>
+	<update id="update">
+		UPDATE 
+			User
+		SET
+			name=#{name},
+			email=#{email},
+			password=#{password},
+			updated = NOW()
+		WHERE
+			id = #{id}
+		 
+			
+	</update>
+	<delete id="deleteUserEmail">
+		DELETE
+		FROM
+			User
+		WHERE
+			email = #{emailInfo}
+	</delete>
 </mapper>
