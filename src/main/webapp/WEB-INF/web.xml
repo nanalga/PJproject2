@@ -4,10 +4,9 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/spring/root-context.xml</param-value>
   </context-param>
- <listener>
+  <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-  
   <servlet>
     <servlet-name>appServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -16,9 +15,8 @@
       <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
-    <multipart-config></multipart-config>
+     <multipart-config/>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/</url-pattern>
@@ -35,20 +33,23 @@
     <filter-name>encoding</filter-name>
     <servlet-name>appServlet</servlet-name>
   </filter-mapping>
- <!--  <filter>
-    <display-name>CheckLogInFilter</display-name>
-    <filter-name>CheckLogInFilter</filter-name>
-    <filter-class>org.zerock.filter.CheckLogInFilter</filter-class>
+  <!--loggedMember filter  -->
+ 
+  <filter>
+    <display-name>CheckLoginFilter</display-name>
+    <filter-name>CheckLoginFilter</filter-name>
+    <filter-class>com.pj.filter.CheckLogInFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>CheckLogInFilter</filter-name>
-    <url-pattern>/member/list</url-pattern>
-    <url-pattern>/member/remove</url-pattern>
-    <url-pattern>/member/info</url-pattern>
-    <url-pattern>/board/register</url-pattern>
-  </filter-mapping> -->
-</web-app>
+    <filter-name>CheckLoginFilter</filter-name>
+    <url-pattern>/CheckLoginFilter</url-pattern>
+    <url-pattern>/resellMarket/resellMember/memberList</url-pattern>
+    <url-pattern>/resellMarket/resellMember/remove</url-pattern> 
+    <url-pattern>/resellMarket/resellMember/info</url-pattern> 
+    <url-pattern>/resellMarket/resellBoard/resellBoardRegister</url-pattern>
+  </filter-mapping>
 
+</web-app>
 
 
 
