@@ -12,4 +12,45 @@
 		WHERE
 			id = 1
 	</select>
+	<insert id="insert">
+		INSERT INTO 
+		User(name,email,password)
+		VALUES(#{name},#{email},#{password})
+	</insert>
+	<select id="getUserEmail" resultType="com.pj.domain.UserVO">
+		SELECT 
+			* 
+		FROM 
+			User
+		WHERE
+			email = #{email}
+	</select>
+	<select id="checkEmail" resultType="com.pj.domain.UserVO">
+		SELECT 
+			email
+		FROM
+			User
+		WHERE
+			email = #{email}
+	</select>
+	<update id="update">
+		UPDATE 
+			User
+		SET
+			name=#{name},
+			email=#{email},
+			password=#{password},
+			updated = NOW()
+		WHERE
+			id = #{id}
+		 
+			
+	</update>
+	<delete id="deleteUserEmail">
+		DELETE
+		FROM
+			User
+		WHERE
+			email = #{emailInfo}
+	</delete>
 </mapper>
