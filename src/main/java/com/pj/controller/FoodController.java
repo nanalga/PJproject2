@@ -149,6 +149,7 @@ public class FoodController implements WebMvcConfigurer {
 		return a;
 	}
 	
+
 	@RequestMapping(value = "/modifySummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String modifySummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
@@ -189,5 +190,6 @@ public class FoodController implements WebMvcConfigurer {
 		String a = jsonObject.toString();
 		return a;
 	}
+
 
 }
