@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pj.mapper.ResellBoardMapper">
+
+
+	
+	<select id="getListPage" resultType="com.pj.domain.ResellBoardVO">
+	SELECT
+		id,
+		title,
+		content,
+		writer,
+		price,
+		inserted,
+		updated
+	FROM
+	    ResellBoard
+	 WHERE 
+		id = #{id}    
+	ORDER BY id DESC 
+	</select>
+	
+	
+	<!--getList 모든 게시물 조회 -->
+	<select id="getList" resultType="com.pj.domain.ResellBoardVO">
+	SELECT 
+	    id,
+	    title,
+	    content,
+	    writer,
+	    price,
+	    inserted,
+	    updated
+	FROM
+	    ResellBoard  
+	ORDER BY id DESC
+	</select>
+
+	<!--id(pk)로 하나의 게시물 조회-->
+	<select id="select" resultType="com.pj.domain.ResellBoardVO">
+	SELECT 
+	    id,
+	    title,
+	    content,
+	    writer,
+	    price,
+	    inserted,
+	    updated
+	FROM
+	    ResellBoard 
+	WHERE 
+		id = #{id}  
+	</select>
+	
+	<!--insert  &get generated key-->
+	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	INSERT INTO
+		ResellBoard (title, content,writer, price)
+	VALUES
+		(#{title}, #{content}, #{writer}, #{price})	
+	</insert>
+	
+	<!--update 하나의 게시물 수정  -->
+	<update id="update">
+	UPDATE
+		ResellBoard
+	SET
+		title = #{title},
+		content = #{content},
+		writer = #{writer},
+		price = #{price},
+		updated = NOW()
+	WHERE
+		id = #{id}
+	</update> 
+	
+	<!--delete 하나의 게시물 수정삭제  -->
+	<delete id="delete">
+	DELETE FROM ResellBoard WHERE id = #{id}
+	</delete>
+
+
+</mapper>
+
+
+
+
+
