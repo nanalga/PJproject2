@@ -77,6 +77,8 @@ public class FoodController implements WebMvcConfigurer {
 		
 		if (service.modify(food)) {
 			rttr.addFlashAttribute("result", food.getId() + "의 게시글이 수정되었습니다.");
+		} else {
+			rttr.addFlashAttribute("result", food.getId() + "의 게시글이 수정 실패되었습니다.");
 		}
 		rttr.addAttribute("id", food.getId());	// 쿼리 스트링
 
@@ -137,6 +139,47 @@ public class FoodController implements WebMvcConfigurer {
 
 			// s3에 저장
 			jsonObject.addProperty("url", service.uploadToS3(savedFileName, multipartFile));
+
+		} catch (IOException e) {
+			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
+			jsonObject.addProperty("responseCode", "error");
+			e.printStackTrace();
+		}
+		String a = jsonObject.toString();
+		return a;
+	}
+	
+	@RequestMapping(value = "/modifySummernoteImageFile", produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String modifySummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
+			HttpServletRequest request) {
+
+		JsonObject jsonObject = new JsonObject();
+
+		/*
+		 * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
+		 */
+
+		// 내부경로로 저장
+		String contextRoot = "C:\\Users\\user\\Desktop\\COURS\\java\\workspace\\PJproject\\src\\main\\webapp\\";
+		String fileRoot = contextRoot + "resources\\fileupload\\";
+
+//		System.out.println(fileRoot);
+
+		String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
+		String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
+		String savedFileName = UUID.randomUUID() + extension; // 저장될 파일 명
+
+		File targetFile = new File(fileRoot + savedFileName);
+		try {
+			InputStream fileStream = multipartFile.getInputStream();
+			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
+//			jsonObject.addProperty("url", targetFile.getAbsolutePath()); // contextroot + resources + 저장할 내부 폴더명
+//			jsonObject.addProperty("url", "/fileupload"); // contextroot + resources + 저장할 내부 폴더명
+			jsonObject.addProperty("responseCode", "success");
+
+			// s3에 수정
+			jsonObject.addProperty("url", service.modifyToS3(savedFileName, multipartFile));
 
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제

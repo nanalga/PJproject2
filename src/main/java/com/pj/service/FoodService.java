@@ -105,6 +105,7 @@ public class FoodService {
 	}
 
 	public boolean modify(FoodVO food) {
+		System.out.println("foodservice modify : " + food);
 		return mapper.modify(food) == 1;
 	}
 
@@ -119,6 +120,16 @@ public class FoodService {
 		
 		return staticUrl + "/" + key;
 	}
+	
+	public String modifyToS3(String key, MultipartFile file) throws IOException {
+		
+		deleteObject(key);
+		
+		putObject(key, file.getSize(), file.getInputStream());
+		
+		return staticUrl + "/" + key;
+	}
+	
 
 	public List<FoodVO> getFoodListPage(Integer page, Integer numberPerPage) {
 		Integer from = (page - 1) * 10;

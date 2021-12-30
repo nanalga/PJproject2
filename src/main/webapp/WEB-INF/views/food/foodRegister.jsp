@@ -30,7 +30,8 @@
 			<input class="form-control" type="text" id="InputTitle" name="title" style="width: 100%;" placeholder="제목"/> <br>
 		<label>내용</label>
 			<textarea id="summernote" name="contents"></textarea>
-		<input id="subBtn" type="submit" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
+			<input id="subBtn" type="submit" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
+		<!-- <button id="modifySubmitButton" type="submit" value="글 수정" style="float: right;">글 작성</button> -->
 	</form>
 		<input id="subBtn" type="submit" value="글 목록" style="float: left;" onclick="${history.go(-1)}"/>
 </div>

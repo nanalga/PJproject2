@@ -11,9 +11,9 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha512-bnIvzh6FU75ZKxp0GXLH9bewza/OIw6dLVh9ICg0gogclmYGguQJWl8U30WpbsGTqbIiAwxTsbe76DErLq5EDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- summernote -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
@@ -34,13 +34,13 @@
 		<button id="modifySubmitButton" type="submit" value="글 수정" style="float: right;">글 수정</button>
 		<button id="removeSubmitButton" type="submit" value="글 삭제" style="float: right;">글 삭제</button>
 	</form>
-
 		<button id="subBtn" type="submit" value="글 목록" style="float: left;" onclick="${history.go(-1)}">목록</button>
 </div>
 
  <script>
  $(document).ready(function() {
-	
+	const appRoot = '${pageContext.request.contextPath}';
+	 
 	$("#removeSubmitButton").click(function (e) {
 		e.preventDefault();	// 기본 동작을 진행하지 않도록 함
 		$("#modifyForm").attr("action", "foodRemove").submit();
@@ -68,18 +68,62 @@
 		['view', ['fullscreen', 'codeview', 'help']]
 	];
 	var setting = {
-		placeholder: 'Hello stand alone ui',
-		tabsize: 2,
-		height: 400,
-		lang : 'ko-KR',
-		minHeight: null,
-		maxHeight: null,
-		fontNames: fontList,
-		fontNamesIgnoreCheck: fontList,
-		fontSizes: ['8','9','10','11','12','14','18','24','36'],
-		toolbar : toolbar
-	}
+			 placeholder: 'Hello stand alone ui',
+			 height: 400,
+	         lang : 'ko-KR',
+			 minHeight: null,
+			 maxHeight: null,
+			 fontNames: fontList,
+			 fontNamesIgnoreCheck: fontList,
+			 fontSizes: ['8','9','10','11','12','14','18','24','36'],
+			 toolbar : toolbar,
+			 //콜백 함수
+			 /*
+	         callbacks : { 
+	            onImageUpload : function(files, editor, welEditable) {
+	            	// 파일 업로드(다중업로드를 위해 반복문 사용)
+	            	for (var i = files.length - 1; i >= 0; i--) {
+	            		uploadSummernoteImageFile(files[i], this);
+	            	}
+	            }
+	         }
+			*/
+			 callbacks : {
+				 onImageUpload: function(files) {
+				     // upload image to server and create imgNode...
+				     for(var i = files.length -1; i>= 0; i-- ){
+				    	 uploadSummernoteImageFile(files[i], this);
+				     }
+				     // uploadSummernoteImageFile(files[0], this);
+			     }
+			 }
+	};
+	
 	$('#summernote').summernote(setting);
+	
+	/**
+	* 이미지 파일 업로드
+	*/
+    function uploadSummernoteImageFile(file, el) {
+		let data = new FormData();
+		data.append("file", file);
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : appRoot + "/food/modifySummernoteImageFile",
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
+			success : function(d) {
+				/* const parseData = JSON.parse(d);
+				console.log("s-data:", parseData.url); */
+				//$(el).summernote('editor.insertImage', d.url);
+				let imgNode = document.createElement("img");
+				$(imgNode).attr("src", d.url);
+				$(el).summernote('insertNode', imgNode);
+			}
+		});
+	}
 	
  });
 </script>
