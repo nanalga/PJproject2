@@ -33,15 +33,17 @@
 		</div>
 		<div class="user_edit_box">
 			<label for="user_edit_input3" class="user_edit_label">Password</label>
-			<input type="text" name="password" class="user_edit_input" id="user_edit_input3" value="${sessionScope.loggedUser.password}" required/>
-			<input type="text" class="user_edit_input" required/>
+			<input type="text" name="password" class="user_edit_input user_edit_password" id="user_edit_input3" value="${sessionScope.loggedUser.password}" required/>
+			<input type="text" class="user_edit_input user_edit_password_check" required/>
 		</div>
 		<div class="user_edit_box">
 			<input type="submit" class="user_edit_updateBtn" disabled value="Update"/>
 			<input type="submit" class="user_edit_deleteBtn" value="회원탈퇴"/>
+			<input type="submit" class="user_edit_submitBtn" style="display:none" />
 		</div>
 		<input type="hidden" class="contextPath" value="${pageContext.request.contextPath }"/>
 		<input type="hidden" class="firstEamilValue" value ="${sessionScope.loggedUser.email }" />
+		<input type="hidden" class="firstPasswordValue" value = "${sessionScope.loggedUser.password }" />
 		<input type="hidden" name="id" value="${sessionScope.loggedUser.id }"/>
 		</form>
 	</div>
