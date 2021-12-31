@@ -75,6 +75,11 @@ public class UserController {
 		return message;
 	}
 	
+	@RequestMapping("/userDetail")
+	public String userDetail() {
+		return "user/userDetail";
+	}
+	
 	@RequestMapping({"/adminDetail/{path}","/adminDetail"})
 	public String adminDetail(Model model,@PathVariable(required = false) String path) {
 		
@@ -127,14 +132,16 @@ public class UserController {
 	
 	@PostMapping("/userDelete")
 	public String userDetele(String emailInfo,HttpSession session) {
-		boolean ok = userService.deleteUserEmail(emailInfo);
-		System.out.println(ok);
-		if(ok) {
-			session.invalidate();
-			return "redirect:/";
-		}else {
-			return "redirect:/user/edit";
-		}
+		System.out.println("work");
+//		boolean ok = userService.deleteUserEmail(emailInfo);
+//		System.out.println(ok);
+//		if(ok) {
+//			session.invalidate();
+//			return "redirect:/";
+//		}else {
+//			return "redirect:/user/edit";
+//		}
+		return "redirect:/user/edit";
 	}
 	
 	@PostMapping("/adminDelete")

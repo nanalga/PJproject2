@@ -37,6 +37,15 @@ img{
     /* background-color: aqua; */
 }
 
+.header_container a{
+	color:black;
+}
+
+.header_container a:hover{
+	text-decoration: none;
+	color:black;
+}
+
 .header_box{
     display: flex;
     justify-content: flex-start;
