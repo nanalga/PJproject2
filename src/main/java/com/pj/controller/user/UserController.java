@@ -131,17 +131,15 @@ public class UserController {
 	}
 	
 	@PostMapping("/userDelete")
-	public String userDetele(String emailInfo,HttpSession session) {
-		System.out.println("work");
-//		boolean ok = userService.deleteUserEmail(emailInfo);
-//		System.out.println(ok);
-//		if(ok) {
-//			session.invalidate();
-//			return "redirect:/";
-//		}else {
-//			return "redirect:/user/edit";
-//		}
-		return "redirect:/user/edit";
+	public String userDetele(String email,HttpSession session) {
+		boolean ok = userService.deleteUserEmail(email);
+		System.out.println(ok);
+		if(ok) {
+			session.invalidate();
+			return "redirect:/";
+		}else {
+			return "redirect:/user/edit";
+		}
 	}
 	
 	@PostMapping("/adminDelete")
