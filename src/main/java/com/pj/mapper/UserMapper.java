@@ -2,7 +2,7 @@ package com.pj.mapper;
 
 import java.util.List;
 
-import com.pj.domain.FoodVO;
+import com.pj.domain.food.FoodVO;
 import com.pj.domain.ResellVO;
 import com.pj.domain.UserVO;
 

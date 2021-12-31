@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pj.domain.FoodVO;
+import com.pj.domain.food.FoodVO;
 import com.pj.domain.ResellVO;
 import com.pj.domain.UserVO;
 import com.pj.service.UserService;

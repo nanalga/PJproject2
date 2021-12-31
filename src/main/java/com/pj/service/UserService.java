@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pj.domain.FoodVO;
+import com.pj.domain.food.FoodVO;
 import com.pj.domain.ResellVO;
 import com.pj.domain.UserVO;
 import com.pj.mapper.UserMapper;
