@@ -115,7 +115,7 @@ public class FoodController implements WebMvcConfigurer {
 	
 	@GetMapping("/testFoodMap")
 	public void testFoodMap() {
-
+		//System.out.println("foodLocation : " + foodLocation);
 	}
 
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8")

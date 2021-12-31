@@ -39,7 +39,7 @@
 		WHERE
 			email = #{email}
 	</select>
-	<select id="getFoodList" resultType="com.pj.domain.FoodVO">
+	<select id="getFoodList" resultType="com.pj.domain.food.FoodVO">
 		SELECT 
 			id,title,writer,inserted
 		FROM 
