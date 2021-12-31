@@ -16,26 +16,29 @@
 <title>join page</title>
 </head>
 <body>
-<div class="user_container">
+<div class="body_wrapper">
 	<c:url value="/user" var="userUrl"></c:url>
 	<tag:nav></tag:nav>
-	<div class="join_main_box">
-		<div class="join_main_wrapper">
-			<span>join</span>
-			<form method="post" class="join_main_form">
-				<input type="text" name="name" class="join_name" placeholder="name" required/>
-				 <div class="join_input_group">
-                    <input type="email" name="email" class="join_email" placeholder="email" required/>
-                    <input type="button" class="join_email_check" value="check">
-                    <div class="join_email_message"></div>
-                </div>
-				<input type="text" name="password" class="join_pw" placeholder="password" required/>
-				<input type="text" class="join_pw_check" placeholder="passwordCheck" required/>
-				<input type="submit" class="join_submit" disabled/>
-			</form>
+	<div class="main_container">
+		<div class="join_main_box">
+			<div class="join_main_wrapper">
+				<span>join</span>
+				<form method="post" class="join_main_form">
+					<input type="text" name="name" class="join_name" placeholder="name" required/>
+					 <div class="join_input_group">
+	                    <input type="email" name="email" class="join_email" placeholder="email" required/>
+	                    <input type="button" class="join_email_check" value="check">
+	                    <div class="join_email_message"></div>
+	                </div>
+					<input type="text" name="password" class="join_pw" placeholder="password" required/>
+					<input type="text" class="join_pw_check" placeholder="passwordCheck" required/>
+					<input type="submit" class="join_submit" disabled/>
+				</form>
+			</div>
 		</div>
 	</div>
 	<tag:footer></tag:footer>
+	<tag:menu></tag:menu>
 </div>
 <script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
 </body>

@@ -13,27 +13,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<title>login page</title>
+<title>admin login page</title>
 </head>
 <body>
-<div class="body_wrapper">
-	<c:url value="/user" var="userUrl"></c:url>
+<div class="user_container">
+	<c:url value="/admin" var="adminUrl"></c:url>
 	<tag:nav></tag:nav>
-	<div class="main_container">
-		<div class="login_main_box">
-			<div class="login_main_wrapper">
-	            <span>login</span>
-				<form method="post" action="${userUrl }/login" class="login_main_form">
-					<input type="text" name="email" class="login_input_id" placeholder="email"/>
-					<input type="text" name="password" class="login_input_pw" placeholder="password"/>
-					<input type="submit" class="login_input_submit" value="LogIn"/>
-				</form>
-			</div>
+	<div class="login_main_box">
+		<div class="login_main_wrapper">
+            <span>admin login</span>
+			<form method="post" action="${adminUrl }/login" class="login_main_form">
+				<input type="text" name="email" class="login_input_id" placeholder="email"/>
+				<input type="text" name="password" class="login_input_pw" placeholder="password"/>
+				<input type="submit" class="login_input_submit" value="LogIn"/>
+			</form>
 		</div>
 	</div>
 	<tag:footer></tag:footer>
-	<tag:menu></tag:menu>
 </div>
-<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
 </body>
 </html>
