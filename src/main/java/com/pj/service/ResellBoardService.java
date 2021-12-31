@@ -36,6 +36,9 @@ public class ResellBoardService {
 	@Setter(onMethod_ = @Autowired)
 	private ResellFileMapper filemapper;
 	
+	@Setter(onMethod_ = @Autowired)
+	private ResellBoardService service;
+	
 //	private String staticRoot = "C:\\Users\\user\\Desktop\\course\\fileupload\\";
 
 	// aws image api 활용
@@ -161,6 +164,13 @@ public class ResellBoardService {
 		
 		return pageInfo;
 	}
+
+	public List<ResellBoardVO> getSearchList(ResellBoardVO boardVo) throws Exception {
+		
+		return mapper.selectSearchList(boardVo);
+	}
+
+	
 
 
 

@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" tagdir="/WEB-INF/tags/resellBoard" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+
+<c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
 
 <!DOCTYPE html>
 <html>
@@ -18,13 +21,22 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="/js/summernote/summernote-lite.js"></script>
+<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 
+<link rel="stylesheet" href="/css/summernote/summernote-lite.css">
+
+<!-- 외부 css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 
 <title>resellBoardModify</title>
 </head>
 <body>
-<rb:navBar></rb:navBar>
 
+
+  <tag:nav></tag:nav>
+  
+<div class="body_wrapper">
 <!-- .contatiner>.row>.col>h1{게시물 수정} -->
 <div class="container main_container">
 	<div class="row">
@@ -61,7 +73,7 @@
 		</div>
 	</div>
 </div>
-
+</div>
 <!-- 수정Modal -->
 <div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -109,6 +121,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
+
 <script>
 
 $(document).ready(function() {
@@ -195,7 +209,7 @@ const appRoot = '${pageContext.request.contextPath}';
 		$.ajax({
 			data : data,
 			type : "POST",
-			url : appRoot + "/food/uploadSummernoteImageFile",
+			url : "/food/uploadSummernoteImageFile",
 			contentType : false,
 			enctype : 'multipart/form-data',
 			processData : false,
@@ -227,7 +241,7 @@ const appRoot = '${pageContext.request.contextPath}';
 	}); */
 
 </script>
-
-
+  <tag:footer></tag:footer>
+  <tag:menu></tag:menu>
 </body>
 </html>
