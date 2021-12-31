@@ -54,35 +54,85 @@
 						<input type="text" required class="form-control" id="addressDetailInput" required name="addressDetail" value="${sessionScope.loggedInMember.addressDetail }">
 					</div>
 					<!-- button.btn.btn-outline-secondary{수정}+button.btn.btn-outline-secondary{삭제} -->
-					<button class="btn btn-outline-secondary" id="modifyButton">회원정보수정</button>
-					<button class="btn btn-outline-danger" id="removeButton">회원탈퇴</button>	
+					<button id="modifySubmitButton" class="btn btn-outline-secondary" id="modifyButton">회원정보수정</button>
+					<button id="removeSubmitButton" class="btn btn-outline-danger" id="removeButton">회원탈퇴</button>	
 			</form>
 		</div>
 	</div>
 </div>
+
+<!-- 수정Modal -->
+<div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelmodify">수정확인</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>수정하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="modifyModalButton" type="button" class="btn btn-secondary" data-dismiss="modal">수정하기</button>
+        <button id="notModifyModalButton" type="button" class="btn btn-primary"  data-toggle="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 삭제Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabeldelete">삭제 확인</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>정말로 삭제 하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="removeModalButton"type="button" class="btn btn-secondary" data-dismiss="modal" data-target="#modifyModal">"삭제하기"</button>
+        <button id="notRemoveModalButton" type="button" class="btn btn-primary"  data-toggle="modal"  data-target="#deleteModal">삭제 취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
 <!--코드 + id값 변경 주소관련? -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-	$(document).ready(function() {
-		const infoForm =$("#infoForm")
-		
-		$("#modifyButton").click(function(e) {
-			e.preventDefault();
-			
-			infoForm.attr("action", "");
-			infoForm.submit();
-		});
-		
-		$("#removeButton").click(function(e) {
-			e.preventDefault();
-			if (confirm("회원을 탈퇴하시겠습니까?")) {
-				infoForm.attr("action","remove");
-				infoForm.submit();
-			}
-		});
+$(document).ready(function() {
+	$("#removeModalButton").click(function(e) {
+		e.preventDefault();  // 기본동작을 진행 안함
+		$("#infoForm").attr("action","ResellBoardRemove").submit();
 	});
+	
+	$("#modifyModalButton").click(function(e){
+		e.preventDefault();
+		$("#infoForm").attr("action","resellBoardModify").submit();
+	});
+
+	$("#notRemoveModalButton").click(function(e) {
+		e.preventDefault();
+		$("#deleteModal").modal("hide");
+	})
+	
+	$("#notModifyModalButton").click(function(e) {
+		e.preventDefault();
+		$("#modifyModal").modal("hide");
+	})
+	  	
+});
 	
 </script>
 

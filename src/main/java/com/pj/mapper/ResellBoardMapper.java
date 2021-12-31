@@ -24,5 +24,10 @@ public interface ResellBoardMapper {
 	// 하나의 게시물 수정
 	public int update(ResellBoardVO board);
 
+	public List<ResellBoardVO> getListPage(@Param("from") Integer from, @Param("items") Integer numberPerPage);
+
+	public Integer getCountRows();
+
+
 
 }

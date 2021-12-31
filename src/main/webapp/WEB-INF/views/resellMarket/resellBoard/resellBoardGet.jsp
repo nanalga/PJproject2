@@ -28,7 +28,7 @@
 			<!-- .form-group*3>label[for=input$]+input.form-control#input$[readonly] -->	
 				<div class="form-group">
 					<label for=""titleInput"">제목</label>
-					<input type="text" class="form-control" id="titleInput" readonly value="${resellBoard.title }">
+					<input type="text" class="form-control" id="titleInput" style="width: 40%;" readonly value="${resellBoard.title }">
 				</div>
 				<div class="form-group">
 					<label for="contentInput">내용</label>
@@ -39,14 +39,12 @@
 					<input type="text" class="form-control" id="priceInput" readonly value="${resellBoard.price }">
 				</div> 
 				<div class="form-group">
-					<label for="writerInput">작성자</label>
+					<label for="writerInput">작성자</label><i id="heart" class="far fa-heart"></i>
 					<input type="text" class="form-control" id="writerInput" readonly value="${resellBoard.writer }">
 				</div>
 				<!-- a.btn.btn-outline-secondary{modify/delete} -->
 					<a href="resellBoardModify?id=${resellBoard.id }" class="btn btn-outline-secondary">
 					modify/delete</a>
-				<c:if test="${sessionScope.loggedInMember.id eq resellBoard.id }">
-				</c:if>
 				
 			
 			</div>
@@ -84,6 +82,11 @@
 			$("#staticBackdrop").modal('show');
 			history.replaceState("historystate not null",null);
 		}
+		// 하트
+	    $("#heart").click(function () {
+	        $(this).toggleClass("far").toggleClass("fas");
+	    });
+		
 		
 	});
 

@@ -68,6 +68,7 @@ public class ResellMemberController {
 			// service로 아이디로 멤버 vo얻고
 			ResellMemberVO vo = service.select(id);
 			
+			System.out.println(vo);
 			if( vo == null) {
 				return null;
 			}
@@ -99,9 +100,9 @@ public class ResellMemberController {
 		}
 		
 		@GetMapping("/info")
-		public String info(HttpSession session) {
+		public String info(HttpSession session, RedirectAttributes rttr) {
 			/* 일단 필터로
-			ResellMemberVO vo = (ResellMemberVO) session.getAttribute("loggedMember");
+			ResellMemberVO vo = (ResellMemberVO) session.getAttribute("loggedInMember");
 			
 			// 로그아웃
 			if (vo == null) {
@@ -109,6 +110,7 @@ public class ResellMemberController {
 			}
 			*/
 			// 로그인상태일떄
+			
 			return null;
 		}
 		
@@ -129,11 +131,11 @@ public class ResellMemberController {
 			
 			if (ok) {
 				rttr.addFlashAttribute("result", resellMember.getId() + "님의 회원정보가 변경되었습니다.");
-				session.setAttribute("loggedMember", service.select(resellMember.getId()));
+				session.setAttribute("loggedInMember", service.select(resellMember.getId()));
 			} else {
 				rttr.addFlashAttribute("result", resellMember.getId() + "님의 회원정보가 변경되지 않았습니다.");
 			}
-			
+			rttr.addAttribute("id", resellMember.getId());
 			
 			return "redirect:/resellMarket/resellBoard/resellBoardList";
 		}

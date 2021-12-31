@@ -6,21 +6,25 @@
 <mapper namespace="com.pj.mapper.ResellBoardMapper">
 
 
+	<select id="getCountRows" resultType="int">
+	SELECT COUNT(*) FROM ResellBoard
+	</select>
+
 	
 	<select id="getListPage" resultType="com.pj.domain.ResellBoardVO">
-	SELECT
-		id,
-		title,
-		content,
-		writer,
-		price,
-		inserted,
-		updated
+	SELECT 
+	    id,
+	    title,
+	    content,
+	    writer,
+	    price,
+	    inserted,
+	    updated
 	FROM
-	    ResellBoard
-	 WHERE 
-		id = #{id}    
-	ORDER BY id DESC 
+	    ResellBoard  
+	ORDER BY id DESC
+
+	LIMIT #{from}, #{items} 
 	</select>
 	
 	
