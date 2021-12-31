@@ -12,7 +12,7 @@ VALUES (#{id}, #{password}, #{email}, #{address},#{addressDetail},#{nickName} )
 </insert>
 
 <select id="select" resultType="com.pj.domain.ResellMemberVO">
-SELECT id, password, email, address,addressDetail, inserted, nickName
+SELECT id, password, email, address,addressDetail,nickName, inserted
 FROM ResellMember 
 WHERE id = #{id}
 

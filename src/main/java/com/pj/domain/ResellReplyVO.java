@@ -1,13 +1,8 @@
 package com.pj.domain;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -15,24 +10,22 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import lombok.Data;
 
 @Data
-public class ResellBoardVO {
+public class ResellReplyVO {
 	private Integer id;
-	private String title;
-	private String content;
-	private String writer;
+	private Integer boardId;
+	private String memberId;
+	private String reply;
 	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime inserted;
 	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime updated;
 	private String nickName;
-	private Integer price;
-	
 	
 	public String getCustomInserted() {
 		//현재 일시
 		LocalDateTime now = LocalDateTime.now(ZoneId.of("+09:00"));
 		DateTimeFormatter dateTimeFormatter = 
-				DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h시 m분");
+				DateTimeFormatter.ofPattern("yyyy/M/d a hh:mm");
 		String nowString = now.format(dateTimeFormatter);
 		
 		LocalDateTime beforeOneDayFromNow = now.minusDays(1);
@@ -46,18 +39,6 @@ public class ResellBoardVO {
 		
 	}
 	
-	private String type; //검색타입
-	private String keyword; //  검색내용
-
-
+	
+	
 }
-
-
-
-
-
-
-
-
-
-

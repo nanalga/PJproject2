@@ -25,6 +25,8 @@
 </head>
 <body>
 
+	<tag:footer></tag:footer>
+	<tag:menu></tag:menu>
 
 	<tag:nav></tag:nav>
 
@@ -175,8 +177,7 @@
 		});
 	
 	</script>
-	<tag:footer></tag:footer>
-	<tag:menu></tag:menu>
+
 
 </body>
 </html>
