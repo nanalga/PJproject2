@@ -24,20 +24,34 @@
                     <div class="menu_community">
                         <a href="#" class="communityBtn">Commnunity</a>
                         <div class="menu_coummunity_inner_el display_none">
-                            <a href="${ContextPath }/community/community_FreeBoard">-FreeBoard</a>
+                            <a href="${ContextPath }/community/communityBoard/community_FreeBoard">-FreeBoard</a>
                             <a href="#">-QnaBoard</a>
                         </div>
                     </div>
                 </div>
-                <div class="menu_list_box">
-                    <div class="menu_user">
-                        <a href="${ContextPath }/user/login">Login</a>
-                    </div>
-                </div>
-                <div class="menu_list_box">
-                    <div class="menu_user">
-                        <a href="${ContextPath }/user/join">Join</a>
-                    </div>
-                </div>
+                <c:if test="${loggedUser != null }">
+                	<div class="menu_list_box">
+                    	<div class="menu_user">
+                        <a href="${ContextPath }/user/userDetail">UserDetail</a>
+                   		</div>
+	                </div>
+	                <div class="menu_list_box">
+	                    <div class="menu_user">
+	                        <a href="${ContextPath }/user/logout">LogOut</a>
+	                    </div>
+	                </div>
+                </c:if>
+                <c:if test="${loggedUser == null }">
+	                <div class="menu_list_box">
+	                    <div class="menu_user">
+	                        <a href="${ContextPath }/user/login">Login</a>
+	                    </div>
+	                </div>
+	                <div class="menu_list_box">
+	                    <div class="menu_user">
+	                        <a href="${ContextPath }/user/join">Join</a>
+	                    </div>
+	                </div>
+                </c:if>
             </div>
         </div>

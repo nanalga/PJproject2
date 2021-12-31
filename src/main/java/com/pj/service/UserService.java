@@ -1,8 +1,12 @@
 package com.pj.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pj.domain.FoodVO;
+import com.pj.domain.ResellVO;
 import com.pj.domain.UserVO;
 import com.pj.mapper.UserMapper;
 
@@ -17,6 +21,10 @@ public class UserService {
 	public String getUserInfo() {
 		
 		return userMapper.getUserInfo();
+	}
+	
+	public List<UserVO> getUserList() {
+		return userMapper.getUserList();
 	}
 
 	public boolean insert(UserVO vo) {
@@ -43,5 +51,19 @@ public class UserService {
 	public boolean update(UserVO vo) {
 		return userMapper.update(vo);
 	}
+
+	public List<FoodVO> getFoodList() {
+		return userMapper.getFoodList();
+	}
+
+	public List<ResellVO> getResellList() {
+		return userMapper.getResellList();
+	}
+
+	public List<ResellVO> getCommunityList() {
+		return userMapper.getCommunityList();
+	}
+
+	
 
 }
