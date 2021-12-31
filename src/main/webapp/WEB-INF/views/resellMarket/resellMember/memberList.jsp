@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" tagdir="/WEB-INF/tags/resellBoard" %>
-<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -13,9 +13,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-<!--외부 css  -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resource//css/kocss/mystyle.css"> <!--외부 css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -23,15 +21,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <tag:footer></tag:footer>
-  <tag:menu></tag:menu>
-  <tag:nav></tag:nav>
-
-
-
+<rb:navBar></rb:navBar>
 <h1 class="myHeader">memberList 나오니여기나오늬?</h1>
 
-<div class="body_wrapper">
 <!-- .container>.row>.col>h1{회원목록} -->
 <div class="container main_container">
 	<div class="row">
@@ -78,10 +70,7 @@
 		</div>
 	</div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
-
 </body>
 </html>
 
