@@ -1,8 +1,6 @@
 package com.pj.controller.user;
 
 
-public class UserController {
-
 import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +23,8 @@ import com.pj.domain.UserVO;
 import com.pj.service.UserService;
 
 import lombok.Setter;
+
+//import lombok.Setter;
 
 @Controller
 @RequestMapping("/user")
