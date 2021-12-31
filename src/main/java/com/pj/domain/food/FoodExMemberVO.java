@@ -1,4 +1,4 @@
-package com.pj.domain;
+package com.pj.domain.food;
 
 import java.time.LocalDateTime;
 

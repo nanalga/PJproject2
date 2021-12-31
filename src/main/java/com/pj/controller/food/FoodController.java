@@ -1,4 +1,4 @@
-package com.pj.controller;
+package com.pj.controller.food;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,9 +30,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
-import com.pj.domain.FoodPageInfoVO;
-import com.pj.domain.FoodVO;
-import com.pj.service.FoodService;
+import com.pj.domain.food.FoodPageInfoVO;
+import com.pj.domain.food.FoodVO;
+import com.pj.service.food.FoodService;
 
 import lombok.Setter;
 
@@ -44,13 +44,18 @@ public class FoodController implements WebMvcConfigurer {
 	private FoodService service;
 
 	@RequestMapping("/foodList")
-	public void foodList(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
+	public void foodList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "keyword", defaultValue = "") String keyword,
+			Model model) {
+		System.out.println(searchType + ", " + keyword);
 		System.out.println("foodList 접근");
-		
+
 		Integer numberPerPage = 10;
 		
 //		List<FoodVO> list = service.getList(); // 게시글만 조회
-		List<FoodVO> list = service.getFoodListPage(page, numberPerPage);
+		List<FoodVO> list = service.getFoodListPage(page, numberPerPage, searchType, keyword);
+		
 		FoodPageInfoVO pageInfo = service.getFoodPageInfo(page, numberPerPage);
 
 		model.addAttribute("list", list);
@@ -105,6 +110,11 @@ public class FoodController implements WebMvcConfigurer {
 
 	@GetMapping("/testSummerNote")
 	public void testSummerNote() {
+
+	}
+	
+	@GetMapping("/testFoodMap")
+	public void testFoodMap() {
 
 	}
 

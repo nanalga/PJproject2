@@ -1,4 +1,4 @@
-package com.pj.service;
+package com.pj.service.food;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pj.domain.FoodPageInfoVO;
-import com.pj.domain.FoodVO;
-import com.pj.mapper.FoodFileMapper;
-import com.pj.mapper.FoodMapper;
+import com.pj.domain.food.FoodPageInfoVO;
+import com.pj.domain.food.FoodVO;
+import com.pj.mapper.food.FoodFileMapper;
+import com.pj.mapper.food.FoodMapper;
 
 import lombok.Setter;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -131,10 +131,10 @@ public class FoodService {
 	}
 	
 
-	public List<FoodVO> getFoodListPage(Integer page, Integer numberPerPage) {
+	public List<FoodVO> getFoodListPage(Integer page, Integer numberPerPage, String searchType, String keyword) {
 		Integer from = (page - 1) * 10;
 		
-		return mapper.getFoodListPage(from, numberPerPage);
+		return mapper.getFoodListPage(from, numberPerPage, searchType, keyword);
 	}
 
 	public FoodPageInfoVO getFoodPageInfo(Integer page, Integer numberPerPage) {

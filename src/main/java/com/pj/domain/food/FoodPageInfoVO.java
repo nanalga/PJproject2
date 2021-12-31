@@ -1,4 +1,4 @@
-package com.pj.domain;
+package com.pj.domain.food;
 
 import lombok.Data;
 
@@ -12,5 +12,9 @@ public class FoodPageInfoVO {
 	private Integer rightPageNumber;	// 페이지네이션 가장 오른쪽 번호
 	private Boolean hasPrevButton;		// 이전 페이지 버튼 유무
 	private Boolean hasNextButton;		// 다음 페이지 버튼 유뮤
+	
+	//속성 searchType, keyword 추가
+	private String searchType;
+	private String keyword;
 
 }

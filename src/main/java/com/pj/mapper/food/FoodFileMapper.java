@@ -1,4 +1,4 @@
-package com.pj.mapper;
+package com.pj.mapper.food;
 
 import org.apache.ibatis.annotations.Param;
 

@@ -1,10 +1,10 @@
-package com.pj.service;
+package com.pj.service.food;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pj.domain.FoodExMemberVO;
-import com.pj.mapper.FoodExMemberMapper;
+import com.pj.domain.food.FoodExMemberVO;
+import com.pj.mapper.food.FoodExMemberMapper;
 
 import lombok.Setter;
 

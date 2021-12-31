@@ -1,10 +1,10 @@
-package com.pj.mapper;
+package com.pj.mapper.food;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.pj.domain.FoodVO;
+import com.pj.domain.food.FoodVO;
 
 public interface FoodMapper {
 
@@ -18,7 +18,8 @@ public interface FoodMapper {
 	
 	public int delete(Integer id);
 
-	public List<FoodVO> getFoodListPage(@Param("from") Integer page, @Param("items") Integer numberPerPage);
+	public List<FoodVO> getFoodListPage(@Param("from") Integer page, @Param("items") Integer numberPerPage,
+										@Param("searchType") String searchType, @Param("keyword") String keyword);
 
 	public Integer getFoodCountRows();
 

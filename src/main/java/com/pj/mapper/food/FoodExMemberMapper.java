@@ -1,6 +1,6 @@
-package com.pj.mapper;
+package com.pj.mapper.food;
 
-import com.pj.domain.FoodExMemberVO;
+import com.pj.domain.food.FoodExMemberVO;
 
 public interface FoodExMemberMapper {
 
