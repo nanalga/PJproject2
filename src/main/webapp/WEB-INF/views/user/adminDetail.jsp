@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/css/icon/css/all.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
-<title>Admin Detail</title>
+<title>admin Detail</title>
 </head>
 <body>
 <div class="body_wrapper">
