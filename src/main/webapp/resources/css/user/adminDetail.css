@@ -1,0 +1,179 @@
+.admin_detail_container{
+	/* height: 90vh; */
+	width: 60%;
+    max-width: 700px;
+}
+
+.admin_detail_wrapper{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+	border: 5px solid rgb(96, 202, 235);
+	border-radius: 20px;
+    margin-bottom: 100px;
+}
+
+.admin_detail_box{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin_detail_box:first-child>span{
+    font-size: 40px;
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+
+.admin_detail_box:not(:last-child){
+    margin-bottom: 20px;
+}
+
+.admin_detail_label{
+    width: 20%;
+    margin-left: 10px;
+}
+
+.admin_detail_input{
+    height: 100%;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.admin_detail_editBtn{
+    background-color: aqua;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    border-radius: 10px;
+}
+
+.admin_power{
+    height: 100%;
+    /* border-top: 1px solid black; */
+    margin-bottom: 20px;
+}
+
+.admin_power_menu_container{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+.admin_power_menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 17px 0;
+    cursor: pointer;
+}
+
+.admin_power_menu>a{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.admin_power_list_container_user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin_power_content{
+    width: 100%;
+}
+
+.admin_power_content_bar,
+.admin_power_content_info{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 5fr 3fr 2fr 1fr;
+}
+
+.admin_power_content_bar_food,
+.admin_power_content_info_food{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 6fr 3fr 3fr 1fr;
+}
+
+.admin_power_content_bar_resell,
+.admin_power_content_info_resell{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 3fr 3fr 3fr 1fr;
+}
+
+.admin_power_content_bar_CM,
+.admin_power_content_info_CM{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr 4fr 3fr 1fr;
+}
+
+.admin_power_content_bar,
+.admin_power_content_bar_food,
+.admin_power_content_bar_resell,
+.admin_power_content_bar_CM
+{
+    border-bottom: 1px solid black;
+    padding: 15px 0;
+}
+
+.admin_power_content_info,
+.admin_power_content_info_food,
+.admin_power_content_info_resell,
+.admin_power_content_info_CM{
+    padding: 10px 0;
+    border-bottom: 1px solid black;
+}
+
+
+.admin_power_content_bar>span,
+.admin_power_content_info>span,
+.admin_power_content_bar_food>span,
+.admin_power_content_info_food>span,
+.admin_power_content_bar_resell>span,
+.admin_power_content_info_resell>span,
+.admin_power_content_bar_CM>span,
+.admin_power_content_info_CM>span
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin_power_content_bar>span,
+.admin_power_content_bar_food>span,
+.admin_power_content_bar_resell>span,
+.admin_power_content_bar_CM>span
+{
+    font-size: 22px;
+}
+
+.admin_power_content_info>span:not(:last-child),
+.admin_power_content_info_food>span:not(:last-child),
+.admin_power_content_info_resell>span:not(:last-child),
+.admin_power_content_info_CM>span:not(:last-child){
+    border-right: 1px solid black;
+}
+
+.admin_power_content_info>a,
+.admin_power_content_info_food>a,
+.admin_power_content_info_resell>a,
+.admin_power_content_info_CM>a{
+    display: flex;   
+    justify-content: center;
+    align-items: center;
+}
+
+.select{
+	background-color: rgb(175, 166, 166);
+}

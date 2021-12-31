@@ -17,38 +17,48 @@
 <title>Edit</title>
 </head>
 <body>
-<div class="user_edit_container">
+<div class="body_wrapper">
 	<tag:nav></tag:nav>
-	<div class="user_edit_wrapper">
-		<form class="user_edit_form" method="post">
-			<div class="user_edit_box">
-			<label for="user_edit_input1" class="user_edit_label">Name</label>
-			<input type="text" name="name" class="user_edit_input" id="user_edit_input1" value="${sessionScope.loggedUser.name}" required/>
-		</div>
-		<div class="user_edit_box">
-			<label for="user_edit_input2" class="user_edit_label">Eamil</label>
-			<input type="email" name="email" class="user_edit_input" id="user_edit_input2" value="${sessionScope.loggedUser.email}"  required/>
-			<input type="button" class="edit_email_check" value="check"/>
-			<div class="edit_email_message"></div>
-		</div>
-		<div class="user_edit_box">
-			<label for="user_edit_input3" class="user_edit_label">Password</label>
-			<input type="text" name="password" class="user_edit_input user_edit_password" id="user_edit_input3" value="${sessionScope.loggedUser.password}" required/>
-			<input type="text" class="user_edit_input user_edit_password_check" required/>
-		</div>
-		<div class="user_edit_box">
-			<input type="submit" class="user_edit_updateBtn" disabled value="Update"/>
-			<input type="submit" class="user_edit_deleteBtn" value="회원탈퇴"/>
-			<input type="submit" class="user_edit_submitBtn" style="display:none" />
-		</div>
-		<input type="hidden" class="contextPath" value="${pageContext.request.contextPath }"/>
-		<input type="hidden" class="firstEamilValue" value ="${sessionScope.loggedUser.email }" />
-		<input type="hidden" class="firstPasswordValue" value = "${sessionScope.loggedUser.password }" />
-		<input type="hidden" name="id" value="${sessionScope.loggedUser.id }"/>
-		</form>
-	</div>
+	<div class="main_container">
+            <div class="user_edit_container">
+                <div class="user_edit_wrapper">
+                    <form class="user_edit_form" method="post">
+                        <div class="user_edit_box">
+                            <label for="user_edit_input1" class="user_edit_label">Name</label>
+                            <div class="user_edit_input_group">
+                                <input type="text" name="name" class="user_edit_input1" id="user_edit_input1" value="${sessionScope.loggedUser.name}" required/>
+                            </div>
+                        </div>
+                        <div class="user_edit_box">
+                            <label for="user_edit_input2" class="user_edit_label">Eamil</label>
+                            <div class="user_edit_input_group">
+                                <input type="email" name="email" class="user_edit_input2" id="user_edit_input2" value="${sessionScope.loggedUser.email}"  required/>
+                                <input type="button" class="edit_email_check" value="check"/>
+                        		<div class="edit_email_message"></div>
+                            </div>
+                        </div>
+                        <div class="user_edit_box">
+                            <label for="user_edit_input3" class="user_edit_label">Password</label>
+                            <label for="user_edit_input4" class="user_edit_label">CheckPassword</label>
+                            <input type="text" name="password" class="user_edit_input3 user_edit_password" id="user_edit_input3" value="${sessionScope.loggedUser.password}" required/>
+                            <input type="text" class="user_edit_input4 user_edit_password_check" id="user_edit_input4"/>
+                        </div>
+                        <div class="user_edit_box">
+                            <input type="submit" class="user_edit_updateBtn" disabled value="Update"/>
+                            <input type="submit" class="user_edit_deleteBtn" value="Delete"/>
+                            <input type="submit" class="user_edit_submitBtn" style="display:none" />
+                        </div>
+                        <input type="hidden" class="contextPath" value="${pageContext.request.contextPath }"/>
+                        <input type="hidden" class="firstEamilValue" value ="${sessionScope.loggedUser.email }" />
+                        <input type="hidden" class="firstPasswordValue" value = "${sessionScope.loggedUser.password }" />
+                        <input type="hidden" name="id" value="${sessionScope.loggedUser.id }"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+	<tag:footer></tag:footer>
+	<tag:menu></tag:menu>
 </div>
-
 <script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
 </body>
 </html>

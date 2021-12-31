@@ -14,6 +14,10 @@ img{
 	height: 200vh
 }
 
+.body_wrapper,.header_container{
+    min-width: 1000px;
+}
+
 .body_wrapper{
     width: 100%;
     height: 100%;
@@ -31,6 +35,15 @@ img{
     background-color: white;
     /* opacity: 1; */
     /* background-color: aqua; */
+}
+
+.header_container a{
+	color:black;
+}
+
+.header_container a:hover{
+	text-decoration: none;
+	color:black;
 }
 
 .header_box{
