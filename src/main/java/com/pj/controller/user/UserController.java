@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pj.domain.UserVO;
-import com.pj.service.UserService;
+import com.pj.domain.user.UserVO;
+import com.pj.service.user.UserService;
 
 import lombok.Setter;
 
@@ -55,6 +55,11 @@ public class UserController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@GetMapping("/join")
+	public String getJoin() {
+		return "user/join";
 	}
 	
 	@PostMapping("/join")

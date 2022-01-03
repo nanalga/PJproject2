@@ -1,12 +1,12 @@
-package com.pj.service;
+package com.pj.service.user;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pj.domain.UserVO;
-import com.pj.mapper.UserMapper;
+import com.pj.domain.user.UserVO;
+import com.pj.mapper.user.UserMapper;
 
 import lombok.Setter;
 

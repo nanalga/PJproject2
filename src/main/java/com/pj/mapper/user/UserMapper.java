@@ -1,8 +1,8 @@
-package com.pj.mapper;
+package com.pj.mapper.user;
 
 import java.util.List;
 
-import com.pj.domain.UserVO;
+import com.pj.domain.user.UserVO;
 
 public interface UserMapper {
 
