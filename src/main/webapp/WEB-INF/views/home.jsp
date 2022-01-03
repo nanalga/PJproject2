@@ -1,20 +1,19 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
-=======
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
->>>>>>> parent of 544c039 (Merge branch 'master' into ko1)
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
 <html>
 <head>
 	<title>Home</title>
+	<link rel="stylesheet" href="${ContextPath }/resource/css/styles.css" />
 </head>
 <body>
-<<<<<<< HEAD
 <body>
     <div class="body_wrapper main_page">  
     	<tag:nav></tag:nav>
@@ -73,12 +72,5 @@
         <tag:menu></tag:menu>
     </div>
     <script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
-=======
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
->>>>>>> parent of 544c039 (Merge branch 'master' into ko1)
 </body>
 </html>

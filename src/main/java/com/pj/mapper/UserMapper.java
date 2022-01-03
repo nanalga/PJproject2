@@ -1,10 +1,7 @@
 package com.pj.mapper;
 
-<<<<<<< HEAD
 import java.util.List;
 
-import com.pj.domain.food.FoodVO;
-import com.pj.domain.ResellVO;
 import com.pj.domain.UserVO;
 
 public interface UserMapper {
@@ -23,16 +20,9 @@ public interface UserMapper {
 
 	public boolean update(UserVO vo);
 
-	public List<FoodVO> getFoodList();
-
-	public List<ResellVO> getResellList();
-
-	public List<ResellVO> getCommunityList();
-
-=======
-public interface UserMapper {
-
-	public String getUserInfo();
->>>>>>> parent of 544c039 (Merge branch 'master' into ko1)
-	
+//	public List<FoodVO> getFoodList();
+//
+//	public List<ResellVO> getResellList();
+//
+//	public List<ResellVO> getCommunityList();
 }

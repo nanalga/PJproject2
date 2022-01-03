@@ -1,7 +1,5 @@
 package com.pj.controller.user;
 
-
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 import java.util.Map;
 
@@ -17,22 +15,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pj.domain.food.FoodVO;
-import com.pj.domain.ResellVO;
 import com.pj.domain.UserVO;
 import com.pj.service.UserService;
 
 import lombok.Setter;
 
-//import lombok.Setter;
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private UserService userService;
 	
+
 	@GetMapping("/login")
 	public String getLogin() {
 		
@@ -54,12 +49,6 @@ public class UserController {
 			return "redirect:/";
 		}
 		return "redirect:/user/login";
-	}
-	
-	@GetMapping("/join")
-	public String getJoin() {
-		
-		return "user/join";
 	}
 	
 	@RequestMapping("/logout")
@@ -102,26 +91,26 @@ public class UserController {
 			model.addAttribute("userList",vo);			
 		}
 		
-		if(path.equals("food")) {
-			List<FoodVO> vo = userService.getFoodList();
-			model.addAttribute("path","food");
-			model.addAttribute("foodList",vo);
-		}
-		
-		if(path.equals("resell")) {
-			List<ResellVO> vo = userService.getResellList();
-			model.addAttribute("path","resell");
-			model.addAttribute("resellList",vo);
-		}
-		
-		if(path.equals("community")) {
-			List<ResellVO> vo = userService.getCommunityList();
-			model.addAttribute("path","community");
-			model.addAttribute("communityList",vo);
-		}
-		
+//		if(path.equals("food")) {
+//			List<FoodVO> vo = userService.getFoodList();
+//			model.addAttribute("path","food");
+//			model.addAttribute("foodList",vo);
+//		}
+//		
+//		if(path.equals("resell")) {
+//			List<ResellVO> vo = userService.getResellList();
+//			model.addAttribute("path","resell");
+//			model.addAttribute("resellList",vo);
+//		}
+//		
+//		if(path.equals("community")) {
+//			List<ResellVO> vo = userService.getCommunityList();
+//			model.addAttribute("path","community");
+//			model.addAttribute("communityList",vo);
+//		}
 		return "user/adminDetail";
-	}
+}
+
 	
 	@RequestMapping("/edit")
 	public String edit() {
