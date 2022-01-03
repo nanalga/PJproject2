@@ -1,34 +1,11 @@
 package com.pj.controller.food;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+public class FoodController {
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+	// foodfeature1에서 추가
 
+<<<<<<< HEAD:src/main/java/com/pj/controller/food/FoodController.java
 import com.google.gson.JsonObject;
 import com.pj.domain.food.FoodPageInfoVO;
 import com.pj.domain.food.FoodVO;
@@ -202,4 +179,11 @@ public class FoodController implements WebMvcConfigurer {
 	}
 
 
+=======
+	// master에서 추가!!
+
+	
+	//PARK222222
+	//MAIN PARK
+>>>>>>> parent of 544c039 (Merge branch 'master' into ko1):src/main/java/com/pj/controller/FoodController.java
 }

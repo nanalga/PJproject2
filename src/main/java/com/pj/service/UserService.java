@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.pj.domain.food.FoodVO;
 import com.pj.domain.ResellVO;
 import com.pj.domain.UserVO;
+=======
+>>>>>>> parent of 544c039 (Merge branch 'master' into ko1)
 import com.pj.mapper.UserMapper;
 
 import lombok.Setter;
@@ -27,6 +30,7 @@ public class UserService {
 		return userMapper.getUserList();
 	}
 
+<<<<<<< HEAD
 	public boolean insert(UserVO vo) {
 		return userMapper.insert(vo) == 1;
 	}
@@ -66,4 +70,6 @@ public class UserService {
 
 	
 
+=======
+>>>>>>> parent of 544c039 (Merge branch 'master' into ko1)
 }

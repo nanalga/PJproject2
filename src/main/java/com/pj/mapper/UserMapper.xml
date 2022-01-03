@@ -12,6 +12,7 @@
 		WHERE
 			id = 1
 	</select>
+<<<<<<< HEAD
 	<select id="getUserList" resultType="com.pj.domain.UserVO">
 		SELECT
 			id,name,email,password,created
@@ -77,4 +78,6 @@
 		WHERE
 			email = #{emailInfo}
 	</delete>
+=======
+>>>>>>> parent of 544c039 (Merge branch 'master' into ko1)
 </mapper>

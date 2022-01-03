@@ -39,6 +39,13 @@ public class UserController {
 		return "user/login";
 	}
 	
+	@RequestMapping("/kakaoLogin")
+	public String kakaoLogin () {
+		System.out.println("kakaoLogin controller work");
+//		System.out.println("param :"+param);
+		return "home";
+	}
+	
 	@PostMapping("/login")
 	public String postLogin(String email,String password,HttpSession session) {
 		UserVO vo = userService.getUserEmail(email);

@@ -1,5 +1,6 @@
 package com.pj.service.food;
 
+<<<<<<< HEAD:src/main/java/com/pj/service/food/FoodService.java
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -174,4 +175,8 @@ public class FoodService {
 		return foodPageInfo;
 	}
 
+=======
+public class FoodService {
+
+>>>>>>> parent of 544c039 (Merge branch 'master' into ko1):src/main/java/com/pj/service/FoodService.java
 }

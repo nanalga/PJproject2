@@ -1,5 +1,6 @@
 package com.pj.mapper.food;
 
+<<<<<<< HEAD:src/main/java/com/pj/mapper/food/FoodMapper.java
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +24,8 @@ public interface FoodMapper {
 
 	public Integer getFoodCountRows();
 
+=======
+public interface FoodMapper {
+
+>>>>>>> parent of 544c039 (Merge branch 'master' into ko1):src/main/java/com/pj/mapper/FoodMapper.java
 }
