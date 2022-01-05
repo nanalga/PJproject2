@@ -6,14 +6,24 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pj.domain.user.UserVO;
 import com.pj.service.user.UserService;
@@ -27,6 +37,11 @@ public class UserController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService userService;
 	
+	@Value("${naver.client_id}")
+	private String client_id;
+	
+	@Value("${naver.client_secret}")
+	private String client_secret;
 
 	@GetMapping("/login")
 	public String getLogin() {
@@ -34,12 +49,6 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping("/kakaoLogin")
-	public String kakaoLogin () {
-		System.out.println("kakaoLogin controller work");
-//		System.out.println("param :"+param);
-		return "home";
-	}
 	
 	@PostMapping("/login")
 	public String postLogin(String email,String password,HttpSession session) {
@@ -52,9 +61,62 @@ public class UserController {
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
+	public String logout(HttpSession session,RedirectAttributes rttr) {
+		String access_token = (String) session.getAttribute("access_token");
+		UserVO vo = (UserVO) session.getAttribute("loggedUser");
+		String social = vo.getSocial();
+		
+		if(social.equals("naver")) {
+			boolean ok = logOutNaverUser(access_token);
+			if(ok) {
+				System.out.println("로그아웃 성공(네이버)");
+				rttr.addFlashAttribute("success","로그아웃되었습니다.");
+			}else {
+				System.out.println("로그아웃 실패(네이버)");
+				rttr.addFlashAttribute("fail","로그아웃에 실패했습니다.");
+			}
+		}
+//		else if(pw.equals("kakao")) {
+//			boolean ok = logOutKakaoUser();
+//			if(ok) {
+//				System.out.println("로그아웃 성공(카카오)");
+//			}else {
+//				System.out.println("로그아웃 실패(카카오)");
+//			}
+//		}
+//		session.invalidate();
 		return "redirect:/";
+	}
+	
+	public boolean logOutNaverUser(String access_token) {
+		
+		RestTemplate rt = new RestTemplate();
+		
+		HttpHeaders headers = new HttpHeaders();
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("grant_type", "delete");
+		params.add("client_id", client_id);
+		params.add("client_secret", client_secret);
+		params.add("access_token", access_token);
+		params.add("service_provider", "NAVER");
+		System.out.println(params);
+		
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params,headers);
+		
+		try {
+			ResponseEntity<String> response  = rt.exchange(
+					"https://nid.naver.com/oauth2.0/token",
+					HttpMethod.POST,
+					request,
+					String.class
+					);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("error");
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	@GetMapping("/join")
@@ -63,10 +125,13 @@ public class UserController {
 	}
 	
 	@PostMapping("/join")
-	public String postJoin(UserVO vo) {
+	public String postJoin(UserVO vo,RedirectAttributes rttr) {
+		vo.setSocial("local");
 		if(userService.insert(vo)) {
+			rttr.addFlashAttribute("success","회원가입되었습니다.");
 			return "redirect:/";
 		}else {
+			rttr.addFlashAttribute("fail","회원가입에 실패하였습니다.");
 			return "redirect:/user/join";
 		}
 	}
@@ -124,24 +189,28 @@ public class UserController {
 	}
 	
 	@PostMapping("/update")
-	public String update(UserVO vo,HttpSession session) {
+	public String update(UserVO vo,HttpSession session,RedirectAttributes rttr) {
 		boolean ok = userService.update(vo);
 		if(ok) {
 			session.setAttribute("loggedUser", userService.getUserEmail(vo.getEmail()));
+			rttr.addFlashAttribute("success","업데이트되었습니다");
 			return "redirect:/";
 		}else {
+			rttr.addFlashAttribute("fail","업데이트에 실패했습니다.");
 			return "redirect:/user/userDetail";
 		}
 	}
 	
 	@PostMapping("/userDelete")
-	public String userDetele(String email,HttpSession session) {
+	public String userDetele(String email,HttpSession session,RedirectAttributes rttr) {
 		boolean ok = userService.deleteUserEmail(email);
 		System.out.println(ok);
 		if(ok) {
 			session.invalidate();
+			rttr.addFlashAttribute("success","계정이 삭제되었습니다.");
 			return "redirect:/";
 		}else {
+			rttr.addFlashAttribute("fail","계정삭제에 실패했습니다.");
 			return "redirect:/user/edit";
 		}
 	}

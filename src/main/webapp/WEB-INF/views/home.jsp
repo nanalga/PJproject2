@@ -16,56 +16,57 @@
 <body>
 <body>
     <div class="body_wrapper main_page">  
+    	<tag:flash></tag:flash>
     	<tag:nav></tag:nav>
         <div class="main_container">
         	<div class="main_page_container">
         		<div class="main_title_box">
-                <div class="main_title_img_box">
-                    <img src="#" class="main_title_img">
-                </div>   
-                <div class="main_title_content_box">
-                    <h2>New that lasts.</h2>
-                    <p>Schwartz Media publishes intelligent news and current affairs that breaks the 24-hour news cycle. We offer a nuanced examination of Australia and the world, focused on fresh insight and literary expression. Our audience reads to know, not just to agree. We invest in long-form journalism where the issues demand it, providing writing of a quality that makes difficult topics clear. Schwartz Media publishes Australia’s most respected writers across The Saturday Paper, The Monthly magazine and the daily podcast 7am, alongside our sister publications, Quarterly Essay and Australian Foreign Affairs.</p>
-                </div>
-            </div>
-            <div class="main_content_box">
-                <div class="main_content_food_box content_box">
-                    <div class="main_content_img_box">
-                        <img src="" alt="">
-                    </div>
-                    <div class="main_content_text_box">
-                        <h2>Food</h2>
-                        <p>Our journalists create in-depth, independent, original public interest reporting, focusing on storytelling and insight.</p>
-                        <div class="food_link_btn">
-                            <a href="${ContextPath }/food/foodList">go to Food</a>
-                        </div>
-                    </div>     
-                </div>
-                <div class="main_content_resell_box content_box">
-                    <div class="main_content_text_box">
-                        <h2>Resell</h2>
-                        <p>publishes long-form journalism from the nation's leading writers and thinkers, covering Australian politics, culture and ideas.</p>
-                        <div class="food_link_btn">
-                            <a href="${ContextPath }/resellMarket/resellBoard/resellBoardList">go to Resell</a>
-                        </div>
-                    </div>
-                    <div class="main_content_img_box">
-                        <img src="" alt="">
-                    </div>
-                </div>
-                <div class="main_content_community_box content_box">
-                    <div class="main_content_img_box">
-                        <img src="" alt="">
-                    </div>
-                    <div class="main_content_text_box">
-                        <h2>community</h2>
-                        <p> is a weekly newspaper, dedicated to telling the whole story. It publishes long-form accounts of the week’s key stories.</p>
-                        <div class="food_link_btn">
-                            <a href="${ContextPath }/community/community_FreeBoard">go to Community</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	                <div class="main_title_img_box">
+	                    <img src="#" class="main_title_img">
+	                </div>   
+	                <div class="main_title_content_box">
+	                    <h2>New that lasts.</h2>
+	                    <p>Schwartz Media publishes intelligent news and current affairs that breaks the 24-hour news cycle. We offer a nuanced examination of Australia and the world, focused on fresh insight and literary expression. Our audience reads to know, not just to agree. We invest in long-form journalism where the issues demand it, providing writing of a quality that makes difficult topics clear. Schwartz Media publishes Australia’s most respected writers across The Saturday Paper, The Monthly magazine and the daily podcast 7am, alongside our sister publications, Quarterly Essay and Australian Foreign Affairs.</p>
+	                </div>
+            	</div>
+            	<div class="main_content_box">
+                	<div class="main_content_food_box content_box">
+                    	<div class="main_content_img_box">
+                        	<img src="" alt="">
+                    	</div>
+                    	<div class="main_content_text_box">
+	                        <h2>Food</h2>
+	                        <p>Our journalists create in-depth, independent, original public interest reporting, focusing on storytelling and insight.</p>
+	                        <div class="food_link_btn">
+	                            <a href="${ContextPath }/food/foodList">go to Food</a>
+	                        </div>
+                    	</div>     
+                	</div>
+	                <div class="main_content_resell_box content_box">
+	                    <div class="main_content_text_box">
+	                        <h2>Resell</h2>
+	                        <p>publishes long-form journalism from the nation's leading writers and thinkers, covering Australian politics, culture and ideas.</p>
+	                        <div class="food_link_btn">
+	                            <a href="${ContextPath }/resellMarket/resellBoard/resellBoardList">go to Resell</a>
+	                        </div>
+                    	</div>
+                    	<div class="main_content_img_box">
+                        	<img src="" alt="">
+                    	</div>
+                	</div>
+	                <div class="main_content_community_box content_box">
+	                    <div class="main_content_img_box">
+	                        <img src="" alt="">
+	                    </div>
+	                    <div class="main_content_text_box">
+	                        <h2>community</h2>
+	                        <p> is a weekly newspaper, dedicated to telling the whole story. It publishes long-form accounts of the week’s key stories.</p>
+	                        <div class="food_link_btn">
+	                            <a href="${ContextPath }/community/community_FreeBoard">go to Community</a>
+	                        </div>
+	                    </div>
+	                </div>
+            	</div>
         	</div>
         </div>
         <tag:footer></tag:footer>

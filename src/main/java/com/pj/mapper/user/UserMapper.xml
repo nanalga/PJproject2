@@ -20,8 +20,8 @@
 	</select>
 	<insert id="insert">
 		INSERT INTO 
-		User(name,email,password)
-		VALUES(#{name},#{email},#{password})
+		User(name,nickName,email,password,social)
+		VALUES(#{name},#{nickName},#{email},#{password},#{social})
 	</insert>
 	<select id="getUserEmail" resultType="com.pj.domain.user.UserVO">
 		SELECT 
