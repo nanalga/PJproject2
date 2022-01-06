@@ -1,5 +1,6 @@
 package com.pj.service.resell;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -9,12 +10,14 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.resell.ResellPageInfoVO;
 import com.pj.mapper.resell.ResellBoardMapper;
 import com.pj.mapper.resell.ResellFileMapper;
+import com.pj.mapper.resell.ResellReplyMapper;
 
 import lombok.Setter;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -37,6 +40,10 @@ public class ResellBoardService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ResellBoardService service;
+	
+	@Setter(onMethod_ =@Autowired)
+	private ResellReplyMapper replyMapper;
+	
 	
 //	private String staticRoot = "C:\\Users\\user\\Desktop\\course\\fileupload\\";
 
@@ -99,6 +106,15 @@ public class ResellBoardService {
 		return staticUrl + "/" + key;
 	}	
 	
+	public String modifyToS3(String key, MultipartFile file) throws IOException {
+		
+		deleteObject(key);
+		
+		putObject(key, file.getSize(), file.getInputStream());
+		
+		return staticUrl + "/" + key;
+	}	
+	
 	
 	
 	public boolean register(ResellBoardVO ResellBoard) {
@@ -114,7 +130,14 @@ public class ResellBoardService {
 		return mapper.update(ResellBoard) == 1;
 	}
 	
+	@Transactional
 	public boolean remove(Integer id) {
+		// 1. 게시물 달린 댓글 지우기
+		replyMapper.deleteByBoardId(id);
+		
+		
+		// 2. 게시물 지우기
+		
 		return mapper.delete(id) == 1;
 	}
 	
@@ -123,10 +146,10 @@ public class ResellBoardService {
 		return mapper.getList();
 	}
 
-	public List<ResellBoardVO> getListPage(Integer page, Integer numberPerPage) {
+	public List<ResellBoardVO> getListPage(Integer page, Integer numberPerPage, String searchType, String keyword) {
 		// sql에서 사용할 record 시작 번호 (0-index)
 		Integer from = (page - 1) * 10;
-		return mapper.getListPage(from, numberPerPage);
+		return mapper.getListPage(from, numberPerPage, searchType, keyword);
 	}
 
 	public ResellPageInfoVO getPageInfo(Integer page, Integer numberPerPage) {
@@ -169,8 +192,41 @@ public class ResellBoardService {
 		return mapper.selectSearchList(boardVo);
 	}
 
+	@Transactional
+	public void register(ResellBoardVO resellBoard, MultipartFile[] files) throws IllegalStateException, IOException {
+
+		register(resellBoard);
+		
+		// wrtie files
+		String basePath = "C:\\Users\\user\\Desktop\\newF\\" + resellBoard.getId() ;
+		// 1. 새 게시물 id 이름의 folder 만들기
+		File newFolder = new File(basePath);
+		newFolder.mkdirs();
+		// 2. 위 폴더에 files 쓰기
+		for ( MultipartFile file : files) {
+			
+			// 2.1 파일 작성, File SYSTEM
+			if (file != null && file.getSize() > 0) {
+				String path = basePath + "\\" + file.getOriginalFilename();
+				file.transferTo(new File(path));
+			}
+			
+			// 2.2 insert into File, DATABASE
+		
+		
+		}
+		
+	}
+
 	
 
 
 
 }
+
+
+
+
+
+
+

@@ -5,6 +5,10 @@
 
 <mapper namespace="com.pj.mapper.food.FoodMapper">
 	
+	<update id="foodPlusCount">
+	UPDATE Food SET boardCnt = boardCnt + 1 WHERE id = #{id}
+	</update>
+	
 	<select id="getFoodCountRows" resultType="int">
 	SELECT COUNT(*) FROM Food
 	
@@ -28,6 +32,7 @@
 		id,
 		title,
 		writer,
+		boardCnt,
 		inserted,
 		updated
  	FROM
@@ -93,6 +98,7 @@
 		title,
 		contents,
 		writer,
+		boardCnt,
 		inserted,
 		updated
 	FROM
