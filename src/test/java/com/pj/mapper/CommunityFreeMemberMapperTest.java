@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.pj.domain.CommunityFreeMemberVO;
+import com.pj.domain.community.CommunityFreeMemberVO;
+import com.pj.mapper.community.CommunityFreeMemberMapper;
 
 import lombok.Setter;
 
@@ -17,7 +18,7 @@ import lombok.Setter;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class CommunityFreeMemberMapperTest {
 
-	@Autowired
+	@Setter(onMethod_ = @Autowired)
 	public CommunityFreeMemberMapper mapper;
 	
 	@Test

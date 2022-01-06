@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pj.mapper.food.FoodReplyMapper">
+	
+	<delete id="foodDeleteByBoardId">
+	DELETE FROM FoodReply WHERE foodBoardId = #{foodBoardId}
+	</delete>
+	
+	<delete id="foodReplyDelete">
+	DELETE FROM FoodReply WHERE id = #{id}
+	</delete>
+	
+	<update id="foodReplyUpdate">
+	UPDATE FoodReply
+  	SET
+  		replyText = #{replyText},
+  		updated = NOW()
+  	WHERE
+  		id = #{id}
+	</update>
+	
+	<select id="foodSelectById" resultType="com.pj.domain.food.FoodReplyVO">
+	SELECT id, foodBoardId, userId, replyText, inserted, updated
+  	FROM FoodReply
+  	WHERE id = #{id}
+	</select>
+	
+	<insert id="foodReplyInsert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	INSERT INTO FoodReply (foodBoardId, userId, replyText)
+	VALUES (#{foodBoardId}, #{userId}, #{replyText})
+	</insert>
+	
+	<select id="foodReplyList" resultType="com.pj.domain.food.FoodReplyVO">
+	SELECT
+		fr.id,
+		fr.foodBoardId,
+		fr.replyText,
+		fr.inserted,
+		fr.updated,
+        fr.userId,
+		u.name
+	FROM
+		FoodReply fr JOIN User u
+	ON
+		fr.userId = u.id
+	WHERE
+		fr.foodBoardId = #{foodBoardId}
+	ORDER BY
+		id DESC;
+	</select>
+	
+
+</mapper>

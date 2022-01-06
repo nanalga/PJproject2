@@ -51,7 +51,7 @@ public class FoodController implements WebMvcConfigurer {
 		System.out.println(searchType + ", " + keyword);
 		System.out.println("foodList 접근");
 
-		Integer numberPerPage = 10;
+		Integer numberPerPage = 20;
 		
 //		List<FoodVO> list = service.getList(); // 게시글만 조회
 		List<FoodVO> list = service.getFoodListPage(page, numberPerPage, searchType, keyword);
@@ -65,8 +65,10 @@ public class FoodController implements WebMvcConfigurer {
 
 	@GetMapping({ "/foodGet", "/foodModify" })
 	public void foodGet(@RequestParam("id") Integer id, Model model) {
-		System.out.println("get접근");
+		System.out.println("foodget접근");
 		FoodVO food = service.get(id);
+		
+		service.foodPlusCount(id);
 
 		model.addAttribute("food", food);
 	}
@@ -93,9 +95,11 @@ public class FoodController implements WebMvcConfigurer {
 	@PostMapping("/foodRemove")
 	public String foodRemove(@RequestParam(value = "id", required = true) Integer id, FoodVO food, RedirectAttributes rttr) {
 		System.out.println("foodRemove 접근" + id);
+		
 		if (service.remove(id)) {
 			rttr.addFlashAttribute("result", id + "번 게시물이 삭제되었습니다.");
 		}
+		
 		rttr.addAttribute("id", food.getId());	// 쿼리 스트링
 		
 		return "redirect:/food/foodList";
@@ -103,26 +107,27 @@ public class FoodController implements WebMvcConfigurer {
 
 	@PostMapping("/foodRegister")
 	public String register(FoodVO food) {
+		System.out.println("food1 : " + food);
+		
 		service.register(food);
 	
 		return "redirect:/food/foodList";
 	}
 
-	@GetMapping("/testSummerNote")
-	public void testSummerNote() {
-
-	}
+//	@GetMapping("/testSummerNote")
+//	public void testSummerNote() {
+//
+//	}
+//	
+//	@GetMapping("/testFoodMap")
+//	public void testFoodMap() {
+//		//System.out.println("foodLocation : " + foodLocation);
+//	}
 	
-	@GetMapping("/testFoodMap")
-	public void testFoodMap() {
-		//System.out.println("foodLocation : " + foodLocation);
-	}
-
-	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
+	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8" )
 	@ResponseBody
-	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
+	public String uploadSummernoteImageFile(FoodVO food , @RequestParam("file") MultipartFile multipartFile,
 			HttpServletRequest request) {
-
 		JsonObject jsonObject = new JsonObject();
 
 		/*
@@ -133,16 +138,14 @@ public class FoodController implements WebMvcConfigurer {
 		String contextRoot = "C:\\Users\\user\\Desktop\\COURS\\java\\workspace\\PJproject\\src\\main\\webapp\\";
 		String fileRoot = contextRoot + "resources\\fileupload\\";
 
-//		System.out.println(fileRoot);
-
 		String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
 		String savedFileName = UUID.randomUUID() + extension; // 저장될 파일 명
 
-		File targetFile = new File(fileRoot + savedFileName);
+//		File targetFile = new File(fileRoot + savedFileName);
 		try {
-			InputStream fileStream = multipartFile.getInputStream();
-			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
+//			InputStream fileStream = multipartFile.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
 //			jsonObject.addProperty("url", targetFile.getAbsolutePath()); // contextroot + resources + 저장할 내부 폴더명
 //			jsonObject.addProperty("url", "/fileupload"); // contextroot + resources + 저장할 내부 폴더명
 			jsonObject.addProperty("responseCode", "success");
@@ -151,12 +154,13 @@ public class FoodController implements WebMvcConfigurer {
 			jsonObject.addProperty("url", service.uploadToS3(savedFileName, multipartFile));
 
 		} catch (IOException e) {
-			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
+//			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
 			e.printStackTrace();
 		}
-		String a = jsonObject.toString();
-		return a;
+		String imageUrl = jsonObject.toString();
+		System.out.println("uploadSummernoteImageFile imageUrl : " + imageUrl);
+		return imageUrl;
 	}
 	
 
@@ -175,16 +179,14 @@ public class FoodController implements WebMvcConfigurer {
 		String contextRoot = "C:\\Users\\user\\Desktop\\COURS\\java\\workspace\\PJproject\\src\\main\\webapp\\";
 		String fileRoot = contextRoot + "resources\\fileupload\\";
 
-//		System.out.println(fileRoot);
-
 		String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
 		String savedFileName = UUID.randomUUID() + extension; // 저장될 파일 명
 
-		File targetFile = new File(fileRoot + savedFileName);
+//		File targetFile = new File(fileRoot + savedFileName);
 		try {
-			InputStream fileStream = multipartFile.getInputStream();
-			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
+//			InputStream fileStream = multipartFile.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
 //			jsonObject.addProperty("url", targetFile.getAbsolutePath()); // contextroot + resources + 저장할 내부 폴더명
 //			jsonObject.addProperty("url", "/fileupload"); // contextroot + resources + 저장할 내부 폴더명
 			jsonObject.addProperty("responseCode", "success");
@@ -193,7 +195,7 @@ public class FoodController implements WebMvcConfigurer {
 			jsonObject.addProperty("url", service.modifyToS3(savedFileName, multipartFile));
 
 		} catch (IOException e) {
-			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
+//			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
 			e.printStackTrace();
 		}
