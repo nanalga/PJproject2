@@ -23,9 +23,15 @@ public interface UserMapper {
 
 	public boolean update(UserVO vo);
 
-	public List<FoodVO> getFoodList();
+	public List<FoodVO> getFoodListByUserId(int id);
 
-	public List<ResellBoardVO> getResellList();
+	public List<ResellBoardVO> getResllListByUserId(int id);
 
-	public List<CommunityFreeBoardVO> getCMList();
+	public List<CommunityFreeBoardVO> getCMListByUserId(int id);
+	
+//	public List<FoodVO> getFoodList();
+//
+//	public List<ResellBoardVO> getResellList();
+//
+//	public List<CommunityFreeBoardVO> getCMList();
 }

@@ -178,11 +178,6 @@ public class UserController {
 		return message;
 	}
 	
-	@RequestMapping("/userDetail")
-	public String userDetail() {
-		return "user/userDetail";
-	}
-	
 //	@RequestMapping("/boardList/${path}")
 //	public <T> List<T> boardList(@RequestBody ){
 //		List<FoodVO> list = userService.getFoodListByUserId(vo.getId());
@@ -204,28 +199,30 @@ public class UserController {
 //		}
 //	}
 	
-//	@RequestMapping({"/userDetail","/userDetail/{path}"})
-//	public String userDetail(Model model,HttpSession session,@PathVariable(required = false) String path) {
-//		UserVO vo = (UserVO) session.getAttribute("loggedUser");
-//		List<FoodVO> list = userService.getFoodListByUserId(vo.getId());
-//		if(path == null) {
-//			path="null";
-//		}
-//		if(path.equals("food")) {
+	@RequestMapping({"/userDetail","/userDetail/{path}"})
+	public String userDetail(Model model,HttpSession session,@PathVariable(required = false) String path) {
+		UserVO vo = (UserVO) session.getAttribute("loggedUser");
+		if(path == null) {
+			path="null";
+		}
+		if(path.equals("food")) {
 //			List<FoodVO> list = userService.getFoodList();
-//			model.addAttribute("path",path);
-//			model.addAttribute("foodList",list);
-//		}else if(path.equals("resell")) {
+			List<FoodVO> list = userService.getFoodListByUserId(vo.getId());
+			model.addAttribute("path",path);
+			model.addAttribute("foodList",list);
+		}else if(path.equals("resell")) {
 //			List<ResellBoardVO> list = userService.getResllList();
-//			model.addAttribute("path",path);
-//			model.addAttribute("resellList",list);
-//		}else if(path.equals("cm")) {
+			List<ResellBoardVO> list = userService.getResllListByUserId(vo.getId());
+			model.addAttribute("path",path);
+			model.addAttribute("resellList",list);
+		}else if(path.equals("cm")) {
 //			List<CommunityFreeBoardVO> list = userService.getCMList();
-//			model.addAttribute("path",path);
-//			model.addAttribute("cmList",list);
-//		}
-//		return "user/userDetail";
-//	}
+			List<CommunityFreeBoardVO> list = userService.getCMListByUserId(vo.getId());
+			model.addAttribute("path",path);
+			model.addAttribute("cmList",list);
+		}
+		return "user/userDetail";
+	}
 	
 	@RequestMapping({"/adminDetail/{path}","/adminDetail"})
 	public String adminDetail(Model model,@PathVariable(required = false) String path) {

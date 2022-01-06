@@ -61,6 +61,16 @@
 		FROM
 			CommunityFreeBoard
 	</select>
+	<select id="getFoodListByUserId">
+		SELECT
+			
+	</select>
+	<select id="getResllListByUserId">
+	
+	</select>
+	<select id="getCMListByUserId">
+	
+	</select>
 	<update id="update">
 		UPDATE 
 			User

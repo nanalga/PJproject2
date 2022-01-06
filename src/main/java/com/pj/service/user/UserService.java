@@ -53,24 +53,28 @@ public class UserService {
 		return userMapper.update(vo);
 	}
 
-//	public List<FoodVO> getFoodListByUserId(int id) {
-//		return userMapper.getFoodListByUserId(id);
+//	public List<FoodVO> getFoodList() {
+//		return userMapper.getFoodList();
+//	}
+//
+//	public List<ResellBoardVO> getResllList() {
+//		return userMapper.getResellList();
+//	}
+//
+//	public List<CommunityFreeBoardVO> getCMList() {
+//		return userMapper.getCMList();
 //	}
 
-	public List<FoodVO> getFoodList() {
-		return userMapper.getFoodList();
+	public List<FoodVO> getFoodListByUserId(int id) {
+		return userMapper.getFoodListByUserId(id);
 	}
 
-	public List<ResellBoardVO> getResllList() {
-		return userMapper.getResellList();
+	public List<ResellBoardVO> getResllListByUserId(int id) {
+		return userMapper.getResllListByUserId(id);
 	}
 
-	public List<CommunityFreeBoardVO> getCMList() {
-		return userMapper.getCMList();
+	public List<CommunityFreeBoardVO> getCMListByUserId(int id) {
+		return userMapper.getCMListByUserId(id);
 	}
 	
-//	public List<ResellVO> getCommunityList() {
-//		return userMapper.getCommunityList();
-//	}
-
 }

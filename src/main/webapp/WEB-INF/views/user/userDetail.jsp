@@ -29,12 +29,20 @@
                         <input type="text" class="user_detail_input" id="user_detail_input1" value="${sessionScope.loggedUser.name}" readonly/>
                     </div>
                     <div class="user_detail_box">
-                        <label for="user_detail_input2" class="user_detail_label">Eamil</label>
-                        <input type="text" class="user_detail_input" id="user_detail_input2" value="${sessionScope.loggedUser.email}"  readonly/>
+                        <label for="user_detail_input2" class="user_detail_label">nickName</label>
+                        <input type="text" class="user_detail_input" id="user_detail_input2" value="${sessionScope.loggedUser.nickName}" readonly/>
                     </div>
                     <div class="user_detail_box">
-                        <label for="user_detail_input3" class="user_detail_label">Password</label>
-                        <input type="text" class="user_detail_input" id="user_detail_input3" value="${sessionScope.loggedUser.password}" readonly/>
+                        <label for="user_detail_input3" class="user_detail_label">Eamil</label>
+                        <input type="text" class="user_detail_input" id="user_detail_input3" value="${sessionScope.loggedUser.email}"  readonly/>
+                    </div>
+                    <div class="user_detail_box">
+                        <label for="user_detail_input4" class="user_detail_label">Password</label>
+                        <input type="text" class="user_detail_input" id="user_detail_input4" value="${sessionScope.loggedUser.password}" readonly/>
+                    </div>
+                    <div class="user_detail_box">
+                        <label for="user_detail_input5" class="user_detail_label">Address</label>
+                        <input type="text" class="user_detail_input" id="user_detail_input5" value="${sessionScope.loggedUser.address}" readonly/>
                     </div>
                     <div class="user_detail_box">
                         <a href="${pageContext.request.contextPath }/user/edit" class="user_detail_editBtn">edit</a>
