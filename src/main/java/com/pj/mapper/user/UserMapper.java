@@ -2,6 +2,9 @@ package com.pj.mapper.user;
 
 import java.util.List;
 
+import com.pj.domain.community.CommunityFreeBoardVO;
+import com.pj.domain.food.FoodVO;
+import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.user.UserVO;
 
 public interface UserMapper {
@@ -20,9 +23,9 @@ public interface UserMapper {
 
 	public boolean update(UserVO vo);
 
-//	public List<FoodVO> getFoodList();
-//
-//	public List<ResellVO> getResellList();
-//
-//	public List<ResellVO> getCommunityList();
+	public List<FoodVO> getFoodList();
+
+	public List<ResellBoardVO> getResellList();
+
+	public List<CommunityFreeBoardVO> getCMList();
 }

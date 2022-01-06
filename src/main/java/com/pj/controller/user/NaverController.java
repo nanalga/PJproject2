@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +46,16 @@ public class NaverController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService userService;
 	
+	@Value("${naver.client_id}")
+	private String naver_client_id;
+	
+	@Value("${naver.client_secret}")
+	private String naver_client_secret;
+	
 	private static ObjectMapper objMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	
 	@RequestMapping("/naverLogin")
 	public String naverLogin(@RequestParam("code") String code,@RequestParam("state") String state, HttpSession session,RedirectAttributes rttr) {
-		
 		NaverOauthToken naverOauthToken = null;
 		NaverRequestInfo naverRequestInfo = null;
 		
@@ -59,8 +65,8 @@ public class NaverController {
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "I0h6W4S5fUWk4zc_U2h1");
-		params.add("client_secret", "aTI735dP4g");
+		params.add("client_id", naver_client_id);
+		params.add("client_secret", naver_client_secret);
 		params.add("code", code);
 		params.add("state", state);
 		
@@ -108,13 +114,17 @@ public class NaverController {
 		UserVO vo = userService.getUserEmail(profile.getEmail());
 		if(vo == null) {
 			System.out.println("회원가입 안된 유저");
-			session.setAttribute("message", "회원가입안된 유저 입니다.");
+			rttr.addFlashAttribute("fail", "회원가입안된 유저 입니다.");
 			return "redirect:/user/join";
+		}
+		if(vo.getSocial().equals("kakao")) {
+			System.out.println("카카오로 회원가입된 유저");
+			rttr.addFlashAttribute("fail","카카오로 회원가입된 유저입니다 카카오로 로그인해주세요");
+			return "redirect:/user/login";
 		}
 		session.setAttribute("loggedUser", vo);
 		session.setAttribute("channel", "naver");
 		session.setAttribute("access_token", naverOauthToken.getAccess_token());
-		System.out.println("로그인 성공");
 		rttr.addFlashAttribute("success","로그인에 성공하였습니다.");
 		return "redirect:/";
 	}
@@ -131,8 +141,8 @@ public class NaverController {
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "I0h6W4S5fUWk4zc_U2h1");
-		params.add("client_secret", "aTI735dP4g");
+		params.add("client_id", naver_client_id);
+		params.add("client_secret", naver_client_secret);
 		params.add("code", code);
 		params.add("state", state);
 		
@@ -180,7 +190,7 @@ public class NaverController {
 		UserVO vo = userService.getUserEmail(profile.getEmail());
 		if(vo != null) {
 			System.out.println("회원가입 된 유저");
-			session.setAttribute("message", "회원가입된 유저 입니다.");
+			rttr.addFlashAttribute("fail", "회원가입된 유저 입니다.");
 			return "redirect:/user/login";
 		}
 		
@@ -194,11 +204,11 @@ public class NaverController {
 		boolean ok = userService.insert(vo2);
 		if(ok) {
 			System.out.println("회원가입 완료");
-			rttr.addFlashAttribute("success","로그인에 성공하였습니다.");
+			rttr.addFlashAttribute("success","회원가입에 성공하였습니다.");
 			return "redirect:/user/login";
 		}else {
 			System.out.println("회원가입 실패");
-			rttr.addFlashAttribute("fail","로그인에 실패하였습니다.");
+			rttr.addFlashAttribute("fail","회원가입에 실패하였습니다.");
 			return "redirect:/user/join";
 		}
 	}

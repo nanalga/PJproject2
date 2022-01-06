@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pj.domain.community.CommunityFreeBoardVO;
+import com.pj.domain.food.FoodVO;
+import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.user.UserVO;
 import com.pj.mapper.user.UserMapper;
 
@@ -50,14 +53,22 @@ public class UserService {
 		return userMapper.update(vo);
 	}
 
-//	public List<FoodVO> getFoodList() {
-//		return userMapper.getFoodList();
+//	public List<FoodVO> getFoodListByUserId(int id) {
+//		return userMapper.getFoodListByUserId(id);
 //	}
-//
-//	public List<ResellVO> getResellList() {
-//		return userMapper.getResellList();
-//	}
-//
+
+	public List<FoodVO> getFoodList() {
+		return userMapper.getFoodList();
+	}
+
+	public List<ResellBoardVO> getResllList() {
+		return userMapper.getResellList();
+	}
+
+	public List<CommunityFreeBoardVO> getCMList() {
+		return userMapper.getCMList();
+	}
+	
 //	public List<ResellVO> getCommunityList() {
 //		return userMapper.getCommunityList();
 //	}

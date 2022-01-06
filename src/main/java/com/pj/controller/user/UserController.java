@@ -3,6 +3,7 @@ package com.pj.controller.user;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.pj.domain.community.CommunityFreeBoardVO;
+import com.pj.domain.food.FoodVO;
+import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.user.UserVO;
 import com.pj.service.user.UserService;
 
@@ -38,10 +42,10 @@ public class UserController {
 	private UserService userService;
 	
 	@Value("${naver.client_id}")
-	private String client_id;
+	private String naver_client_id;
 	
 	@Value("${naver.client_secret}")
-	private String client_secret;
+	private String naver_client_secret;
 
 	@GetMapping("/login")
 	public String getLogin() {
@@ -76,15 +80,17 @@ public class UserController {
 				rttr.addFlashAttribute("fail","로그아웃에 실패했습니다.");
 			}
 		}
-//		else if(pw.equals("kakao")) {
-//			boolean ok = logOutKakaoUser();
-//			if(ok) {
-//				System.out.println("로그아웃 성공(카카오)");
-//			}else {
-//				System.out.println("로그아웃 실패(카카오)");
-//			}
-//		}
-//		session.invalidate();
+		else if(social.equals("kakao")) {
+			boolean ok = logOutKakaoUser(access_token);
+			if(ok) {
+				System.out.println("로그아웃 성공(카카오)");
+				rttr.addFlashAttribute("success","로그아웃되었습니다.");
+			}else {
+				System.out.println("로그아웃 실패(카카오)");
+				rttr.addFlashAttribute("fail","로그아웃에 실패했습니다.");
+			}
+		}
+		session.invalidate();
 		return "redirect:/";
 	}
 	
@@ -95,8 +101,8 @@ public class UserController {
 		HttpHeaders headers = new HttpHeaders();
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("grant_type", "delete");
-		params.add("client_id", client_id);
-		params.add("client_secret", client_secret);
+		params.add("client_id", naver_client_id);
+		params.add("client_secret", naver_client_secret);
 		params.add("access_token", access_token);
 		params.add("service_provider", "NAVER");
 		System.out.println(params);
@@ -117,6 +123,34 @@ public class UserController {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean logOutKakaoUser(String access_token) {
+		
+		RestTemplate rt = new RestTemplate();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer "+ access_token);
+		
+//		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		
+		HttpEntity<MultiValueMap<String, String>> reqeust = new HttpEntity<>(headers);
+		
+		try {
+			ResponseEntity<String> response = rt.exchange(
+					"https://kapi.kakao.com/v1/user/logout",
+					HttpMethod.POST,
+					reqeust,
+					String.class
+					);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("error");
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	@GetMapping("/join")
@@ -148,6 +182,50 @@ public class UserController {
 	public String userDetail() {
 		return "user/userDetail";
 	}
+	
+//	@RequestMapping("/boardList/${path}")
+//	public <T> List<T> boardList(@RequestBody ){
+//		List<FoodVO> list = userService.getFoodListByUserId(vo.getId());
+//		if(path == null) {
+//			path="null";
+//		}
+//		if(path.equals("food")) {
+//			List<FoodVO> list = userService.getFoodList();
+//			model.addAttribute("path",path);
+//			model.addAttribute("foodList",list);
+//		}else if(path.equals("resell")) {
+//			List<ResellBoardVO> list = userService.getResllList();
+//			model.addAttribute("path",path);
+//			model.addAttribute("resellList",list);
+//		}else if(path.equals("cm")) {
+//			List<CommunityFreeBoardVO> list = userService.getCMList();
+//			model.addAttribute("path",path);
+//			model.addAttribute("cmList",list);
+//		}
+//	}
+	
+//	@RequestMapping({"/userDetail","/userDetail/{path}"})
+//	public String userDetail(Model model,HttpSession session,@PathVariable(required = false) String path) {
+//		UserVO vo = (UserVO) session.getAttribute("loggedUser");
+//		List<FoodVO> list = userService.getFoodListByUserId(vo.getId());
+//		if(path == null) {
+//			path="null";
+//		}
+//		if(path.equals("food")) {
+//			List<FoodVO> list = userService.getFoodList();
+//			model.addAttribute("path",path);
+//			model.addAttribute("foodList",list);
+//		}else if(path.equals("resell")) {
+//			List<ResellBoardVO> list = userService.getResllList();
+//			model.addAttribute("path",path);
+//			model.addAttribute("resellList",list);
+//		}else if(path.equals("cm")) {
+//			List<CommunityFreeBoardVO> list = userService.getCMList();
+//			model.addAttribute("path",path);
+//			model.addAttribute("cmList",list);
+//		}
+//		return "user/userDetail";
+//	}
 	
 	@RequestMapping({"/adminDetail/{path}","/adminDetail"})
 	public String adminDetail(Model model,@PathVariable(required = false) String path) {
@@ -211,7 +289,7 @@ public class UserController {
 			return "redirect:/";
 		}else {
 			rttr.addFlashAttribute("fail","계정삭제에 실패했습니다.");
-			return "redirect:/user/edit";
+			return "redirect:/";
 		}
 	}
 	

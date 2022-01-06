@@ -3,6 +3,7 @@ package com.pj.controller.user;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,6 +32,9 @@ public class KakaoController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService userService;
 	
+	@Value("${kakao.client_id}")
+	private String kakao_client_id;
+	
 	private static ObjectMapper objMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	
 	@RequestMapping("/kakaoJoin")
@@ -45,10 +49,9 @@ public class KakaoController {
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "d1f2c7c111ea44b0957fc9dbf10a601f");
-		params.add("redirect_uri", "http://localhost:8080/controller/user/kakaoJoin");
+		params.add("client_id", kakao_client_id);
+		params.add("redirect_uri", "http://localhost:8080/controller/kakao/kakaoJoin");
 		params.add("code", code);
-//		params.add("client_secret", "client_secret=JvLJOAG3lB8Iw722duwlZefwclmFMY6Q");
 		
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params,headers);
 		
@@ -108,10 +111,9 @@ public class KakaoController {
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "d1f2c7c111ea44b0957fc9dbf10a601f");
-		params.add("redirect_uri", "http://localhost:8080/controller/user/kakaoLogin");
+		params.add("client_id", kakao_client_id);
+		params.add("redirect_uri", "http://localhost:8080/controller/kakao/kakaoLogin");
 		params.add("code", code);
-//		params.add("client_secret", "client_secret=JvLJOAG3lB8Iw722duwlZefwclmFMY6Q");
 		
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params,headers);
 		
@@ -142,7 +144,14 @@ public class KakaoController {
 			return "redirect:/user/join";
 		}
 		
+		if(vo.getSocial().equals("naver")) {
+			System.out.println("네이버로 회원가입된 유저");
+			rttr.addFlashAttribute("fail","네이버로회원가입된 유저입니다 네이버로 로그인해주세요");
+			return "redirect:/user/login";
+		}
+		
 		rttr.addFlashAttribute("success","회원가입되었습니다.");
+		session.setAttribute("access_token", kkoauthToken.getAccess_token());
 		session.setAttribute("loggedUser", vo);
 		session.setAttribute("channel", "kakao");
 		return "redirect:/";

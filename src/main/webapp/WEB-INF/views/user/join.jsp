@@ -21,7 +21,8 @@
 </head>
 <body>
 <%
-    String clientId = "I0h6W4S5fUWk4zc_U2h1";//애플리케이션 클라이언트 아이디값";
+    //String clientId = (String)application.getAttribute("naver_client_id");//애플리케이션 클라이언트 아이디값";
+    String clientId = "I0h6W4S5fUWk4zc_U2h1";
     String redirectURI = URLEncoder.encode("http://localhost:8080/controller/naver/naverJoin", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();

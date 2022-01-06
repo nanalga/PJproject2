@@ -40,6 +40,82 @@
                         <a href="${pageContext.request.contextPath }/user/edit" class="user_detail_editBtn">edit</a>
                     </div>
                 </div>
+                <div class="user_power">
+                    <div class="user_power_menu_container">
+                        <div class="user_power_menu ${path == 'food'? 'select':''}">
+                            <a href="${ContextPath }/user/userDetail/food">Food</a>
+                        </div>
+                        <div class="user_power_menu ${path == 'resell'? 'select':''}">
+                            <a href="${ContextPath }/user/userDetail/resell">Resell</a>
+                        </div>
+                        <div class="user_power_menu ${path == 'cm'? 'select':''}">
+                            <a href="${ContextPath }/user/userDetail/cm">Community</a>
+                        </div>
+                    </div>
+                    <div class="user_power_list_container_user">
+                        <div class="user_power_content">
+                        	<c:if test="${path == 'food' }">
+                        		<div class="user_power_content_bar_food">
+	                                <span class="user_power_content_bar_id">id</span>
+	                                <span class="user_power_content_bar_title">title</span>
+	                                <span class="user_power_content_bar_writer">writer</span>
+	                                <span class="user_power_content_bar_inserted">inserted</span>
+	                                <span class="user_power_content_bar_delete"><i class="fas fa-times"></i></span>
+	                            </div>
+	                            <c:forEach items="${foodList }" var="food">
+		                            <div class="user_power_content_info_food">
+		                                <span class="user_power_conent_id">${food.id }</span>
+		                                <span class="user_power_conent_title">${food.title }</span>
+		                                <span class="user_power_conent_writer">${food.writer }</span>
+		                                <span class="user_power_conent_inserted">${food.inserted }</span>
+		                                <input type="hidden" class="board_type_info" value="food">
+		                                <a href="" class="user_power_conent_delete"><i class="fas fa-times"></i></a>
+		                            </div>
+	                            </c:forEach>
+                        	</c:if>
+                            <c:if test="${path == 'resell' }">
+                            	<div class="user_power_content_bar_resell">
+	                                <span class="user_power_content_bar_id">id</span>
+	                                <span class="user_power_content_bar_title">title</span>
+	                                <span class="user_power_content_bar_writer">writer</span>
+	                                <span class="user_power_content_bar_price">price</span>
+	                                <span class="user_power_content_bar_password">updated</span>
+	                                <span class="user_power_content_bar_delete"><i class="fas fa-times"></i></span>
+	                            </div>
+	                            <c:forEach items="${resellList }" var="resell">
+		                            <div class="user_power_content_info_resell">
+		                                <span class="user_power_conent_id">${resell.id }</span>
+		                                <span class="user_power_conent_title">${resell.title }</span>
+		                                <span class="user_power_conent_writer">${resell.writer }</span>
+		                                <span class="user_power_content_price">${resell.price }</span>
+		                                <span class="user_power_conent_password">${resell.updated }</span>
+		                                <input type="hidden" class="board_type_info" value="resell">
+		                                <a href="" class="user_power_conent_delete"><i class="fas fa-times"></i></a>
+		                            </div>
+	                            </c:forEach>
+                            </c:if>
+                            <c:if test="${path == 'cm' }">
+                            	<div class="user_power_content_bar_CM">
+	                                <span class="user_power_content_bar_id">id</span>
+	                                <span class="user_power_content_bar_title">title</span>
+	                                <span class="user_power_content_bar_writer">writer</span>
+	                                <span class="user_power_content_bar_password">inserted</span>
+	                                <span class="user_power_content_bar_delete"><i class="fas fa-times"></i></span>
+	                            </div>
+	                            <c:forEach items="${cmList }" var="cm">
+		                            <div class="user_power_content_info_food">
+		                                <span class="user_power_conent_id">${cm.id }</span>
+		                                <span class="user_power_conent_title">${cm.title }</span>
+		                                <span class="user_power_conent_writer">${cm.writer }</span>
+		                                <span class="user_power_conent_inserted">${cm.inserted }</span>
+		                                <input type="hidden" class="board_type_info" value="cm">
+		                                <a href="" class="user_power_conent_delete"><i class="fas fa-times"></i></a>
+		                            </div>
+	                            </c:forEach>
+                            </c:if>
+                        </div>
+                    </div>
+                </div>
             </div>
 	</div>
 	<tag:footer></tag:footer>

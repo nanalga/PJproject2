@@ -39,24 +39,28 @@
 		WHERE
 			email = #{email}
 	</select>
-	<!-- <select id="getFoodList" resultType="com.pj.domain.food.FoodVO">
+	<!-- <select id="getFoodListByUserId" resultType="com.pj.domain.food.FoodVO">
+		SELECT 
+			
+	</select> -->
+	<select id="getFoodList" resultType="com.pj.domain.food.FoodVO">
 		SELECT 
 			id,title,writer,inserted
 		FROM 
 			Food
-	</select> -->
-	<!-- <select id="getResellList" resultType="com.pj.domain.ResellBoardVO">
+	</select> 
+	<select id="getResellList" resultType="com.pj.domain.resell.ResellBoardVO">
 		SELECT
 			id,title,writer,price,updated
 		FROM
-			ResellBoard
-	</select> -->
-	<!-- <select id="getCommunityList" resultType="com.pj.domain.CommunityFreeBoardVO">
-		SELECT
+		 	ResellBoard
+	</select>
+	<select id="getCMList" resultType="com.pj.domain.community.CommunityFreeBoardVO">
+		SELECT 
 			id,title,writer,inserted
 		FROM
 			CommunityFreeBoard
-	</select> -->
+	</select>
 	<update id="update">
 		UPDATE 
 			User

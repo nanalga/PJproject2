@@ -13,7 +13,7 @@
 	<div class="flash_box">
 	    <div class="flash_message_box">
 	        <span class="flash_message_title">fail</span>
-	        <span class="flash_message_content">${success }</span>
+	        <span class="flash_message_content">${fail }</span>
 	    </div>
 	</div>
 </c:if>
