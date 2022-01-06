@@ -37,9 +37,6 @@
   <listener>
     <listener-class>com.pj.listener.AppListener</listener-class>
   </listener>
-  <listener>
-    <listener-class>com.pj.listener.AppListener</listener-class>
-  </listener>
 
   <filter>
     <display-name>FoodCheckLogInFilter</display-name>
