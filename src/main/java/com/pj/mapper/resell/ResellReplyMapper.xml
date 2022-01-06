@@ -4,23 +4,69 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pj.mapper.resell.ResellReplyMapper">
+	
+	<delete id="deleteByUserId">
+	DELETE FROM rReply WHERE userId = #{userid}
+	</delete>
+	
+	
+	<delete id="deleteByBoardId">
+	DELETE FROM rReply WHERE boardId = #{boardId}
+	</delete>
+	
+	<delete id="delete">
+	DELETE FROM rReply WHERE id= #{id}
+	
+	</delete>
 
 
-<select id="list" resultType="com.pj.domain.resell.ResellReplyVO">
-	SELECT
-		rr.id,
-		rr.boardId,
-		rr.memberId,
-		rr.reply,
-		rr.inserted,
-		rr.updated,
-		rm.nickName
-	FROM 
-		ResellReply rr JOIN ResellMember rm ON rr.memberId = rm.id
+	<update id="update">
+	UPDATE rReply
+	SET
+		replyText = #{replyText},
+		updated = NOW()
 	WHERE
-		rr.boardId = #{boardId}
-	ORDER BY 
-		rr.id DESC
+		id = #{id}
+		
+	</update>
+
+	<select  id="selectById"  resultType="com.pj.domain.resell.ResellReplyVO">
+	SELECT id, boardId, userId, replyText, inserted, updated
+	FROM rReply
+	WHERE id = #{id}	
+	
+	</select>
+
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO rReply (boardId, userId, replyText)
+		VALUES (#{boardId}, #{userId}, #{replyText})
+
+	</insert> 
+
+
+
+	<select id="list" resultType="com.pj.domain.resell.ResellReplyVO">
+ SELECT
+	rr.id,
+    rr.boardId,
+    rr.userId,
+    rr.replyText,
+    rr.inserted,
+    rr.updated,
+    up.name
+FROM
+	rReply rr left JOIN User up
+    ON
+		rr.userId = up.id
+    JOIN ResellBoard rb 
+	ON	
+	rr.boardId = rb.id
+WHERE
+	rr.boardId = #{boardId}
+   ORDER BY 
+		id DESC
 	</select>
 
 </mapper>
+

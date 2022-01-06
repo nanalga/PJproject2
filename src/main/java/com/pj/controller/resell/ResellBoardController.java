@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import com.google.gson.JsonObject;
 import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.resell.ResellPageInfoVO;
 import com.pj.service.resell.ResellBoardService;
+import com.pj.service.resell.ResellReplyService;
 
 import lombok.Setter;
 
@@ -34,6 +36,9 @@ public class ResellBoardController implements WebMvcConfigurer {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ResellBoardService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private ResellReplyService rservice;
 	
 	@RequestMapping("/resell")
 	public void method01() {
@@ -56,8 +61,12 @@ public class ResellBoardController implements WebMvcConfigurer {
 	}
 	
 	@GetMapping("/resellBoardList")
-	public void list(@RequestParam(value="page", defaultValue = "1") Integer page,Model model) {
-
+	public void list(@RequestParam(value="page", defaultValue = "1") Integer page,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "keyword", defaultValue = "") String keyword,
+			Model model) {
+		
+		System.out.println(searchType + ", " + keyword);
 		System.out.println(page);
 		Integer numberPerPage = 10; // 한 페이지의 row 수
 		
@@ -65,7 +74,8 @@ public class ResellBoardController implements WebMvcConfigurer {
 		// 3. 비즈니스 로직
 		//게시물 목록 조회
 //		List<ResellBoardVO> list = service.getList();
-		List<ResellBoardVO> list = service.getListPage(page, numberPerPage);
+		List<ResellBoardVO> list = service.getListPage(page, numberPerPage, searchType, keyword);
+		
 		ResellPageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
 		// 4. add attribute
 		model.addAttribute("resellList", list);
@@ -81,6 +91,7 @@ public class ResellBoardController implements WebMvcConfigurer {
 	@GetMapping({"/resellBoardGet","resellBoardModify"})
 	public void get(@RequestParam("id") Integer id, Model model) {
 		ResellBoardVO resellBoard = service.get(id);
+		
 		
 		model.addAttribute("resellBoard", resellBoard);
 		
@@ -106,15 +117,22 @@ public class ResellBoardController implements WebMvcConfigurer {
 	}
 	
 	@PostMapping("/resellBoardRegister")
-	public String register(ResellBoardVO resellBoard, RedirectAttributes rttr) {
+	public String register(ResellBoardVO resellBoard, RedirectAttributes rttr, MultipartFile[] files) {
 		// 2. request 분석 가공 dispatcherServlcet이 해줌
 		
 	
 		// 3. 비즈니스 로직
-		service.register(resellBoard);
+		try {
+			service.register(resellBoard, files);
+			// 4. add attribute
+			rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되었습니다.");
+
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되지않았습니다");
+		}
 		
-		// 4. add attribute
-		rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되었습니다.");
 		
 		// 5. forward.redirect
 		return "redirect:/resellMarket/resellBoard/resellBoardList";

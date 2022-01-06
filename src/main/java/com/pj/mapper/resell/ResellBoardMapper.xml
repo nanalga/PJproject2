@@ -5,43 +5,60 @@
 
 <mapper namespace="com.pj.mapper.resell.ResellBoardMapper">
 
-<!--  
-	<select  id="selectSearchList" resultType="com.pj.domain.ResellBoardVO">
-		SELECT 
-	    id,
-	    title,
-	    content,
-	    writer,
-	    price,
-	    inserted,
-	    updated
-	FROM
-	    ResellBoard  
-	ORDER BY id DESC
 	
-	</select>
--->
-
+	<delete id = "deleteByUserId">
+		DELETE FROM ResellBaord WHERE writer = #{userId}
+	</delete>
 
 	<select id="getCountRows" resultType="int">
 	SELECT COUNT(*) FROM ResellBoard
+	 	<!-- 검색 조건이 null이 아니라면 검색조건에 따른 데이터 조회-->
+	<if test="searchType != null">
+		<if test="searchType == 'all'.toString()">
+			AND title LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 't'.toString()">
+			AND title LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 'w'.toString()">
+			AND writer LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+	</if>
 	</select>
 
 	
 	<select id="getListPage" resultType="com.pj.domain.resell.ResellBoardVO">
-	SELECT 
-	    id,
-	    title,
-	    content,
-	    writer,
-	    price,
-	    inserted,
-	    updated
-	FROM
-	    ResellBoard  
-	ORDER BY id DESC
-
-	LIMIT #{from}, #{items} 
+SELECT 
+	    rb.id,
+	    rb.title,
+	    rb.content,
+	    rb.writer,
+	    rb.price,
+	    rb.inserted,
+	    rb.updated,
+        rr.userId,
+       count(rr.id) replyCount 
+ FROM   
+	    ResellBoard  rb
+        		LEFT JOIN
+       rReply rr On rb.id = rr.boardId
+      			LEFT JOIN  
+			User u On u.id=rr.userId 
+ <!-- 검색 조건이 null이 아니라면 검색조건에 따른 데이터 조회-->      
+	<if test="searchType != null">
+		<if test="searchType == 'all'.toString()">
+			AND title LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 't'.toString()">
+			AND title LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 'w'.toString()">
+			AND writer LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+	</if>	       
+GROUP BY rb.id
+ORDER BY rb.id DESC
+LIMIT #{from}, #{items}
 	</select>
 	
 	
