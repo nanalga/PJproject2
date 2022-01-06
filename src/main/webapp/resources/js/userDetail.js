@@ -28,20 +28,7 @@ function alertContents() {
       if (httpRequest.status === 200) {
 		const message = httpRequest.responseText
 		if(message == 'able'){
-			emailAlertMessage.innerText = "사용가능한 이메일 입니다."
-			email.readOnly=true;
-			emailCheckBtn.value="again"
-			canUseEamil = true;
-			emailCheckBtn.removeEventListener("click",makeRequest);
-			emailCheckBtn.addEventListener("click",()=>{
-				email.innerText ="";
-				email.readOnly=false;
-				canUseEamil = false;
-				emailCheckBtn.value="check"
-				checkCanPushSubmitBtn();
-				emailCheckBtn.addEventListener("click",makeRequest);
-			})
-			checkCanPushSubmitBtn();
+			
 		}else{
 			emailAlertMessage.innerText = "사용불가능한 이메일 입니다."
 		}
