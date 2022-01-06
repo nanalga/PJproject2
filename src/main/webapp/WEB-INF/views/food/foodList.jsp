@@ -7,10 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<title>Insert title here</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -18,6 +14,94 @@
 
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
+
+<style>
+.bbsTitleBox{
+    border: 1px solid #DDD;
+    /* margin: 0 auto 10px; */
+    width: 90%;
+    margin-bottom: 10px;
+}
+.bbsTitle {
+    position: relative;
+    padding: 0 0.6em;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 34px;
+    background: #EEE;
+    border-bottom: 1px solid #DDD;
+}
+.bbsBtnGroup {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+}
+.bbsNotice {
+    padding: 0.5em 0.4em;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.4;
+}
+div {
+    display: block;
+}
+
+.table {
+	border-collapse: collapse;
+	width: 90%;
+}
+th {
+	background-color : #ffcccc;
+	color : white;
+}
+
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+tr:hover {background-color: #f2f2f2;}
+
+.form-inline {
+	margin-top: 0px;
+  	margin-bottom: 10px;
+}
+
+.main_bbsFood {
+	display : flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
+}
+.row {
+	justify-content: center;
+	align-items: center;
+}
+.writer_btn {
+	position: relative;
+	align-content: flex-end;
+	width: 80px;
+	height: 30px;
+	background-color: #ffcccc;
+	border-bottom-color:#ddd;
+	margin-left: 8px;
+}
+#page_navi_main {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+#searchBtn {
+	width: 30px;
+	height: 30px;
+}
+.page-link {
+	background-color: #ffcccc;
+}
+
+
+</style>
 
 <title>Insert title here</title>
 </head>
@@ -27,30 +111,41 @@
 <div class="body_wrapper">	
 	<tag:nav></tag:nav>
 	<div class="main_container">
-		<div class="row" style="width: 80%" >
-			<div class="col" >
-				<a href='<c:url value='/food/foodRegister'/>' role="button" class="btn btn-outline-primary">글쓰기</a>
+		<div class="row" style="width: 100%" >
+			<div class="main_bbsFood" style="width: 80%">
+				<div class="bbsTitleBox">
+					<div class="bbsTitle">
+						<a href="#">맛집</a>
+						<div class="bbsBtnGroup"></div>
+					</div>
+					<div class="bbsNotice">
+						<div>- 공유할 동네 맛집 정보 글을 올려주세요.</div>
+					</div>
+				</div>
+			
 				<!-- table.table>thead>tr>th*4^^tbody -->
 				<table class="table">
-					<thead>
+					<thead id="title_thead">
 						<tr>
 							<th>글번호</th>
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
+							<th>조회수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items = "${list }" var="food">
 							<tr>
-								<th>${food.id }</th>
-								<th>
+								<td>${food.id }</td>
+								<td>
 									<a href="foodGet?id=${food.id }">
 										<c:out value="${food.title }" />
 									</a>
-								</th>
-								<th>${food.writer }</th>
-								<th>${food.customInserted }</th>
+								</td>
+								<td>${food.writer }</td>
+								<td>${food.customInserted }</td>
+								<td>${food.boardCnt }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -60,24 +155,26 @@
 		</div>
 
 		<!-- search foodBoard -->
-		<form action="" name="form1" method="get" >
 		<div class="form-inline">
+		<form action="" name="form1" method="get" >
 			<select class="search_area" id="searchType" name="searchType">
 				<option value="">검색조건</option>
 				<option value="all">전체조건</option>
 				<option value="t">제목</option> 
 				<option value="w">작성자</option>
-<!-- 			<option value="c">내용</option>
+		   <!-- <option value="c">내용</option>
 				<option value="tc">제목+내용</option>
 				<option value="all">전체조건</option> -->
 			</select>
-			<input class="form-control" type="text" id="keyword" name="keyword" value="${pageInfo.keyword}" placeholder="검색어를 입력하세요"/>
-			<button id="searchBtn" class="btn btn-primary">Search</button>
-		</div>
+			<input class="search-input" type="text" id="keyword" name="keyword" value="${pageInfo.keyword}" placeholder="검색어를 입력하세요"/>
+			<button id="searchBtn" class="" style="background-color:#ffcccc;"><i class="fas fa-search" style="color:white;"></i></button>
 		</form>
+		<a href='<c:url value='/food/foodRegister'/>' role="button" ><button class="writer_btn" >글쓰기</button></a>
+		
+		</div>
 		
 		<!-- pagenation -->
-		<nav aria-label="Page navigation example">
+		<nav aria-label="Page navigation example" id="page_navi_main">
 		  <ul class="pagination justify-content-center">
 		    <c:if test="${pageInfo.hasPrevButton }">
 		    	<c:url value="/food/foodList" var="foodPageLink">

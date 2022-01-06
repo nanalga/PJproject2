@@ -15,8 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pj.domain.food.FoodPageInfoVO;
 import com.pj.domain.food.FoodVO;
-//import com.pj.mapper.food.FoodFileMapper;
+import com.pj.mapper.food.FoodFileMapper;
 import com.pj.mapper.food.FoodMapper;
+import com.pj.mapper.food.FoodReplyMapper;
 
 import lombok.Setter;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -33,9 +34,12 @@ public class FoodService {
 
 	@Setter(onMethod_ = @Autowired)
 	private FoodMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private FoodReplyMapper replyMapper;
 
-//	@Setter(onMethod_ = @Autowired)
-//	private FoodFileMapper filemapper;
+	@Setter(onMethod_ = @Autowired)
+	private FoodFileMapper filemapper;
 
 //	private String staticRoot = "C:\\Users\\user\\Desktop\\course\\fileupload\\";
 
@@ -97,6 +101,7 @@ public class FoodService {
 	}
 
 	public boolean register(FoodVO food) {
+		System.out.println("food2 : " + food);
 		return mapper.insert(food) == 1;
 	}
 
@@ -105,18 +110,30 @@ public class FoodService {
 	}
 
 	public boolean modify(FoodVO food) {
-		System.out.println("foodservice modify : " + food);
 		return mapper.modify(food) == 1;
 	}
 
 	public boolean remove(Integer id) {
-
+		// 게시물에 달린 댓글 지우기
+		replyMapper.foodDeleteByBoardId(id);
+		
+		// 파일(사진) s3 지우기
+		
+		
+		// 게시물 지우기
 		return mapper.delete(id) == 1;
 	}
-
+	
 	public String uploadToS3(String key, MultipartFile file) throws IOException {
 //		String key = "";
-		putObject(key, file.getSize(), file.getInputStream());
+		putObject("board/" + key, file.getSize(), file.getInputStream());
+		
+		String foodFileUrl = "board/" + key;
+		System.out.println("foodFileUrl : " + foodFileUrl);
+		//filemapper.fileUrlInsert(foodFileUrl);
+		
+		System.out.println("staticUrl : " + staticUrl);
+		System.out.println("staticUrl + / + key : " + staticUrl + "/" + key);
 		
 		return staticUrl + "/" + key;
 	}
@@ -125,7 +142,7 @@ public class FoodService {
 		
 		deleteObject(key);
 		
-		putObject(key, file.getSize(), file.getInputStream());
+		putObject("board/" + key, file.getSize(), file.getInputStream());
 		
 		return staticUrl + "/" + key;
 	}
@@ -173,5 +190,11 @@ public class FoodService {
 		
 		return foodPageInfo;
 	}
+
+	public boolean foodPlusCount(Integer id) {
+		return mapper.foodPlusCount(id) == 1;
+	}
+
+
 
 }

@@ -23,4 +23,6 @@ public interface FoodMapper {
 
 	public Integer getFoodCountRows();
 
+	public int foodPlusCount(Integer id);
+
 }

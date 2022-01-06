@@ -17,31 +17,52 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+<!-- include plugin -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/summernote-ko-KR.js" type="module" ></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/summernote-lite.js" type="module" ></script>
+
 <title>Insert title here</title>
 </head>
 <body>
 <h1>테스트 썸머 노트</h1>
 
 <div style="width:80%; margin: auto;">
-	<form method="post">
+	<form id="form1" method="post" enctype="multipart/form-data">
 		<label>작성자</label>
-			<input class="form-control" type="text" id="inputWriter" name="writer" style="width: 40%;" readonly="readonly" value="${sessionScope.loggedInMember }" /> <br>
-			
-			<input type="hiidden" name="writer" value="${sessionScope.loggedInMember.id }">
-			
+			<input class="form-control" type="text" id="inputWriter" name="writer" style="width: 40%;" readonly="readonly" value="${sessionScope.loggedUser.name }" /> <br>
 		<label>제목</label>
-			<input class="form-control" type="text" id="InputTitle" name="title" style="width: 100%;" placeholder="제목"/> <br>
+			<input class="form-control" type="text" id="inputTitle" name="title" style="width: 100%;" placeholder="제목"/> <br>
 		<label>내용</label>
 			<textarea id="summernote" name="contents"></textarea>
-			<input id="subBtn" type="submit" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
+		<button id="RegisterSubBtn" >글작성</button>
+		
+		<!-- <input id="subBtn" type="submit" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/> -->
+		<small class="form-text" id="nickNameCheckMessage"></small>
 		<!-- <button id="modifySubmitButton" type="submit" value="글 수정" style="float: right;">글 작성</button> -->
 	</form>
-		<input id="subBtn" type="submit" value="글 목록" style="float: left;" onclick="${history.go(-1)}"/>
+		<a href="foodList" class="btn btn-outline-secondary">목록</a>
 </div>
 
 <script>
 $(document).ready(function(){
 	const appRoot = '${pageContext.request.contextPath}';
+	
+	$("#RegisterSubBtn").click(function(e){
+		e.preventDefault();
+		var title = $("#inputTitle").val();
+		var contents = $("#summernote").val();
+		
+		if (title == "") {
+			alert("제목을 입력하세요.");
+			document.form1.title.focus();
+			return;
+		} else if (contents == "") {
+			alert("내용을 입력하세요.");
+			document.form1.contents.focus();
+			return;
+		}		
+		$("#form1").submit();
+	});
 	
 	var fontList = ['맑은 고딕', '돋움', '궁서', '굴림', '굴림체', '궁서체', '나눔 고딕', '바탕', '바탕체',
 					'새굴림', 'HY견고딕', 'HY견명조', 'HY궁서B', 'HY그래픽M', 'HY목각파임B', 'HY신명조', 'HY얕은샘물M',
@@ -85,7 +106,9 @@ $(document).ready(function(){
 				     for(var i = files.length -1; i>= 0; i-- ){
 				    	 uploadSummernoteImageFile(files[i], this);
 				     }
-				     // uploadSummernoteImageFile(files[0], this);
+				     
+				     //uploadSummernoteImageFile(files[0], this);
+				     
 			     }
 			 }
 	};
@@ -95,7 +118,8 @@ $(document).ready(function(){
 	/**
 	* 이미지 파일 업로드
 	*/
-    function uploadSummernoteImageFile(file, el) {
+	
+	function uploadSummernoteImageFile(file, el) {
 		let data = new FormData();
 		data.append("file", file);
 		$.ajax({
