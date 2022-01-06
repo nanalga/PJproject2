@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.JsonObject;
 import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.resell.ResellPageInfoVO;
+import com.pj.domain.user.UserVO;
 import com.pj.service.resell.ResellBoardService;
 import com.pj.service.resell.ResellReplyService;
 
@@ -117,22 +119,22 @@ public class ResellBoardController implements WebMvcConfigurer {
 	}
 	
 	@PostMapping("/resellBoardRegister")
-	public String register(ResellBoardVO resellBoard, RedirectAttributes rttr, MultipartFile[] files) {
+	public String register(ResellBoardVO resellBoard, RedirectAttributes rttr,@SessionAttribute(value= "loggedUser", required = false) UserVO logged) {
 		// 2. request 분석 가공 dispatcherServlcet이 해줌
-		
+		resellBoard.setMemberId(logged.getId());
 	
 		// 3. 비즈니스 로직
+		service.register(resellBoard);
+/*		
 		try {
-			service.register(resellBoard, files);
-			// 4. add attribute
-			rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되었습니다.");
 
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되지않았습니다");
 		}
-		
+*/		
+		// 4. add attribute
+		rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되지않았습니다");
 		
 		// 5. forward.redirect
 		return "redirect:/resellMarket/resellBoard/resellBoardList";

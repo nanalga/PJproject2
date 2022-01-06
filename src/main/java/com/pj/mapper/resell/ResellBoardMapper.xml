@@ -96,9 +96,9 @@ LIMIT #{from}, #{items}
 	<!--insert  &get generated key-->
 	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 	INSERT INTO
-		ResellBoard (title, content,writer, price)
+		ResellBoard (title, content,writer,memberId, price)
 	VALUES
-		(#{title}, #{content}, #{writer}, #{price})	
+		(#{title}, #{content}, #{writer}, #{memberId},#{price})	
 	</insert>
 	
 	<!--update 하나의 게시물 수정  -->

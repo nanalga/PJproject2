@@ -26,6 +26,7 @@ public class ResellBoardVO {
 	private LocalDateTime updated;
 	private String nickName;
 	private Integer price;
+	private Integer memberId; 
 	
 	private Integer replyCount;
 	
