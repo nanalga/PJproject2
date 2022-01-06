@@ -27,12 +27,13 @@ public class ResellBoardVO {
 	private String nickName;
 	private Integer price;
 	
+	private Integer replyCount;
 	
 	public String getCustomInserted() {
 		//현재 일시
 		LocalDateTime now = LocalDateTime.now(ZoneId.of("+09:00"));
 		DateTimeFormatter dateTimeFormatter = 
-				DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h시 m분");
+				DateTimeFormatter.ofPattern("M월 d일 a HH시 mm분");
 		String nowString = now.format(dateTimeFormatter);
 		
 		LocalDateTime beforeOneDayFromNow = now.minusDays(1);

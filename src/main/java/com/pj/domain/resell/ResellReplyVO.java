@@ -13,13 +13,16 @@ import lombok.Data;
 public class ResellReplyVO {
 	private Integer id;
 	private Integer boardId;
-	private String memberId;
-	private String reply;
+	private String replyText;
 	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime inserted;
 	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime updated;
-	private String nickName;
+	private Integer userId;
+	
+	private String name;
+	
+	private boolean own;
 	
 	public String getCustomInserted() {
 		//현재 일시
@@ -38,6 +41,7 @@ public class ResellReplyVO {
 		}
 		
 	}
+
 	
 	
 	
