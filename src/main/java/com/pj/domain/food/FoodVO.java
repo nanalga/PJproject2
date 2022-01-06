@@ -17,6 +17,7 @@ public class FoodVO {
 	private LocalDateTime inserted;
 	private LocalDateTime updated;
 	private Integer boardCnt; 
+	private Integer memberId;
 
 	
 	

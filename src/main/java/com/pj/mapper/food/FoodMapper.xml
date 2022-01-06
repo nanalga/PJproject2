@@ -73,9 +73,9 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 	INSERT INTO
-		Food (title, contents, writer)
+		Food (title, contents, writer, memberId)
 	VALUES
-		(#{title}, #{contents}, #{writer})
+		(#{title}, #{contents}, #{writer}, #{memberId})
 	
 	</insert>
 	
