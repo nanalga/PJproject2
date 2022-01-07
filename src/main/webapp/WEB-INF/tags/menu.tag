@@ -32,7 +32,7 @@
                 <c:if test="${loggedUser != null }">
                 	<div class="menu_list_box">
                     	<div class="menu_user">
-                        <a href="${ContextPath }/user/userDetail">UserDetail</a>
+                        <a href="${ContextPath }/user/userDetail/food">UserDetail</a>
                    		</div>
 	                </div>
 	                <div class="menu_list_box">

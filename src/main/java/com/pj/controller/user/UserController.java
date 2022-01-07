@@ -26,10 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.pj.domain.community.CommunityFreeBoardVO;
-import com.pj.domain.food.FoodVO;
-import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.user.UserVO;
+import com.pj.domain.user.food.UserFoodVO;
+import com.pj.domain.user.resell.UserResellVO;
 import com.pj.service.user.UserService;
 
 import lombok.Setter;
@@ -55,12 +54,14 @@ public class UserController {
 	
 	
 	@PostMapping("/login")
-	public String postLogin(String email,String password,HttpSession session) {
+	public String postLogin(String email,String password,HttpSession session,RedirectAttributes rttr) {
 		UserVO vo = userService.getUserEmail(email);
 		if(vo != null&&vo.getPassword().equals(password)) {
 			session.setAttribute("loggedUser", vo);
+			rttr.addFlashAttribute("success","로그인에 성공하였습니다.");
 			return "redirect:/";
 		}
+		rttr.addFlashAttribute("fail","로그인에 실패하였습니다.");
 		return "redirect:/user/login";
 	}
 	
@@ -178,49 +179,30 @@ public class UserController {
 		return message;
 	}
 	
-//	@RequestMapping("/boardList/${path}")
-//	public <T> List<T> boardList(@RequestBody ){
-//		List<FoodVO> list = userService.getFoodListByUserId(vo.getId());
-//		if(path == null) {
-//			path="null";
-//		}
-//		if(path.equals("food")) {
-//			List<FoodVO> list = userService.getFoodList();
-//			model.addAttribute("path",path);
-//			model.addAttribute("foodList",list);
-//		}else if(path.equals("resell")) {
-//			List<ResellBoardVO> list = userService.getResllList();
-//			model.addAttribute("path",path);
-//			model.addAttribute("resellList",list);
-//		}else if(path.equals("cm")) {
-//			List<CommunityFreeBoardVO> list = userService.getCMList();
-//			model.addAttribute("path",path);
-//			model.addAttribute("cmList",list);
-//		}
-//	}
-	
 	@RequestMapping({"/userDetail","/userDetail/{path}"})
 	public String userDetail(Model model,HttpSession session,@PathVariable(required = false) String path) {
 		UserVO vo = (UserVO) session.getAttribute("loggedUser");
 		if(path == null) {
 			path="null";
 		}
-		if(path.equals("food")) {
+//		if(path.equals("food")) {
 //			List<FoodVO> list = userService.getFoodList();
-			List<FoodVO> list = userService.getFoodListByUserId(vo.getId());
-			model.addAttribute("path",path);
-			model.addAttribute("foodList",list);
-		}else if(path.equals("resell")) {
+//			List<UserFoodVO> list = userService.getFoodListByUserId(vo.getId());
+//			model.addAttribute("path",path);
+//			model.addAttribute("foodList",list);
+//		}else if(path.equals("resell")) {
 //			List<ResellBoardVO> list = userService.getResllList();
-			List<ResellBoardVO> list = userService.getResllListByUserId(vo.getId());
-			model.addAttribute("path",path);
-			model.addAttribute("resellList",list);
-		}else if(path.equals("cm")) {
+//			List<UserResellVO> list = userService.getResllListByUserId(vo.getId());
+//			model.addAttribute("path",path);
+//			model.addAttribute("resellList",list);
+//		}
+//			else if(path.equals("cm")) {
 //			List<CommunityFreeBoardVO> list = userService.getCMList();
-			List<CommunityFreeBoardVO> list = userService.getCMListByUserId(vo.getId());
-			model.addAttribute("path",path);
-			model.addAttribute("cmList",list);
-		}
+//			List<CommunityFreeBoardVO> list = userService.getCMListByUserId(vo.getId());
+//			model.addAttribute("path",path);
+//			model.addAttribute("cmList",list);
+//		}
+		model.addAttribute("path",path);
 		return "user/userDetail";
 	}
 	

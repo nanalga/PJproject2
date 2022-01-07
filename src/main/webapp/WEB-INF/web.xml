@@ -47,6 +47,8 @@
     <filter-name>FoodCheckLogInFilter</filter-name>
     <url-pattern>/FoodCheckLogInFilter</url-pattern>
     <url-pattern>/food/foodRegister</url-pattern>
+    <url-pattern>/user/userDetail</url-pattern>
+    <url-pattern>/user/userEdit</url-pattern>
   </filter-mapping>
 
 </web-app>

@@ -9,6 +9,9 @@ import com.pj.domain.community.CommunityFreeBoardVO;
 import com.pj.domain.food.FoodVO;
 import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.user.UserVO;
+import com.pj.domain.user.community.UserCommunityVO;
+import com.pj.domain.user.food.UserFoodVO;
+import com.pj.domain.user.resell.UserResellVO;
 import com.pj.mapper.user.UserMapper;
 
 import lombok.Setter;
@@ -65,16 +68,20 @@ public class UserService {
 //		return userMapper.getCMList();
 //	}
 
-	public List<FoodVO> getFoodListByUserId(int id) {
+	public List<UserFoodVO> getFoodListByUserId(int id) {
 		return userMapper.getFoodListByUserId(id);
 	}
 
-	public List<ResellBoardVO> getResllListByUserId(int id) {
+	public List<UserResellVO> getResllListByUserId(int id) {
 		return userMapper.getResllListByUserId(id);
 	}
 
-	public List<CommunityFreeBoardVO> getCMListByUserId(int id) {
+	public List<UserCommunityVO> getCMListByUserId(int id) {
 		return userMapper.getCMListByUserId(id);
+	}
+
+	public boolean deleteFoodByFoodId(Integer id) {
+		return userMapper.deleteFoodByFoodId(id) == 1;
 	}
 	
 }

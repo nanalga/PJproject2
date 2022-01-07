@@ -39,11 +39,7 @@
 		WHERE
 			email = #{email}
 	</select>
-	<!-- <select id="getFoodListByUserId" resultType="com.pj.domain.food.FoodVO">
-		SELECT 
-			
-	</select> -->
-	<select id="getFoodList" resultType="com.pj.domain.food.FoodVO">
+	<!-- <select id="getFoodList" resultType="com.pj.domain.food.FoodVO">
 		SELECT 
 			id,title,writer,inserted
 		FROM 
@@ -60,16 +56,36 @@
 			id,title,writer,inserted
 		FROM
 			CommunityFreeBoard
+	</select> -->
+	<select id="getFoodListByUserId" resultType="com.pj.domain.user.food.UserFoodVO">
+		SELECT 
+			f.id,f.title,u.name,f.inserted
+		FROM 
+			Food f
+		JOIN 
+			User u
+		ON 
+			f.memberId = u.id
+		AND
+			u.id = #{id}
 	</select>
-	<select id="getFoodListByUserId">
+	<select id="getResllListByUserId" resultType="com.pj.domain.user.resell.UserResellVO">
 		SELECT
-			
+			r.id,r.title,u.name,r.price,r.updated
+		FROM
+		 	ResellBoard r
+		 JOIN 
+		 	User u
+		 ON 
+		 	r.memberId = u.id
+		 AND
+		 	u.id =	#{id}
 	</select>
-	<select id="getResllListByUserId">
-	
-	</select>
-	<select id="getCMListByUserId">
-	
+	<select id="getCMListByUserId" resultType="com.pj.domain.user.community.UserCommunityVO">
+		SELECT
+			* 
+		FROM
+			CommunityFreeBoard
 	</select>
 	<update id="update">
 		UPDATE 
@@ -88,5 +104,12 @@
 			User
 		WHERE
 			email = #{emailInfo}
+	</delete>
+	<delete id="deleteFoodByFoodId">
+		DELETE
+		FROM
+			Food
+		WHERE
+			id =#{id}
 	</delete>
 </mapper>

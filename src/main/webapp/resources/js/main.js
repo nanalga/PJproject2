@@ -1,4 +1,4 @@
-import "./home.js";
-import "./join.js";
-import "./edit.js";
-import "./userDetail.js";
+import "./user/home.js";
+import "./user/join.js";
+import "./user/edit.js";
+import "./user/userDetail.js";

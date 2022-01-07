@@ -6,6 +6,9 @@ import com.pj.domain.community.CommunityFreeBoardVO;
 import com.pj.domain.food.FoodVO;
 import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.user.UserVO;
+import com.pj.domain.user.community.UserCommunityVO;
+import com.pj.domain.user.food.UserFoodVO;
+import com.pj.domain.user.resell.UserResellVO;
 
 public interface UserMapper {
 
@@ -23,11 +26,13 @@ public interface UserMapper {
 
 	public boolean update(UserVO vo);
 
-	public List<FoodVO> getFoodListByUserId(int id);
+	public List<UserFoodVO> getFoodListByUserId(int id);
 
-	public List<ResellBoardVO> getResllListByUserId(int id);
+	public List<UserResellVO> getResllListByUserId(int id);
 
-	public List<CommunityFreeBoardVO> getCMListByUserId(int id);
+	public List<UserCommunityVO> getCMListByUserId(int id);
+
+	public int deleteFoodByFoodId(Integer id);
 	
 //	public List<FoodVO> getFoodList();
 //
