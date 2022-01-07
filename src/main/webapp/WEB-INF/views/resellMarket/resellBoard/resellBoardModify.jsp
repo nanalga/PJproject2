@@ -22,6 +22,10 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+<!-- include plugin -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/summernote-ko-KR.js" type="module" ></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/summernote-lite.js" type="module" ></script>
+
 <!--주소화면 외부js  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="<%=request.getContextPath()%>/resource/js/address.js"></script>
@@ -42,6 +46,8 @@
 			<form id="modifyForm" name="modifyForm"  method="post">
 				<!-- input:hidden[value][name=id] -->
 				<input type="hidden" name="id" value="${resellBoard.id }">
+				<input type="hidden" name="name" value="${sessionScope.loggedUser.name }">
+				<input type="hidden" name="memberId" value="${sessionScope.loggedUser.id }">
 				<div class="form-group">
 					<label for="titleInput">제목</label>
 					<input type="text" class="form-control" id="titleInput" value="${resellBoard.title }"  name="title">
@@ -50,17 +56,14 @@
 					<label for="contentInput">내용</label>
 					<textarea class="form-control" id="summernote"  name="content" >${resellBoard.content }</textarea>
 				</div>
-				  <div class="form-group">
-				    <label for="exampleFormControlFile1"> images files </label>
-				    <input type="file" class="form-control-file" id="imgInput" name="files" accept="image/*" multiple>
-				  </div>
+
 				<div class="form-group">
 					<label for="writerInput">작성자</label>
-					<input type="text" class="form-control" id="writerInput"  value="${resellBoard.writer }" name="writer" readonly>
+					<input type="text" class="form-control" id="writerInput"  value="${resellBoard.nickName }" name="nickName" readonly>
 				</div>
 					<div class="form-group">
 						<label for="addressInput">주소</label>
-						<input type="text" class="form-control" id="addressInput" required name="address" readonly value="">
+						<input type="text" class="form-control" id="addressInput" required name="address"  value="${resellBoard.address }">
 					</div>				
 				<div class="form-group">
 					<label for="priceInput">가격</label>
@@ -225,7 +228,7 @@ $(document).ready(function() {
 				$(el).summernote('insertNode', imgNode);
 			}
 		});
-	} 	
+	}	
 	
 
 	// #submitButton1 버튼 클릭됬을때

@@ -57,6 +57,7 @@ public class CheckLogInFilter implements Filter {
 		} else {
 			chain.doFilter(request, response);
 		}
+		
 		// pass the request along the filter chain
 	}
 

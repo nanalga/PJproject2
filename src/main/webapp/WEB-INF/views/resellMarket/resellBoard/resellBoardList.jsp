@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="rb" tagdir="/WEB-INF/tags/resellBoard"%>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
 
@@ -23,6 +22,75 @@
 
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style>
+        .font_big { font-size: 1em;}
+        .font_italic { font-style: italic;}
+        .font_bold { font-weight: bold;}
+        .font_center { text-align: center;}
+        .writeBtn {
+            width: 50px;
+            height: 25px;
+            background-color: #d734ecb2;
+            border: 10px solid #FFFFFF;
+            border-radius: 30px;
+            box-shadow: 5px 5px 5px #9c3131;
+        }
+        
+          .writeBtn > a {
+            display: block;
+            line-height: 18px;
+        }
+        
+        .tdcss {
+       		 font-size: 1em;
+       		 font-style: italic;
+       		 font-weight: bold;
+       		 
+        }
+        
+        .thcss {
+        	font-style: italic;
+        	color : #889EC8;
+        	font-weight : 800;
+        }
+        
+   	.listHead {
+		font-size :32px;
+		font-weight : bolder;
+		font-style : italic;
+		text-align : center;
+		text-shadow: 5px 5px 11px rgba(137, 68, 116, 1);
+		
+	}
+	
+	.listHeadDiv	{
+		width : 100%;
+		height : 50px;
+		-webkit-box-shadow: 0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+		-moz-box-shadow:    0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+		box-shadow:         0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+	}
+
+</style>
+<style>
+.face {
+    fill : #FFF;
+    stroke-width: 2px;
+    stroke: #000;
+}
+.number {
+    font-family: arial;
+	text-anchor: middle;
+	text-align: right;
+}
+.hands{
+	stroke: #000;
+	stroke-linecap: round;
+}
+</style>
+
+
 
 <title>resellBoardList</title>
 </head>
@@ -34,7 +102,9 @@
 		<div class="main_container">
 			<div class="row" style="width: 80%">
 				<div class="col">
-					<h1>게시물 목록</h1>
+				<div class="listHeadDiv">
+					<h1 class="listHead">게시물 목록</h1>
+				</div>
 					<!-- table.table>thead>tr>th*4>^^tbody -->
 					<table class="table tb">
 						<thead>
@@ -42,37 +112,40 @@
 								<th>
 									<i class="fas fa-tag"></i>
 								</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>가격</th>
-								<th>작성일</th>
+								<th class="thcss">제목</th>
+								<th class="thcss">작성자</th>
+								<th class="thcss">가격</th>
+								<th class="thcss">작성일</th>
+								<th class="thcss">조회수</th>
 							</tr>
 						<tbody>
 							<c:forEach items="${resellList}" var="resellBoard">
 								<tr>
 									<td>${resellBoard.id }</td>
-									<td>
+									<td class="tdcss">
 										<a href="resellBoardGet?id=${resellBoard.id }">
 											<c:out value="${resellBoard.title }"></c:out>
-										</a>
+										</a >
 										<c:if test="${resellBoard.replyCount > 0 }">
 										<i class="far fa-comments">${resellBoard.replyCount }</i>
 										</c:if>
 									</td>
 									<td>
-										<c:out value="${resellBoard.writer }"></c:out>
+										<c:out value="${resellBoard.nickName }"></c:out>
 									</td>
 									<td>
 										<c:out value="${resellBoard.price }"></c:out>
 									</td>
-
 									<td>${resellBoard.customInserted }</td>
+									<td> ${resellBoard.boardCount }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 						</thead>
 					</table>
-					<a href='<c:url value='/resellMarket/resellBoard/resellBoardRegister'/>' role="button" class="btn btn-outline-primary">글쓰기</a>
+					<div >
+					<a href='<c:url value='/resellMarket/resellBoard/resellBoardRegister'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center">글쓰기</a>
+					</div>
 				</div>
 			</div>
 			<!-- search foodBoard -->
@@ -83,15 +156,23 @@
 						<option value="all">전체조건</option>
 						<option value="t">제목</option>
 						<option value="w">작성자</option>
+						
+						
 						<!-- 			<option value="c">내용</option>
 				<option value="tc">제목+내용</option>
 				<option value="all">전체조건</option> -->
 					</select>
+					<input type="hidden" name="countRows">
+					<input type="hidden" name="currentPage">
+					<input type="hidden" name="">
+					<input type="hidden" name="">
+					
 					<input class="form-control" type="text" id="keyword" name="keyword" value="${pageInfo.keyword}" placeholder="검색어를 입력하세요" />
-					<button id="searchBtn" class="btn btn-primary">Search</button>
+					<button id="searchBtn" class="myBtn font_big font_italic font_bold font_center">Search</button>
+				<svg id="clock" style="width:100px; height:100px; float: right;"></svg>
 				</div>
 			</form>
-
+		
 
 			<!--pagination  -->
 			<nav aria-label="Page navigation example">
@@ -129,6 +210,8 @@
 			</nav>
 		</div>
 	</div>
+	
+	
 
 	<!-- Modal -->
 	<c:if test="${not empty result }">
@@ -167,6 +250,92 @@
 
 		});
 	</script>
+
+<%-- 시계 --%>
+<script>
+/*
+ * 1초 한번씩 시간을 다시 표시
+ */
+var clock = document.getElementById('clock');
+var center = parseInt(clock.style.height) / 2;
+var radius = center * 0.90;
+
+drawFace(radius);
+drawNumbers(radius);
+
+var hourHand = drawHand(0, 0, radius*0.07);
+var minuteHand = drawHand(0, 0, radius*0.07);
+var secondHand = drawHand(0, 0, radius*0.02);
+
+drawClock();
+
+function drawClock() {
+	drawTime(radius);
+	setTimeout(drawClock, 1000);
+}
+
+function drawFace(radius) {
+	createElement('circle', clock, {"cx": center, "cy": center, "r": radius, "class": "face"});
+	createElement('circle', clock, {"cx": center, "cy": center, "r": radius*0.1, "fill": "#000"});
+}
+
+function drawNumbers(radius) {
+	var pos = radius*0.85;
+	for (var num = 1; num < 13; num++) {
+		var x = pos * Math.cos(Math.PI* ((30 * num)-90)/ 180);
+		var y = pos * Math.sin(Math.PI* ((30 * num)-90)/ 180);
+
+		var text = createElement('text', clock, {"x": x+center, "y": y+center, "class": "number"});
+		text.style.fontSize = radius*0.15 + "px";
+		text.appendChild(document.createTextNode(num))
+	}
+}
+
+function drawTime(radius){
+    var now = new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+	var pos = radius*0.5;
+	
+    //hour
+    x = pos* Math.cos(Math.PI* ((hour*30)- 90 + 30/60*minute + 30/60/60*second) / 180); 
+    y = pos* Math.sin(Math.PI* ((hour*30)- 90 + 30/60*minute + 30/60/60*second) / 180);
+	setAttributes(hourHand, {"x1": center, "y1": center, "x2": x+center, "y2": y+center});
+
+    //minute
+	pos = radius*0.8;
+    x = pos * Math.cos(Math.PI* ((minute * 6)- 90 + 6/60*second)/ 180); 
+    y = pos * Math.sin(Math.PI* ((minute * 6)- 90 + 6/60*second)/ 180);
+	setAttributes(minuteHand, {"x1": center, "y1": center, "x2": x+center, "y2": y+center});
+	
+    // second
+	pos = radius*0.9;
+    x = pos * Math.cos(Math.PI* ((second * 6)- 90)/ 180); 
+    y = pos * Math.sin(Math.PI* ((second * 6)- 90)/ 180);
+	setAttributes(secondHand, {"x1": center, "y1": center, "x2": x+center, "y2": y+center});
+}
+
+function drawHand( x, y, width) {
+	var hand = createElement('line', clock, {"x1": center, "y1": center, "x2": x+center, "y2": y+center, "class": "hands"});
+	hand.style["stroke-width"] = width;
+	return hand;
+}
+
+function createElement(eleType, parent, attributes) {
+	var ele = document.createElementNS('http://www.w3.org/2000/svg', eleType);
+	parent.appendChild(ele);
+
+    for (var item in attributes) ele.setAttribute(item, attributes[item]);
+
+	return ele;
+}
+
+function setAttributes(ele, attributes) {
+    for (var item in attributes) ele.setAttribute(item, attributes[item]);
+}
+</script>
+
 
 </body>
 </html>

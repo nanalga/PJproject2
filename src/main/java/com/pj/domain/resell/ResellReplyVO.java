@@ -20,6 +20,8 @@ public class ResellReplyVO {
 	private LocalDateTime updated;
 	private Integer userId;
 	
+	private Integer memberId;
+	
 	private String name;
 	
 	private boolean own;
