@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,7 +49,7 @@ public class FoodController implements WebMvcConfigurer {
 
 	@RequestMapping("/foodList")
 	public void foodList(@RequestParam(value = "page", defaultValue = "1") Integer page,
-			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "searchType", defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			Model model) {
 		System.out.println(searchType + ", " + keyword);
@@ -97,8 +98,6 @@ public class FoodController implements WebMvcConfigurer {
 
 	@PostMapping("/foodRemove")
 	public String foodRemove(@RequestParam(value = "id", required = true) Integer id, FoodVO food, RedirectAttributes rttr) {
-		System.out.println("foodRemove 접근" + id);
-		
 		if (service.remove(id)) {
 			rttr.addFlashAttribute("result", id + "번 게시물이 삭제되었습니다.");
 		}
@@ -110,26 +109,17 @@ public class FoodController implements WebMvcConfigurer {
 
 	@PostMapping("/foodRegister")
 	public String register(FoodVO food, @SessionAttribute(value = "loggedUser", required = false) UserVO logged) {
-		System.out.println("food1 : " + food);
-		
+//		System.out.println("register-images : " + Arrays.toString(food.getImageKey()));
 		
 		food.setMemberId(logged.getId());
 		
 		service.register(food);
 	
+		
+		
 		return "redirect:/food/foodList";
 	}
 
-//	@GetMapping("/testSummerNote")
-//	public void testSummerNote() {
-//
-//	}
-//	
-//	@GetMapping("/testFoodMap")
-//	public void testFoodMap() {
-//		//System.out.println("foodLocation : " + foodLocation);
-//	}
-	
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8" )
 	@ResponseBody
 	public String uploadSummernoteImageFile(FoodVO food , @RequestParam("file") MultipartFile multipartFile,
@@ -158,6 +148,7 @@ public class FoodController implements WebMvcConfigurer {
 
 			// s3에 저장
 			jsonObject.addProperty("url", service.uploadToS3(savedFileName, multipartFile));
+			jsonObject.addProperty("imageKey", "board/" + savedFileName);
 
 		} catch (IOException e) {
 //			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
@@ -210,4 +201,5 @@ public class FoodController implements WebMvcConfigurer {
 	}
 
 
+	
 }
