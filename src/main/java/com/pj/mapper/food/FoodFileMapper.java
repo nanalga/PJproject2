@@ -6,6 +6,6 @@ public interface FoodFileMapper {
 
 	//void fileUrlInsert(@Param("foodFileUrl") String foodFileUrl);
 
-	void fileUrlInsert(@Param("foodBoardId") Integer foodBoardId,@Param("foodFileUrl") String foodFileUrl);
+//	int fileUrlInsert(@Param("foodBoardId") Integer foodBoardId, @Param("foodFileUrl") String[] foodFileUrl);
 
 }

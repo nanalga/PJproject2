@@ -3,6 +3,8 @@ package com.pj.domain.food;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
 
@@ -18,6 +20,10 @@ public class FoodVO {
 	private LocalDateTime updated;
 	private Integer boardCnt; 
 	private Integer memberId;
+	private Integer foodReplyCount;	
+	private String imageKey;
+	
+	
 
 	
 	
