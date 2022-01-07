@@ -11,7 +11,7 @@ public interface FoodMapper {
 	public List<FoodVO> getList();
 
 	public int insert(FoodVO food);
-
+	
 	public FoodVO selectRead(Integer id);
 
 	public int modify(FoodVO food);
@@ -25,4 +25,5 @@ public interface FoodMapper {
 
 	public int foodPlusCount(Integer id);
 
+	public int insert(String string);
 }

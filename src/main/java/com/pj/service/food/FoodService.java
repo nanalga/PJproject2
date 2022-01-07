@@ -101,7 +101,8 @@ public class FoodService {
 	}
 
 	public boolean register(FoodVO food) {
-		System.out.println("food2 : " + food);
+		System.out.println("Service RegisterFood : " + food);
+
 		return mapper.insert(food) == 1;
 	}
 

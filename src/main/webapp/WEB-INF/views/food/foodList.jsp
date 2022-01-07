@@ -129,6 +129,7 @@ tr:hover {background-color: #f2f2f2;}
 						<tr>
 							<th>글번호</th>
 							<th>제목</th>
+							<th>##</th>
 							<th>작성자</th>
 							<th>작성일</th>
 							<th>조회수</th>
@@ -142,6 +143,11 @@ tr:hover {background-color: #f2f2f2;}
 									<a href="foodGet?id=${food.id }">
 										<c:out value="${food.title }" />
 									</a>
+								</td>
+								<td>
+									<c:if test="${food.foodReplyCount > 0 }">
+										<i class="far fa-comment-dots"></i> ${food.foodReplyCount }									
+									</c:if>
 								</td>
 								<td>${food.writer }</td>
 								<td>${food.customInserted }</td>
@@ -167,6 +173,7 @@ tr:hover {background-color: #f2f2f2;}
 				<option value="all">전체조건</option> -->
 			</select>
 			<input class="search-input" type="text" id="keyword" name="keyword" value="${pageInfo.keyword}" placeholder="검색어를 입력하세요"/>
+
 			<button id="searchBtn" class="" style="background-color:#ffcccc;"><i class="fas fa-search" style="color:white;"></i></button>
 		</form>
 		<a href='<c:url value='/food/foodRegister'/>' role="button" ><button class="writer_btn" >글쓰기</button></a>

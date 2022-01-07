@@ -28,6 +28,7 @@
 
 <div style="width:80%; margin: auto;">
 	<form id="form1" method="post" enctype="multipart/form-data">
+	
 		<label>작성자</label>
 			<input class="form-control" type="text" id="inputWriter" name="writer" style="width: 40%;" readonly="readonly" value="${sessionScope.loggedUser.name }" /> <br>
 		<label>제목</label>
@@ -136,6 +137,8 @@ $(document).ready(function(){
 				let imgNode = document.createElement("img");
 				$(imgNode).attr("src", d.url);
 				$(el).summernote('insertNode', imgNode);
+				
+				$("#form1").append($("<input name='imageKey' type='hidden' />").val(d.imageKey));
 			}
 		});
 	}
