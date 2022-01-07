@@ -21,16 +21,22 @@ public class AdminController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService userService;
 	
-	@RequestMapping({"/adminDetail/{path}/{page}","/adminDetail"})
+//	@RequestMapping("adminDetail")
+//	public String test() {
+//		return "user/adminDetail";
+//	}
+	
+	@RequestMapping({"/adminDetail/{path}/{page}","/adminDetail/{path}"})
 	public String adminDetail(Model model,@PathVariable String path,@PathVariable(required = false) Integer page) {
-		
 		if(page == null) {
 			page = 1;
 		}
-		model.addAttribute(path);
+		int pagePerNumber = 10;
 		if(path.equals("user")) {
-			AdminPageInfo pageInfo = userService.getPageInfo(page,10);
-			List<UserVO> vo = userService.getUserList(page,10);
+			System.out.println("work2");
+			AdminPageInfo pageInfo = userService.getPageInfo(page,pagePerNumber);
+			List<UserVO> vo = userService.getUserList(page,pagePerNumber);
+			model.addAttribute(path);
 			model.addAttribute("pageInfo", pageInfo);
 			model.addAttribute("userList",vo);			
 		}

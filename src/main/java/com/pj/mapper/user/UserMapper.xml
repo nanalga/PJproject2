@@ -23,7 +23,7 @@
 		FROM 
 			User
 		ORDER BY id
-		LIMIT #{start} #{end}
+		LIMIT #{start}, #{end}
 	</select>
 	<select id="getUserEmail" resultType="com.pj.domain.user.UserVO">
 		SELECT 

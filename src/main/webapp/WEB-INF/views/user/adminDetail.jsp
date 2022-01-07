@@ -135,6 +135,7 @@
 	                            </c:forEach>
                         	</c:if>
                         </div>
+                    	<tag:adminPagination></tag:adminPagination>
                     </div>
                 </div>
             </div>
