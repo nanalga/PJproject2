@@ -33,7 +33,6 @@ public class GetBoardListController {
 	public List<UserFoodVO> userFoodList(HttpSession session){
 		UserVO vo = (UserVO) session.getAttribute("loggedUser");
 		List<UserFoodVO> list = userService.getFoodListByUserId(vo.getId());
-		System.out.println("list :"+list);
 		return list;
 	}
 	

@@ -162,6 +162,7 @@ public class UserController {
 	@PostMapping("/join")
 	public String postJoin(UserVO vo,RedirectAttributes rttr) {
 		vo.setSocial("local");
+		vo.setAdmin(false);
 		if(userService.insert(vo)) {
 			rttr.addFlashAttribute("success","회원가입되었습니다.");
 			return "redirect:/";
@@ -185,58 +186,9 @@ public class UserController {
 		if(path == null) {
 			path="null";
 		}
-//		if(path.equals("food")) {
-//			List<FoodVO> list = userService.getFoodList();
-//			List<UserFoodVO> list = userService.getFoodListByUserId(vo.getId());
-//			model.addAttribute("path",path);
-//			model.addAttribute("foodList",list);
-//		}else if(path.equals("resell")) {
-//			List<ResellBoardVO> list = userService.getResllList();
-//			List<UserResellVO> list = userService.getResllListByUserId(vo.getId());
-//			model.addAttribute("path",path);
-//			model.addAttribute("resellList",list);
-//		}
-//			else if(path.equals("cm")) {
-//			List<CommunityFreeBoardVO> list = userService.getCMList();
-//			List<CommunityFreeBoardVO> list = userService.getCMListByUserId(vo.getId());
-//			model.addAttribute("path",path);
-//			model.addAttribute("cmList",list);
-//		}
 		model.addAttribute("path",path);
 		return "user/userDetail";
 	}
-	
-	@RequestMapping({"/adminDetail/{path}","/adminDetail"})
-	public String adminDetail(Model model,@PathVariable(required = false) String path) {
-		
-		if(path == null) {
-			path ="null";
-		}
-		if(path.equals("user")) {
-			List<UserVO> vo = userService.getUserList();
-			model.addAttribute("path","user");
-			model.addAttribute("userList",vo);			
-		}
-		
-//		if(path.equals("food")) {
-//			List<FoodVO> vo = userService.getFoodList();
-//			model.addAttribute("path","food");
-//			model.addAttribute("foodList",vo);
-//		}
-//		
-//		if(path.equals("resell")) {
-//			List<ResellVO> vo = userService.getResellList();
-//			model.addAttribute("path","resell");
-//			model.addAttribute("resellList",vo);
-//		}
-//		
-//		if(path.equals("community")) {
-//			List<ResellVO> vo = userService.getCommunityList();
-//			model.addAttribute("path","community");
-//			model.addAttribute("communityList",vo);
-//		}
-		return "user/adminDetail";
-}
 
 	
 	@RequestMapping("/edit")
@@ -270,12 +222,6 @@ public class UserController {
 			rttr.addFlashAttribute("fail","계정삭제에 실패했습니다.");
 			return "redirect:/";
 		}
-	}
-	
-	@PostMapping("/adminDelete")
-	public String adminDelete() {
-		
-		return "redirect:/user/adminDetail";
 	}
 	
 }

@@ -30,11 +30,20 @@
                     </div>
                 </div>
                 <c:if test="${loggedUser != null }">
-                	<div class="menu_list_box">
-                    	<div class="menu_user">
-                        <a href="${ContextPath }/user/userDetail/food">UserDetail</a>
-                   		</div>
-	                </div>
+                	<c:if test="${loggedUser.admin == false }">
+		               	<div class="menu_list_box">
+		                   	<div class="menu_user">
+		                       <a href="${ContextPath }/user/userDetail/food">UserDetail</a>
+		                  		</div>
+		                </div>
+	                </c:if>
+	                <c:if test="${loggedUser.admin == true }">
+	                	<div class="menu_list_box">
+		                   	<div class="menu_user">
+		                       <a href="${ContextPath }/admin/adminDetail/user">Admin Page</a>
+		                  		</div>
+		                </div>
+	                </c:if>
 	                <div class="menu_list_box">
 	                    <div class="menu_user">
 	                        <a href="${ContextPath }/user/logout">LogOut</a>

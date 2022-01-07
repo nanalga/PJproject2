@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pj.mapper.user.UserMapper">
+	<insert id="insert">
+		INSERT INTO 
+		User(name,nickName,email,password,social,admin)
+		VALUES(#{name},#{nickName},#{email},#{password},#{social},#{admin})
+	</insert>
 	<select id="getUserInfo" resultType="string">
 		SELECT 
 			title
@@ -17,12 +22,9 @@
 			id,name,email,password,created
 		FROM 
 			User
+		ORDER BY id
+		LIMIT #{start} #{end}
 	</select>
-	<insert id="insert">
-		INSERT INTO 
-		User(name,nickName,email,password,social)
-		VALUES(#{name},#{nickName},#{email},#{password},#{social})
-	</insert>
 	<select id="getUserEmail" resultType="com.pj.domain.user.UserVO">
 		SELECT 
 			* 
@@ -38,6 +40,12 @@
 			User
 		WHERE
 			email = #{email}
+	</select>
+	<select id="getCountRows" resultType="int">
+		SELECT 
+			count(id)
+		FROM
+			User
 	</select>
 	<!-- <select id="getFoodList" resultType="com.pj.domain.food.FoodVO">
 		SELECT 

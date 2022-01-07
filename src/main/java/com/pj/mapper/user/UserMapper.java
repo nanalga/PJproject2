@@ -2,6 +2,8 @@ package com.pj.mapper.user;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.pj.domain.community.CommunityFreeBoardVO;
 import com.pj.domain.food.FoodVO;
 import com.pj.domain.resell.ResellBoardVO;
@@ -14,7 +16,7 @@ public interface UserMapper {
 
 	public String getUserInfo();
 
-	public List<UserVO> getUserList();
+	public List<UserVO> getUserList(@Param("start") Integer page,@Param("end") Integer i);
 	
 	public int insert(UserVO vo);
 
@@ -33,6 +35,8 @@ public interface UserMapper {
 	public List<UserCommunityVO> getCMListByUserId(int id);
 
 	public int deleteFoodByFoodId(Integer id);
+
+	public Integer getCountRows();
 	
 //	public List<FoodVO> getFoodList();
 //

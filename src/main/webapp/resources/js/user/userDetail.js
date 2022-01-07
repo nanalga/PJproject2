@@ -64,7 +64,7 @@ const listBoard = function() {
 		            <span class="user_power_conent_id">${list[i].id }</span>
 		            <span class="user_power_conent_title">${list[i].title }</span>
 		            <span class="user_power_conent_writer">${list[i].name }</span>
-		            <span class="user_power_conent_updated">${list[i].inserted }</span>
+		            <span class="user_power_conent_updated">${list[i].userInserted }</span>
 		            <input type="hidden" class="board_type_info" value="resell">
 		            <a class="user_power_delete" style="cursor:pointer"><i class="fas fa-times"></i></a>
 		        </div>`);
@@ -83,7 +83,7 @@ const listBoard = function() {
                     <span class="user_power_conent_title">${list[i].title}</span>
                     <span class="user_power_content_writer">${list[i].name}</span>
                     <span class="user_power_content_price">${list[i].price}</span>
-                    <span class="user_power_conent_updated">${list[i].updated}</span>
+                    <span class="user_power_conent_updated">${list[i].userUpdated}</span>
                     <input type="hidden" class="hiddenInfo">
                     <a class="user_power_delete" style="cursor:pointer"><i class="fas fa-times"></i></a>
                 </div>
