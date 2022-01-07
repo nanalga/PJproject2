@@ -19,16 +19,16 @@ public class ResellBoardVO {
 	private Integer id;
 	private String title;
 	private String content;
-	private String writer;
+	private String nickName;
 	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime inserted;
 	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime updated;
-	private String nickName;
 	private Integer price;
 	private Integer memberId; 
-	
+	private String address;
 	private Integer replyCount;
+	private Integer boardCount;
 	
 	public String getCustomInserted() {
 		//현재 일시
@@ -50,6 +50,6 @@ public class ResellBoardVO {
 	
 	private String type; //검색타입
 	private String keyword; //  검색내용
-
+	private String all; // 
 
 }

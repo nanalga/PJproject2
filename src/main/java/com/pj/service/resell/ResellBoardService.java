@@ -166,7 +166,7 @@ public class ResellBoardService {
 		Integer rightPageNumber = (page - 1) / 10 * 10 + 10;
 		// 가장 마지막 페이지를 넘어가지 않도록
 		rightPageNumber = rightPageNumber > lastPage ? lastPage : rightPageNumber;
-
+		
 		// 이전 페이지 버튼 존재 유무
 		Boolean hasPrevButton = leftPageNumber != 1;
 
@@ -187,10 +187,11 @@ public class ResellBoardService {
 		return pageInfo;
 	}
 
-	public List<ResellBoardVO> getSearchList(ResellBoardVO boardVo) throws Exception {
-		
-		return mapper.selectSearchList(boardVo);
+	public boolean boardPlusCnt(Integer id) {
+
+		return mapper.boardPlusCnt(id) == 1;
 	}
+
 
 	/* 이미지버튼 추가관련
 	@Transactional

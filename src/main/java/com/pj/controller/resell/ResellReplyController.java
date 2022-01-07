@@ -34,7 +34,7 @@ public class ResellReplyController {
 	
 	
 	@GetMapping("/resellBoard/{boardId}")
-	public List<ResellReplyVO>  list(@PathVariable Integer boardId, HttpSession session) {
+	public List<ResellReplyVO>  list( @PathVariable Integer boardId, HttpSession session) {
 		UserVO logged = (UserVO) session.getAttribute("loggedUser");
 		
 		List<ResellReplyVO> list = service.list(boardId);
@@ -56,7 +56,8 @@ public class ResellReplyController {
 	public ResponseEntity<String> write(ResellReplyVO reply,@SessionAttribute(value= "loggedUser", required = false) UserVO logged )  {
 		// 로그인한 멤버
 //		UserVO logged = (UserVO) session.getAttribute("loggedUser");
-
+		reply.setMemberId(logged.getId());
+		
 		//로그인한 멤버 
 		if (logged != null && logged.getId() ==(reply.getUserId())) {
 			service.insert(reply);

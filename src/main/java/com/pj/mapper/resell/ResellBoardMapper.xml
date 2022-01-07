@@ -5,13 +5,18 @@
 
 <mapper namespace="com.pj.mapper.resell.ResellBoardMapper">
 
+	<update id="boardPlusCnt">
+	UPDATE ResellBoard SET boardCount = (boardCount + 1) WHERE id = #{id}
+	</update>
+	
+	
 	
 	<delete id = "deleteByUserId">
-		DELETE FROM ResellBaord WHERE writer = #{userId}
+		DELETE FROM ResellBaord WHERE nickName = #{userId}
 	</delete>
 
 	<select id="getCountRows" resultType="int">
-	SELECT COUNT(*) FROM ResellBoard
+	SELECT COUNT(*) FROM ResellBoard 
 	 	<!-- 검색 조건이 null이 아니라면 검색조건에 따른 데이터 조회-->
 	<if test="searchType != null">
 		<if test="searchType == 'all'.toString()">
@@ -21,9 +26,22 @@
 			AND title LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 		<if test="searchType == 'w'.toString()">
-			AND writer LIKE CONCAT('%', #{keyword}, '%')
+			AND nickName LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 	</if>
+		<choose>
+			<when test="title != null and nickName != null">
+			( title  LIKE CONCAT('%', #{keyword}, '%') OR
+			rb.nickName LIKE CONCAT('%', #{keyword}, '%'))
+			</when>							<!-- #은 set하는거고	 -->
+			<when test="title != null">
+				WHERE title LIKE '%${title}%'  <!-- $는 미리만들어놓고 실행한다 이엘아님..마이바티스문임!-->
+			</when>
+			<when test="nickName !=null">
+				WHERE writer LIKE '%${nickName}%'
+			</when>
+		</choose>	
+	
 	</select>
 
 	
@@ -32,28 +50,35 @@ SELECT
 	    rb.id,
 	    rb.title,
 	    rb.content,
-	    rb.writer,
+	    rb.nickName,
+	    rb.memberId,
+	    rb.address,
 	    rb.price,
 	    rb.inserted,
 	    rb.updated,
+	    rb.memberId,
         rr.userId,
-       count(rr.id) replyCount 
+       count(rr.id) replyCount,
+       rb.boardCount
  FROM   
 	    ResellBoard  rb
         		LEFT JOIN
        rReply rr On rb.id = rr.boardId
       			LEFT JOIN  
-			User u On u.id=rr.userId 
- <!-- 검색 조건이 null이 아니라면 검색조건에 따른 데이터 조회-->      
+			User u On u.id=rr.userId
+	WHERE
+		(rb.id >0 )
+ <!-- 검색 조건이 null이 아니라면 검색조건에 따른 데이터 조회--> 
 	<if test="searchType != null">
 		<if test="searchType == 'all'.toString()">
-			AND title LIKE CONCAT('%', #{keyword}, '%')
+			AND ( title  LIKE CONCAT('%', #{keyword}, '%') OR
+			rb.nickName LIKE CONCAT('%', #{keyword}, '%'))
 		</if>
 		<if test="searchType == 't'.toString()">
 			AND title LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 		<if test="searchType == 'w'.toString()">
-			AND writer LIKE CONCAT('%', #{keyword}, '%')
+			AND rb.nickName LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 	</if>	       
 GROUP BY rb.id
@@ -68,10 +93,13 @@ LIMIT #{from}, #{items}
 	    id,
 	    title,
 	    content,
-	    writer,
+	    nickName,
+	    memberId,
+	    address,
 	    price,
 	    inserted,
-	    updated
+	    updated,
+	    boardCount
 	FROM
 	    ResellBoard  
 	ORDER BY id DESC
@@ -83,10 +111,13 @@ LIMIT #{from}, #{items}
 	    id,
 	    title,
 	    content,
-	    writer,
+	    nickName,
+	    memberId,
+	    address,
 	    price,
 	    inserted,
-	    updated
+	    updated,
+	    boardCount
 	FROM
 	    ResellBoard 
 	WHERE 
@@ -96,9 +127,9 @@ LIMIT #{from}, #{items}
 	<!--insert  &get generated key-->
 	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 	INSERT INTO
-		ResellBoard (title, content,writer,memberId, price)
+		ResellBoard (title, content,nickName,memberId,address ,price)
 	VALUES
-		(#{title}, #{content}, #{writer}, #{memberId},#{price})	
+		(#{title}, #{content}, #{nickName}, #{memberId},#{address},#{price})	
 	</insert>
 	
 	<!--update 하나의 게시물 수정  -->
@@ -108,7 +139,8 @@ LIMIT #{from}, #{items}
 	SET
 		title = #{title},
 		content = #{content},
-		writer = #{writer},
+		nickName = #{nickName},
+		address = #{address},
 		price = #{price},
 		updated = NOW()
 	WHERE

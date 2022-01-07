@@ -27,3 +27,56 @@
 		box-shadow: 10px 10px 10px black, 10px 10px 20px orange, 10px 10px 30px red;
 	}
 	
+	.listHead {
+		font-size :32px;
+		font-weight : bolder;
+		font-style : italic;
+		text-align : center;
+		text-shadow: 5px 5px 11px rgba(137, 68, 116, 1);
+		
+	}
+	
+	.listHeadDiv	{
+		width : 100%;
+		height : 50px;
+		-webkit-box-shadow: 0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+		-moz-box-shadow:    0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+		box-shadow:         0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+	}
+	
+       .font_big { font-size: 1em;}
+        .font_italic { font-style: italic;}
+        .font_bold { font-weight: bold;}
+        .font_center { text-align: center;}
+        .writeBtn {
+            width: 50px;
+            height: 25px;
+            background-color: #d734ecb2;
+            border: 10px solid #FFFFFF;
+            border-radius: 30px;
+            box-shadow: 5px 5px 5px #9c3131;
+        }
+        
+          .writeBtn > a {
+            display: block;
+            line-height: 18px;
+        }
+        
+        .tdcss {
+       		 font-size: 1em;
+       		 font-style: italic;
+       		 font-weight: bold;
+       		 
+        }
+        
+        .thcss {
+        	font-style: italic;
+        	color : #889EC8;
+        	font-weight : 800;
+        }	
+	
+
+	
+	
+	
+	
