@@ -52,13 +52,13 @@ const resellListBar = $(`
 const listBoard = function() {
 	console.log("work");
     $.ajax({
-    url : appRoot + `/GetBaordList/getList/${path}`,
+    url : appRoot + `/getBaordList/user/getList/${path}`,
     success : function(list) {
 		if(path == "food"){
 			userPowerContent.innerHTML = "";
 			$(".user_power_content").append(foodListBar);
 			for (let i = 0; i < list.length; i++) {
-				const deleteLink = `/GetBaordList/delete/food/${list[i].id}`;
+				const deleteLink = `/getBaordList/user/delete/food/${list[i].id}`;
 		        const foodListObject = $(`
 		        <div class="user_power_content_info_food">
 		            <span class="user_power_conent_id">${list[i].id }</span>
@@ -76,7 +76,7 @@ const listBoard = function() {
 			userPowerContent.innerHTML = "";
 			$(".user_power_content").append(resellListBar);
 			for (let i = 0; i < list.length; i++) {
-				const deleteLink = `/GetBaordList/delete/resell/${list[i].id}`;
+				const deleteLink = `/getBaordList/user/delete/resell/${list[i].id}`;
 		        const resellListObject = $(`
 		        <div class="user_power_content_info_resell">
                     <span class="user_power_conent_id">${list[i].id}</span>

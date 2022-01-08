@@ -22,7 +22,23 @@
 			id,name,email,password,created
 		FROM 
 			User
-		ORDER BY id
+		ORDER BY id DESC
+		LIMIT #{start}, #{end}
+	</select>
+	<select id="getFoodList" resultType="com.pj.domain.user.food.UserFoodVO">
+		SELECT
+			id,title,writer,inserted
+		FROM 
+			Food
+		ORDER BY id DESC
+		LIMIT #{start}, #{end}
+	</select>
+	<select id="getResellList" resultType="com.pj.domain.user.resell.UserResellVO">
+		SELECT
+			id,title,nickName,price,updated
+		FROM 
+			ResellBoard
+		ORDER BY id DESC
 		LIMIT #{start}, #{end}
 	</select>
 	<select id="getUserEmail" resultType="com.pj.domain.user.UserVO">
@@ -41,30 +57,24 @@
 		WHERE
 			email = #{email}
 	</select>
-	<select id="getCountRows" resultType="int">
+	<select id="getUserCountRows" resultType="int">
 		SELECT 
 			count(id)
 		FROM
 			User
 	</select>
-	<!-- <select id="getFoodList" resultType="com.pj.domain.food.FoodVO">
+	<select id="getFoodCountRows" resultType="int">
 		SELECT 
-			id,title,writer,inserted
-		FROM 
+			count(id)
+		FROM
 			Food
-	</select> 
-	<select id="getResellList" resultType="com.pj.domain.resell.ResellBoardVO">
-		SELECT
-			id,title,writer,price,updated
-		FROM
-		 	ResellBoard
 	</select>
-	<select id="getCMList" resultType="com.pj.domain.community.CommunityFreeBoardVO">
+	<select id="getResellCountRows" resultType="int">
 		SELECT 
-			id,title,writer,inserted
+			count(id)
 		FROM
-			CommunityFreeBoard
-	</select> -->
+			ResellBoard
+	</select>
 	<select id="getFoodListByUserId" resultType="com.pj.domain.user.food.UserFoodVO">
 		SELECT 
 			f.id,f.title,u.name,f.inserted
@@ -113,10 +123,32 @@
 		WHERE
 			email = #{emailInfo}
 	</delete>
+	
+	<delete id="deleteUserByUserId">
+		DELETE
+		FROM
+			User
+		WHERE
+			id =#{id}
+	</delete>
 	<delete id="deleteFoodByFoodId">
 		DELETE
 		FROM
 			Food
+		WHERE
+			id =#{id}
+	</delete>
+	<delete id="deleteResellByResellId">
+		DELETE
+		FROM
+			ResellBoard
+		WHERE
+			id =#{id}
+	</delete>
+	<delete id="deleteCMByCMId">
+		DELETE
+		FROM
+			CommunityFreeBoard
 		WHERE
 			id =#{id}
 	</delete>

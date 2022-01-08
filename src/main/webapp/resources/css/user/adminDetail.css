@@ -178,7 +178,7 @@
     display: flex;
     margin-top: 20px;
 }
-.adminDetail_pagination button{
+.adminDetail_pagination a{
     border-style: none;
     background-color: #4bbfc7;
     font-size: 30px;
@@ -205,8 +205,9 @@
     margin-right: 10px;
     display: flex;
 }
-.adminDetail_pagination_content_box button{
+.adminDetail_pagination_content_box a{
     border-radius: 12px;
+    width: 40px;
 }
 .adminDetail_pagination_content:not(:last-child){
     margin-right: 7px;
@@ -222,8 +223,4 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.select{
-	background-color: rgb(175, 166, 166);
 }

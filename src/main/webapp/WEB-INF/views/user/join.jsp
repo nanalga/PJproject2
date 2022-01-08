@@ -34,6 +34,7 @@
  %>
 <div class="body_wrapper">
 	<c:url value="/user" var="userUrl"></c:url>
+	<tag:flash></tag:flash>
 	<tag:nav></tag:nav>
 	<div class="main_container">
 		<div class="join_main_box">
