@@ -184,8 +184,6 @@ public class ResellBoardService {
 		pageInfo.setHasPrevButton(hasPrevButton);
 		pageInfo.setHasNextButton(hasNextButton);
 		
-		
-		
 		return pageInfo;
 	}
 
@@ -194,61 +192,6 @@ public class ResellBoardService {
 		return mapper.boardPlusCnt(id) == 1;
 	}
 
-	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public ResellPageInfoVO getPageInfoSearch(Integer page, Integer numberPerPage, String searchType, String keyword) {
-		
-		// 총 게시물 수
-		Integer countRows = mapper.getCount(searchType, keyword);
-		
-		// 마지막 페이지 번호
-		Integer lastPage = (countRows - 1) / numberPerPage + 1;
-		
-		int pageNum = (int) Math.ceil((double) countRows / numberPerPage );
-		System.out.println("pageNum : " +pageNum);
-		
-		int rightPageNumber = (int) (Math.ceil( (double) page / (double) numberPerPage) * numberPerPage) ;
-		
-		System.out.println("rightPageNumber :" + rightPageNumber);
-		// 페이지네이션 가장 왼쪽 번호
-		Integer leftPageNumber =rightPageNumber - (numberPerPage -1);
-		System.out.println("leftPageNumber :" + leftPageNumber);
-		
-		// 페이지네이션 가장 오른쪽 번호
-//		Integer rightPageNumber = (page - 1) / 10 * 10 + 10;
-		// 가장 마지막 페이지를 넘어가지 않도록
-		int lastPageNum_tmp = (int) (Math.ceil((double) countRows / (double) numberPerPage));
-		System.out.println("lastPageNum_tmp : " + lastPageNum_tmp);
-		
-		rightPageNumber = rightPageNumber > lastPage ? lastPage : rightPageNumber;			
-		
-
-		
-		// 이전 페이지 버튼 존재 유무
-		Boolean hasPrevButton = leftPageNumber != 1;
-
-		// 다음 페이지 버튼 존재 유무
-		Boolean hasNextButton = rightPageNumber != lastPage;
-
-		
-		ResellPageInfoVO pageInfo = new ResellPageInfoVO();
-		pageInfo.setLastPage(lastPage);
-		pageInfo.setCountRows(countRows);
-		pageInfo.setLastPage(lastPage);
-		pageInfo.setCountRows(countRows);
-		pageInfo.setCurrentPage(page);
-		pageInfo.setLeftPageNumber(leftPageNumber);
-		pageInfo.setRightPageNumber(rightPageNumber);
-		pageInfo.setHasPrevButton(hasPrevButton);
-		pageInfo.setHasNextButton(hasNextButton);
-		pageInfo.setSearchType(searchType);
-		pageInfo.setKeyword(keyword);
-		
-		return pageInfo;
-	}
 
 	/* 이미지버튼 추가관련
 	@Transactional

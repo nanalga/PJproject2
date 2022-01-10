@@ -67,7 +67,7 @@
 
 				<div class="form-group">
 					<label for="addressInput">주소</label>
-					<input type="text" class="form-control" id="addressInput" required name="address"  value="${loggedUser.address }" >
+					<input type="text" class="form-control" id="addressInput" required name="address"  value="${loggedUser.address }">
 				</div>	 				
  				
  				<div class="form-group">

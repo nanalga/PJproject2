@@ -12,60 +12,35 @@
 	
 	
 	<delete id = "deleteByUserId">
-		DELETE FROM ResellBoard WHERE nickName = #{userId}
+		DELETE FROM ResellBaord WHERE nickName = #{userId}
 	</delete>
 
-	<select  id="getCount" resultType="int"> 
-	SELECT COUNT(id) FROM ResellBoard
- 	<if test="searchType != null">
-		<if test="searchType == 'all'.toString()">
-			WHERE ( title  LIKE CONCAT('%', #{keyword}, '%') OR
-			nickName LIKE CONCAT('%', #{keyword}, '%'))
-		</if>
-		<if test="searchType == 't'.toString()">
-			WHERE title LIKE CONCAT('%', #{keyword}, '%')
-		</if>
-		<if test="searchType == 'w'.toString()">
-			WHERE nickName LIKE CONCAT('%', #{keyword}, '%')
-		</if>
-	</if> 
-	
-	</select>
-	
-	
-
 	<select id="getCountRows" resultType="int">
-	SELECT COUNT(id) FROM ResellBoard 
+	SELECT COUNT(*) FROM ResellBoard 
 	 	<!-- 검색 조건이 null이 아니라면 검색조건에 따른 데이터 조회-->
- 	<if test="searchType != null">
+	<if test="searchType != null">
 		<if test="searchType == 'all'.toString()">
-			WHERE ( title  = CONCAT('%', #{keyword}, '%') OR
-			nickName LIKE CONCAT('%', #{keyword}, '%'))
+			AND title LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 		<if test="searchType == 't'.toString()">
-			WHERE title LIKE CONCAT('%', #{keyword}, '%')
+			AND title LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 		<if test="searchType == 'w'.toString()">
-			WHERE nickName LIKE CONCAT('%', #{keyword}, '%')
+			AND nickName LIKE CONCAT('%', #{keyword}, '%')
 		</if>
-	</if> 
-	
-<!-- 	
-		<if test="searchType != null">	
+	</if>
 		<choose>
 			<when test="title != null and nickName != null">
-			WHERE ( title  LIKE CONCAT('%', #{keyword}, '%') OR
+			( title  LIKE CONCAT('%', #{keyword}, '%') OR
 			rb.nickName LIKE CONCAT('%', #{keyword}, '%'))
-			</when>							#은 set하는거고	
+			</when>							<!-- #은 set하는거고	 -->
 			<when test="title != null">
-			WHERE title LIKE CONCAT('%', #{keyword}, '%') $는 미리만들어놓고 실행한다 이엘아님..마이바티스문임!
+				WHERE title LIKE '%${title}%'  <!-- $는 미리만들어놓고 실행한다 이엘아님..마이바티스문임!-->
 			</when>
 			<when test="nickName !=null">
-				WHERE nickName LIKE CONCAT('%', #{keyword}, '%')
+				WHERE writer LIKE '%${nickName}%'
 			</when>
-		</choose>
-			</if> 
-			 -->
+		</choose>	
 	
 	</select>
 
