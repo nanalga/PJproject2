@@ -206,7 +206,8 @@ $(document).ready(function() {
 							<label for="priceInput">가격</label>
 							<input type="text" class="form-control" id="priceInput" readonly value="${resellBoard.price }">
 						</div>
-					<button class="btn btn-outline-primary" style="float: right;"><a href="resellBoardList">뒤로가기</a></button>
+					<button class="btn btn-outline-primary" style="float: right;"><a href="resellBoardList">글목록</a></button>
+					<a href='<c:url value='/resellMarket/resellBoard/resellBoardList'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center" style="float : right;">글 목록</a>
 						<!-- a.btn.btn-outline-secondary{modify/delete} -->
 						<c:if test="${sessionScope.loggedUser.id eq resellBoard.memberId }">
 						<a href="resellBoardModify?id=${resellBoard.id }" class="btn btn-outline-secondary"> modify/delete</a>

@@ -146,6 +146,7 @@
 					<div >
 					<a href='<c:url value='/resellMarket/resellBoard/resellBoardRegister'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center">글쓰기</a>
 					<a href='<c:url value='/resellMarket/resellBoard/resellBoardList'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center" style="float : right;">글 목록</a>
+						<a href='<c:url value='/resellMarket/resellBoard/test2'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center" style="float : right;">테트?</a>
 					</div>
 					<div>
 					</div>
@@ -181,7 +182,7 @@
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
 					<c:if test="${pageInfo.hasPrevButton }">
-						<c:url value="/resellMarket/resellBoard/resellBoardList" var="pageLink">
+						<c:url value="/resellMarket/resellBoard/resellBoardSearch" var="pageLink">
 							<c:param name="page" value="${pageInfo.leftPageNumber - 1 }"></c:param>
 						</c:url>
 						<li class="page-item">
@@ -192,17 +193,17 @@
 					</c:if>
 
 					<c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
-						<c:url value="/resellMarket/resellBoard/resellBoardList" var="pageLink">
+						<c:url value="/resellMarket/resellBoard/resellBoardSearch"  var="pageLink">
 							<c:param name="page" value="${pageNumber }"></c:param>
 							<c:param name="searchType" value="${pageInfo.searchType }"></c:param>
-							<c:param name="keyword" value="${pageInfo.keyword }"></c:param>							
+							<c:param name="keyword" value="${pageInfo.keyword }"></c:param>
 						</c:url>
 						<li class="page-item ${pageInfo.currentPage == pageNumber ? 'active' : '' }">
 							<a class="page-link" href="${pageLink }">${pageNumber }</a>
 						</li>
 					</c:forEach>
 					<c:if test="${pageInfo.hasNextButton }">
-						<c:url value="/resellMarket/resellBoard/resellBoardList" var="pageLink">
+						<c:url value="/resellMarket/resellBoard/resellBoardSearch" var="pageLink">
 							<c:param name="page" value="${pageInfo.rightPageNumber + 1 }"></c:param>
 						</c:url>
 						<li class="page-item">

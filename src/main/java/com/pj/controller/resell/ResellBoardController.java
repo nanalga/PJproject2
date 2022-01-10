@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -65,8 +66,8 @@ public class ResellBoardController implements WebMvcConfigurer {
 		
 	}
 	
-	@GetMapping("/resellBoardList")
-	public void list(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,
+	@GetMapping("/resellBoardSearch")
+	public void searchPageList(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			Model model) {
@@ -74,9 +75,9 @@ public class ResellBoardController implements WebMvcConfigurer {
 		System.out.println(searchType + ", " + keyword);
 		System.out.println("boardlistpage : " + page);
 		
-		System.out.println("");
 		Integer numberPerPage = 10; // 한 페이지의 row 수
-
+		
+		
 		
 		
 		// 3. 비즈니스 로직
@@ -84,15 +85,49 @@ public class ResellBoardController implements WebMvcConfigurer {
 //		List<ResellBoardVO> list = service.getList();
 		List<ResellBoardVO> list = service.getListPage(page, numberPerPage, searchType, keyword);
 		
-		ResellPageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
+		ResellPageInfoVO pageInfoSearch = service.getPageInfoSearch(page, numberPerPage, searchType, keyword);
+		// 4. add attribute
+		model.addAttribute("resellList", list);
+		model.addAttribute("pageInfo", pageInfoSearch);
+		// 5 . forward, redirect
+		
+		//jsp path : /WEB-INF/views/resellMarket/list
+		System.out.println("---------");
+		System.out.println("pageinfo : " + pageInfoSearch);
+	}	
+	
+	
+	@GetMapping("/resellBoardList")
+	public void list(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "keyword", defaultValue = "") String keyword,
+			Model model) {
+
+// if (page == null) { page =1; }
+		
+		
+		System.out.println(searchType + ", " + keyword);
+		System.out.println("boardlistpage : " + page);
+		
+		System.out.println("");
+		Integer numberPerPage = 10; // 한 페이지의 row 수
+		
+		
+		
+		// 3. 비즈니스 로직
+		//게시물 목록 조회
+//		List<ResellBoardVO> list = service.getList();
+		List<ResellBoardVO> list = service.getListPage(page, numberPerPage, searchType, keyword);
+		
+		ResellPageInfoVO pageInfo = service.getPageInfoSearch(page, numberPerPage, searchType, keyword);
 		// 4. add attribute
 		model.addAttribute("resellList", list);
 		model.addAttribute("pageInfo", pageInfo);
 		// 5 . forward, redirect
 		
 		//jsp path : /WEB-INF/views/resellMarket/list
-		
-		
+		System.out.println("---------");
+		System.out.println("pageinfo : " + pageInfo);
 	}
 		
 		
