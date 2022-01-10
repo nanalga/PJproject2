@@ -65,6 +65,38 @@ public class ResellBoardController implements WebMvcConfigurer {
 		
 	}
 	
+<<<<<<< Updated upstream
+=======
+	@GetMapping("/resellBoardSearch")
+	public void searchPageList(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "keyword", defaultValue = "") String keyword,
+			Model model) {
+
+		System.out.println(searchType + ", " + keyword);
+		System.out.println("boardlistpage : " + page);
+		
+		Integer numberPerPage = 10; // 한 페이지의 row 수
+		
+		
+		// 3. 비즈니스 로직
+		//게시물 목록 조회
+//		List<ResellBoardVO> list = service.getList();
+		List<ResellBoardVO> list = service.getListPage(page, numberPerPage, searchType, keyword);
+		
+		ResellPageInfoVO pageInfoSearch = service.getPageInfoSearch(page, numberPerPage, searchType, keyword);
+		// 4. add attribute
+		model.addAttribute("resellList", list);
+		model.addAttribute("pageInfo", pageInfoSearch);
+		// 5 . forward, redirect
+		
+		//jsp path : /WEB-INF/views/resellMarket/list
+		System.out.println("---------");
+		System.out.println("pageinfo : " + pageInfoSearch);
+	}	
+	
+	
+>>>>>>> Stashed changes
 	@GetMapping("/resellBoardList")
 	public void list(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,

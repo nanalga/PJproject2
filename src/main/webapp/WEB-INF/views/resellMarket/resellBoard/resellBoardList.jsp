@@ -145,6 +145,9 @@
 					</table>
 					<div >
 					<a href='<c:url value='/resellMarket/resellBoard/resellBoardRegister'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center">글쓰기</a>
+						<a href='<c:url value='/resellMarket/resellBoard/test2'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center" style="float : right;">테트?</a>
+					</div>
+					<div>
 					</div>
 				</div>
 			</div>

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="rb" tagdir="/WEB-INF/tags/resellBoard" %>
 
 
 <!DOCTYPE html>
@@ -21,7 +20,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<rb:navBar></rb:navBar>
 <h1 class="myHeader">memberList 나오니여기나오늬?</h1>
 
 <!-- .container>.row>.col>h1{회원목록} -->
