@@ -50,23 +50,27 @@ public class FoodController implements WebMvcConfigurer {
 	@RequestMapping("/foodList")
 	public void foodList(@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "searchType", defaultValue = "title") String searchType,
-			@RequestParam(value = "keyword", defaultValue = "") String keyword,
-			Model model) {
-		System.out.println(searchType + ", " + keyword);
-		System.out.println("foodList 접근");
-
+			@RequestParam(value = "keyword", defaultValue = "") String keyword, Model model) {
+		System.out.println("foodList Controller 접근");
+				
 		Integer numberPerPage = 20;
 		
+		List<FoodVO> list = new ArrayList<FoodVO>();
 //		List<FoodVO> list = service.getList(); // 게시글만 조회
-		List<FoodVO> list = service.getFoodListPage(page, numberPerPage, searchType, keyword);
-		
-		FoodPageInfoVO pageInfo = service.getFoodPageInfo(page, numberPerPage);
-
+		list = service.getFoodListPage(page, numberPerPage, searchType, keyword);
 		model.addAttribute("list", list);
+		
+//		listSearch = service.searchPageInfo();
+		
+		FoodPageInfoVO pageInfo = new FoodPageInfoVO();
+		
+//		pageInfo.setsearchTypeKeyword(searchType, keyword);
+		
+		pageInfo = service.getFoodPageInfo(page, numberPerPage, searchType, keyword);
 		model.addAttribute("pageInfo", pageInfo);
 		
 	}
-
+	
 	@GetMapping({ "/foodGet", "/foodModify" })
 	public void foodGet(@RequestParam("id") Integer id, Model model) {
 		System.out.println("foodget접근");
@@ -114,10 +118,13 @@ public class FoodController implements WebMvcConfigurer {
 		food.setMemberId(logged.getId());
 		
 		service.register(food);
-	
-		
 		
 		return "redirect:/food/foodList";
+	}
+	
+	@RequestMapping("/gisTest")
+	public void gisTest() {
+		
 	}
 
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8" )
@@ -199,7 +206,6 @@ public class FoodController implements WebMvcConfigurer {
 		String a = jsonObject.toString();
 		return a;
 	}
-
-
+	
 	
 }
