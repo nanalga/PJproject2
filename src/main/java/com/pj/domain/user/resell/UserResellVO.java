@@ -9,7 +9,7 @@ import lombok.Data;
 public class UserResellVO {
 	private int id;
 	private String title;
-	private String name;
+	private String writer;
 	private Integer price;
 	private LocalDateTime updated;
 	

@@ -217,6 +217,7 @@ $(document).ready(function() {
 			</div>
 
 
+
 		<c:if test="${not empty sessionScope.loggedUser }">
 			<!-- 댓글 쓰기 textarea container  -->
 			<div class="container">

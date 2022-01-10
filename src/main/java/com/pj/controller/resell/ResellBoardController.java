@@ -77,9 +77,6 @@ public class ResellBoardController implements WebMvcConfigurer {
 		
 		Integer numberPerPage = 10; // 한 페이지의 row 수
 		
-		
-		
-		
 		// 3. 비즈니스 로직
 		//게시물 목록 조회
 //		List<ResellBoardVO> list = service.getList();
@@ -95,7 +92,6 @@ public class ResellBoardController implements WebMvcConfigurer {
 		System.out.println("---------");
 		System.out.println("pageinfo : " + pageInfoSearch);
 	}	
-	
 	
 	@GetMapping("/resellBoardList")
 	public void list(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,

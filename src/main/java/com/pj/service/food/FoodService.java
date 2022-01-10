@@ -155,9 +155,9 @@ public class FoodService {
 		return mapper.getFoodListPage(from, numberPerPage, searchType, keyword);
 	}
 
-	public FoodPageInfoVO getFoodPageInfo(Integer page, Integer numberPerPage) {
+	public FoodPageInfoVO getFoodPageInfo(Integer page, Integer numberPerPage, String searchType, String keyword) {
 		// 총 게시물 수
-		Integer countRows = mapper.getFoodCountRows();
+		Integer countRows = mapper.getFoodCountRows(searchType, keyword);
 		
 		// 마지막 페이지 번호
 		Integer lastPage = (countRows - 1) / numberPerPage + 1;
@@ -186,6 +186,9 @@ public class FoodService {
 		foodPageInfo.setRightPageNumber(rightPageNumber);
 		foodPageInfo.setHasPrevButton(hasPrevButton);
 		foodPageInfo.setHasNextButton(hasNextButton);
+		foodPageInfo.setSearchType(searchType);
+		foodPageInfo.setKeyword(keyword);
+//		foodPageInfo.setsearchTypeKeyword(searchType, keyword);
 		
 		System.out.println(foodPageInfo);
 		

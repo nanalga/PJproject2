@@ -83,15 +83,32 @@ public class UserService {
 		return userMapper.deleteFoodByFoodId(id) == 1;
 	}
 	
-	//adminController/adminDetail
-
-	public List<UserVO> getUserList(Integer page, int i) {
-		return userMapper.getUserList(page,i);
+	public boolean deleteUserByUserId(Integer id) {
+		return userMapper.deleteUserByUserId(id) == 1;
 	}
 
-	public AdminPageInfo getPageInfo(Integer page, int numberPerPage) {
-		Integer countRows = userMapper.getCountRows();
+	public boolean deleteResellByResellId(Integer id) {
+		return userMapper.deleteResellByResellId(id) == 1;
+	}
 
+	public boolean deleteCMByCMId(Integer id) {
+		return userMapper.deleteCMByCMId(id) == 1;
+	}
+	
+	//adminController/adminDetail
+
+	public AdminPageInfo getPageInfo(String path,Integer page, int numberPerPage) {
+		Integer countRows = 0;
+		if(path.equals("user")) {
+			countRows = userMapper.getUserCountRows();
+		}else if(path.equals("food")) {
+			countRows = userMapper.getFoodCountRows();
+		}else if(path.equals("resell")){
+			countRows = userMapper.getResellCountRows();
+		}else {
+			System.out.println("adming select page error");
+		}
+		
 		// 마지막 페이지 번호
 		Integer lastPage = (countRows - 1) / numberPerPage + 1;
 
@@ -120,6 +137,22 @@ public class UserService {
 		pageInfo.setHasNextButton(hasNextButton);
 
 		return pageInfo;
+	}
+
+	public List<UserVO> getUserList(Integer page, int pagePerNumber) {
+		
+		Integer from = (page -1)*10;
+		return userMapper.getUserList(from,pagePerNumber);
+	}
+	
+	public List<UserFoodVO> getFoodList(Integer page, int pagePerNumber) {
+		Integer from = (page -1)*10;
+		return userMapper.getFoodList(from,pagePerNumber);
+	}
+
+	public List<UserResellVO> getResellList(Integer page, int pagePerNumber) {
+		Integer from = (page -1)*10;
+		return userMapper.getResellList(from,pagePerNumber);
 	}
 	
 }
