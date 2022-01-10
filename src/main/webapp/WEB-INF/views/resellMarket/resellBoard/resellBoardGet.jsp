@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="rb" tagdir="/WEB-INF/tags/resellBoard"%>
+<%-- <%@ taglib prefix="rb" tagdir="/WEB-INF/tags/resellBoard"%> --%>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 
 
@@ -132,11 +132,13 @@ $(document).ready(function() {
 		const replyText = $("#replyTextarea").val();
 		const userId = "${sessionScope.loggedUser.id}";
 		const boardId = "${resellBoard.id}";
+		const memberId = "${sessionScope.loggedUser.id}"
 		
 		const data = {
 				replyText : replyText,
 				userId : userId,
-				boardId : boardId
+				boardId : boardId,
+				memberId : memberId
 			};
 		
 		$.ajax({
@@ -194,11 +196,11 @@ $(document).ready(function() {
 						</div>
 						<div class="form-group">
 							<label for="writerInput">작성자</label>
-							<input type="text" class="form-control" id="writerInput" readonly value="${resellBoard.writer }">
+							<input type="text" class="form-control" id="nickName" readonly value="${resellBoard.nickName }">
 						</div>
 					<div class="form-group">
 						<label for="addressInput">주소</label>
-						<input type="text" class="form-control" id="addressInput" required name="address" readonly value="">
+						<input type="text" class="form-control" id="addressInput" required name="address" readonly value="${resellBoard.address }">
 					</div>						
 						<div class="form-group">
 							<label for="priceInput">가격</label>
@@ -206,7 +208,7 @@ $(document).ready(function() {
 						</div>
 					<button class="btn btn-outline-primary" style="float: right;"><a href="resellBoardList">뒤로가기</a></button>
 						<!-- a.btn.btn-outline-secondary{modify/delete} -->
-						<c:if test="${sessionScope.loggedUser.name eq resellBoard.writer }">
+						<c:if test="${sessionScope.loggedUser.id eq resellBoard.memberId }">
 						<a href="resellBoardModify?id=${resellBoard.id }" class="btn btn-outline-secondary"> modify/delete</a>
 						</c:if>
 					</div>
@@ -278,7 +280,7 @@ $(document).ready(function() {
 	$(document).ready(function() {
 		if (history.state == null) {
 			$("#staticBackdrop").modal('show');
-			history.replaceState("historystate not null",null);
+			history.replaceState("hello",null);
 		}
 		
 	});

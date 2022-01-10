@@ -31,8 +31,9 @@ public interface ResellBoardMapper {
 	public Integer getCountRows();
 
 	public int deleteByUserId(String userId);
+
+	public int boardPlusCnt(Integer id);
 	
-	public List<ResellBoardVO> selectSearchList(ResellBoardVO boardVo);
 
 
 

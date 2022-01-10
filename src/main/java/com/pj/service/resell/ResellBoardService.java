@@ -1,6 +1,5 @@
 package com.pj.service.resell;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.resell.ResellPageInfoVO;
 import com.pj.mapper.resell.ResellBoardMapper;
-import com.pj.mapper.resell.ResellFileMapper;
 import com.pj.mapper.resell.ResellReplyMapper;
 
 import lombok.Setter;
@@ -36,13 +34,15 @@ public class ResellBoardService {
 	private ResellBoardMapper mapper;
 	
 	@Setter(onMethod_ = @Autowired)
-	private ResellFileMapper filemapper;
-	
-	@Setter(onMethod_ = @Autowired)
 	private ResellBoardService service;
 	
 	@Setter(onMethod_ =@Autowired)
 	private ResellReplyMapper replyMapper;
+
+	/*
+	@Setter(onMethod_ = @Autowired)
+	private ResellFileMapper filemapper;	
+	*/
 	
 	
 //	private String staticRoot = "C:\\Users\\user\\Desktop\\course\\fileupload\\";
@@ -166,7 +166,7 @@ public class ResellBoardService {
 		Integer rightPageNumber = (page - 1) / 10 * 10 + 10;
 		// 가장 마지막 페이지를 넘어가지 않도록
 		rightPageNumber = rightPageNumber > lastPage ? lastPage : rightPageNumber;
-
+		
 		// 이전 페이지 버튼 존재 유무
 		Boolean hasPrevButton = leftPageNumber != 1;
 
@@ -187,11 +187,13 @@ public class ResellBoardService {
 		return pageInfo;
 	}
 
-	public List<ResellBoardVO> getSearchList(ResellBoardVO boardVo) throws Exception {
-		
-		return mapper.selectSearchList(boardVo);
+	public boolean boardPlusCnt(Integer id) {
+
+		return mapper.boardPlusCnt(id) == 1;
 	}
 
+
+	/* 이미지버튼 추가관련
 	@Transactional
 	public void register(ResellBoardVO resellBoard, MultipartFile[] files) throws IllegalStateException, IOException {
 
@@ -215,8 +217,8 @@ public class ResellBoardService {
 		
 		
 		}
-		
 	}
+	 */
 
 	
 

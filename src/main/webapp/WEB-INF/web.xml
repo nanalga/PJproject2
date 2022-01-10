@@ -38,6 +38,7 @@
     <listener-class>com.pj.listener.AppListener</listener-class>
   </listener>
 
+	<!--FoodFilter  -->
   <filter>
     <display-name>FoodCheckLogInFilter</display-name>
     <filter-name>FoodCheckLogInFilter</filter-name>
@@ -47,6 +48,23 @@
     <filter-name>FoodCheckLogInFilter</filter-name>
     <url-pattern>/FoodCheckLogInFilter</url-pattern>
     <url-pattern>/food/foodRegister</url-pattern>
+    <url-pattern>/user/userDetail</url-pattern>
+    <url-pattern>/user/userEdit</url-pattern>
   </filter-mapping>
+  
+  <!--resell Filter  -->
+ 
+  <filter>
+    <display-name>CheckLoginFilter</display-name>
+    <filter-name>CheckLoginFilter</filter-name>
+    <filter-class>com.pj.filter.resellFilter.CheckLogInFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CheckLoginFilter</filter-name>
+    <url-pattern>/CheckLoginFilter</url-pattern>
+    <url-pattern>/resellMarket/resellBoard/resellBoardRegister</url-pattern>
+  </filter-mapping>
+  
+  
 
 </web-app>
