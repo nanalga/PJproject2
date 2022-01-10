@@ -12,8 +12,11 @@ public class ResellPageInfoVO {
 	private Boolean hasPrevButton;		// 이전 페이지 버튼 유무
 	private Boolean hasNextButton;		// 다음 페이지 버튼 유뮤
 	
+	
 	//속성 searchType, keyword 추가
-	private String searchType;
-	private String keyword;
+	private String searchType ="";
+	private String keyword = "";
+	
+	
 	
 }

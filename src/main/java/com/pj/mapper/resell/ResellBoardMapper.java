@@ -33,8 +33,12 @@ public interface ResellBoardMapper {
 	public int deleteByUserId(String userId);
 
 	public int boardPlusCnt(Integer id);
-	
 
+	public Integer getCount();
+
+	public Integer getCount(@Param("searchType") String searchType,@Param("keyword") String keyword);
+
+	
 
 
 }
