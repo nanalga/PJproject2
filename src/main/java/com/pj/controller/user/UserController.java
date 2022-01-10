@@ -90,6 +90,8 @@ public class UserController {
 				System.out.println("로그아웃 실패(카카오)");
 				rttr.addFlashAttribute("fail","로그아웃에 실패했습니다.");
 			}
+		}else if(social.equals("local")) {
+			rttr.addFlashAttribute("success","로그아웃 되었습니다.");
 		}
 		session.invalidate();
 		return "redirect:/";

@@ -15,8 +15,6 @@ import com.pj.domain.user.resell.UserResellVO;
 public interface UserMapper {
 
 	public String getUserInfo();
-
-	public List<UserVO> getUserList(@Param("start") Integer page,@Param("end") Integer i);
 	
 	public int insert(UserVO vo);
 
@@ -34,9 +32,26 @@ public interface UserMapper {
 
 	public List<UserCommunityVO> getCMListByUserId(int id);
 
-	public int deleteFoodByFoodId(Integer id);
+	public Integer getUserCountRows();
 
-	public Integer getCountRows();
+	public Integer getFoodCountRows();
+	
+	public Integer getResellCountRows();
+	
+	public List<UserVO> getUserList(@Param("start") Integer from,@Param("end") int pagePerNumber);
+
+	public List<UserFoodVO> getFoodList(@Param("start") Integer from,@Param("end") int pagePerNumber);
+
+	public List<UserResellVO> getResellList(@Param("start") Integer from,@Param("end") int pagePerNumber);
+
+	public int deleteUserByUserId(Integer id);
+
+	public int deleteFoodByFoodId(Integer id);
+	
+	public int deleteResellByResellId(Integer id);
+
+	public int deleteCMByCMId(Integer id);
+
 	
 //	public List<FoodVO> getFoodList();
 //

@@ -171,6 +171,10 @@
     align-items: center;
 }
 
+.user_power_conent_name_link{
+    border-right: 1px solid black;
+}
+
 .select{
     background-color: rgb(175, 166, 166);
 }
