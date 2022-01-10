@@ -23,10 +23,6 @@ public class FoodVO {
 	private Integer foodReplyCount;	
 	private String imageKey;
 	
-	
-
-	
-	
 	public String getCustomInserted() {
 		// 현재일시
 		LocalDateTime now = LocalDateTime.now(ZoneId.of("+09:00"));

@@ -16,5 +16,27 @@ public class FoodPageInfoVO {
 	//속성 searchType, keyword 추가
 	private String searchType;
 	private String keyword;
+	
+	private String searchTypeKeyword;
+	
+//	public void setsearchTypeKeyword(String searchType, String keyword) {
+//
+//		if (searchType.equals("") || keyword.equals("")) {
+//			searchTypeKeyword = "";
+//		} else {
+//			searchTypeKeyword = "&searchType=" + searchType + "&keyword=" + keyword;
+//		}
+//		
+//	}
+	
+	public String getsetsearchTypeKeyword() {
+
+		if (searchType.equals("") || keyword.equals("")) {
+			searchTypeKeyword = "";
+		} else {
+			searchTypeKeyword = "&searchType=" + searchType + "&keyword=" + keyword;
+		}
+		return "&searchType=" + searchType + "&keyword=" + keyword;
+	}
 
 }

@@ -1,6 +1,5 @@
 USE test;
 
-DESC Reply;
 -- FoodReply 테이블 생성
 CREATE TABLE FoodReply (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -26,10 +25,22 @@ CREATE TABLE FoodFile3 (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     foodFileUrl VARCHAR(500) NOT NULL
 );
+
+-- 좋아요 테이블 생성
+CREATE TABLE LikeBoard (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT NOT NULL,
+    foodBoardId INT DEFAULT 0,
+    FOREIGN KEY(userId) REFERENCES User(id),
+    FOREIGN KEY(foodBoardId) REFERENCES Food(id)
+);
+
+
 SELECT * FROM FoodFile3;
 DROP TABLE FoodFile;
 DESC FoodFile;
 DESC File;
+DESC Food;
 
 
 -- id, foodFileUrl
@@ -64,6 +75,9 @@ SELECT id,imageKey FROM Food ORDER BY inserted DESC;
 SELECT * FROM User ORDER BY id DESC;
 
 INSERT INTO FoodReply (foodBoardId, userId, replyText)
+VALUES (149, 36, 123);
+
+INSERT INTO Food (foodBoardId, userId, replyText)
 VALUES (149, 36, 123);
 
 DELETE FROM FoodReply WHERE id = 1;
@@ -139,5 +153,13 @@ ORDER BY f.id DESC, inserted DESC
 LIMIT 0, 10
 ;
 
-
+-- 검색 결과 조회
+SELECT
+	COUNT(*)
+FROM
+	Food
+where
+	title
+like concat('%','123','%')
+;
 
