@@ -9,45 +9,10 @@ const confirmModalYes = document.querySelector(".confirm_modal_yes");
 const confirmModalNo = document.querySelector(".confirm_modal_no");
 let appRoot;
 let path;
-
-const successMessage = $(`
-<div class="flash_box">
-    <div class="flash_message_box">
-        <span class="flash_message_title">sucess</span>
-        <span class="flash_message_content">삭제에 성공했습니다.</span>
-    </div>
-</div>
-`)
-
-const failedMessage = $(`
-<div class="flash_box">
-    <div class="flash_message_box">
-        <span class="flash_message_title">fail</span>
-        <span class="flash_message_content">삭제에 실패했습니다.</span>
-    </div>
-</div>
-`)
-
-const foodListBar = $(`
-<div class="user_power_content_bar_food">
-    <span class="user_power_content_bar_id">id</span>
-    <span class="user_power_content_bar_name">title</span>
-    <span class="user_power_content_bar_name">writer</span>
-    <span class="user_power_content_bar_password">inserted</span>
-    <span class="user_power_content_bar_password"><i class="fas fa-times"></i></span>
-</div>`
-);
-
-const resellListBar = $(`
-<div class="user_power_content_bar_resell">
-    <span class="user_power_content_bar_id">id</span>
-    <span class="user_power_content_bar_name">title</span>
-    <span class="user_power_content_bar_writer">writer</span>
-    <span class="user_power_content_bar_price">price</span>
-    <span class="user_power_content_bar_updated">updated</span>
-    <span class="user_power_content_bar_delete"><i class="fas fa-times"></i></span>
-</div>
-`)
+let successMessage
+let failedMessage
+let foodListBar
+let resellListBar
 
 const listBoard = function() {
 	console.log("work");
@@ -62,7 +27,9 @@ const listBoard = function() {
 		        const foodListObject = $(`
 		        <div class="user_power_content_info_food">
 		            <span class="user_power_conent_id">${list[i].id }</span>
-		            <span class="user_power_conent_title">${list[i].title }</span>
+					<a href="${appRoot}/food/foodGet?id=${list[i].id}" class="user_power_conent_name_link">
+			            <span class="user_power_conent_title">${list[i].title }</span>
+					</a>
 		            <span class="user_power_conent_writer">${list[i].name }</span>
 		            <span class="user_power_conent_updated">${list[i].userInserted }</span>
 		            <input type="hidden" class="board_type_info" value="resell">
@@ -80,7 +47,9 @@ const listBoard = function() {
 		        const resellListObject = $(`
 		        <div class="user_power_content_info_resell">
                     <span class="user_power_conent_id">${list[i].id}</span>
-                    <span class="user_power_conent_title">${list[i].title}</span>
+					<a href="${appRoot}/resellMarket/resellBoard/resellBoardGet?id=${list[i].id}" class="user_power_conent_name_link">
+	                    <span class="user_power_conent_title">${list[i].title}</span>
+					</a>
                     <span class="user_power_content_writer">${list[i].name}</span>
                     <span class="user_power_content_price">${list[i].price}</span>
                     <span class="user_power_conent_updated">${list[i].userUpdated}</span>
@@ -127,6 +96,44 @@ const deleteBtnHandler = (e) =>{
 const init = () =>{
     appRoot = appRootInput.value;
 	path = pathInput.value;
+	successMessage = $(`
+	<div class="flash_box">
+	    <div class="flash_message_box">
+	        <span class="flash_message_title">sucess</span>
+	        <span class="flash_message_content">삭제에 성공했습니다.</span>
+	    </div>
+	</div>
+	`)
+	
+	failedMessage = $(`
+	<div class="flash_box">
+	    <div class="flash_message_box">
+	        <span class="flash_message_title">fail</span>
+	        <span class="flash_message_content">삭제에 실패했습니다.</span>
+	    </div>
+	</div>
+	`)
+	
+	foodListBar = $(`
+	<div class="user_power_content_bar_food">
+	    <span class="user_power_content_bar_id">id</span>
+	    <span class="user_power_content_bar_name">title</span>
+	    <span class="user_power_content_bar_name">writer</span>
+	    <span class="user_power_content_bar_password">inserted</span>
+	    <span class="user_power_content_bar_password"><i class="fas fa-times"></i></span>
+	</div>`
+	);
+	
+	resellListBar = $(`
+	<div class="user_power_content_bar_resell">
+	    <span class="user_power_content_bar_id">id</span>
+	    <span class="user_power_content_bar_name">title</span>
+	    <span class="user_power_content_bar_writer">writer</span>
+	    <span class="user_power_content_bar_price">price</span>
+	    <span class="user_power_content_bar_updated">updated</span>
+	    <span class="user_power_content_bar_delete"><i class="fas fa-times"></i></span>
+	</div>
+	`)
     listBoard();
 }
 

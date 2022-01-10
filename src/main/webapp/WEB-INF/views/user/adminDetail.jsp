@@ -141,6 +141,7 @@
                 </div>
             </div>
 	</div>
+	<tag:confirm_modal></tag:confirm_modal>
 	<tag:footer></tag:footer>
     <tag:menu></tag:menu>
 </div>
