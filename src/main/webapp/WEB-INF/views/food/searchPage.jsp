@@ -163,55 +163,53 @@ tr:hover {background-color: #f2f2f2;}
 		<!-- search foodBoard -->
 		<div class="form-inline">
 		<form action="" name="form1" method="get" >
-			<select class="search_area" id="searchType" name="searchType" >
-		   <!-- <option value="">검색조건</option>	-->
-				<option value="all" <c:if test="${pageInfo.searchTypeKeyword eq 'all'}">selected</c:if> >제목+작성자</option>
-				<option value="t" <c:if test="${pageInfo.searchTypeKeyword eq 't'}">selected</c:if> >제목</option> 
-				<option value="w" <c:if test="${pageInfo.searchTypeKeyword eq 'w'}">selected</c:if> >작성자</option>
+			<select class="search_area" id="searchType" name="searchType">
+				<option value="">검색조건</option>
+				<option value="all">전체조건</option>
+				<option value="t">제목</option> 
+				<option value="w">작성자</option>
 		   <!-- <option value="c">내용</option>
 				<option value="tc">제목+내용</option>
 				<option value="all">전체조건</option> -->
 			</select>
 			<input class="search-input" type="text" id="keyword" name="keyword" value="${pageInfo.keyword}" placeholder="검색어를 입력하세요"/>
-
-			<button id="searchBtn" class="" style="background-color:#ffcccc;"><i class="fas fa-search" style="color:white;"></i></button>
+			<input type="hidden" id="searchType" name="searchType" value="${pageInfo.searchType }" />
+			<a href='<c:url value='/food/searchPage'/>' role="button" ><i class="fas fa-search" style="background-color:#ffcccc; color:white;"></i></a>
+			<!-- <a href="/food/searchPage"><button id="searchBtn" class="" style="background-color:#ffcccc;"><i class="fas fa-search" style="color:white;"></i></button></a> -->
 		</form>
-		<a href='<c:url value='/food/foodRegister'/>' role="button" ><button class="writer_btn" >글쓰기</button></a>
-		
+			<a href='<c:url value='/food/foodRegister'/>' role="button" ><button class="writer_btn" >글쓰기</button></a>
 		</div>
 		
 		<!-- pagenation -->
 		<nav aria-label="Page navigation example" id="page_navi_main">
 		  <ul class="pagination justify-content-center">
-		    <c:if test="${pageInfo.hasPrevButton }">
+		    <c:if test="${searchPage.hasPrevButton }">
 		    	<c:url value="/food/foodList" var="foodPageLink">
-		    		<c:param name="page" value="${pageInfo.leftPageNumber - 1 }${pageInfo.searchTypeKeyword}"></c:param>
+		    		<c:param name="page" value="${searchPage.leftPageNumber - 1 }"></c:param>
 		    	</c:url>
 			    <li class="page-item">
 			      <a class="page-link" href="${foodPageLink }" aria-label="Previous">
-			        <span aria-hidden="true">이전</span>
+			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
 		    </c:if>
 		    
-		    <c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
-		    	<c:url value="/food/foodList" var="foodPageLink">
-		    		<c:param name="page" value="${pageNumber }${pageInfo.searchTypeKeyword}"></c:param>
-		    		 <c:param name="searchType" value="${pageInfo.searchType }"></c:param>
-                     <c:param name="keyword" value="${pageInfo.keyword }"></c:param>
+		    <c:forEach begin="${searchPage.leftPageNumber }" end="${searchPageInfo.rightPageNumber }" var="pageNumber">
+		    	<c:url value="/food/searchPage" var="foodPageLink">
+		    		<c:param name="page" value="${pageNumber }"></c:param>
 		    	</c:url>
 		    	 <li class="page-item  ${pageInfo.currentPage == pageNumber ? 'active' : '' }">
-		    	 	<a class="page-link" href="${foodPageLink }${pageInfo.searchTypeKeyword}">${pageNumber }</a>
+		    	 	<a class="page-link" href="${foodPageLink }">${pageNumber }</a>
 		    	 </li>
 		    </c:forEach>
 		    
 		    <c:if test="${pageInfo.hasNextButton }">
-		    	<c:url value="/food/foodList" var="foodPageLink">
-		    		<c:param name="page" value="${pageInfo.rightPageNumber + 1 }${pageInfo.searchTypeKeyword}"></c:param>
+		    	<c:url value="/food/searchPage" var="foodPageLink">
+		    		<c:param name="page" value="${searchPageInfo.rightPageNumber + 1 }"></c:param>
 		    	</c:url>
 			    <li class="page-item">
 			      <a class="page-link" href="${foodPageLink }" aria-label="Next">
-			        <span aria-hidden="true">다음</span>
+			        <span aria-hidden="true">&raquo;</span>
 			      </a>
 			    </li>
 		    </c:if>
@@ -219,7 +217,6 @@ tr:hover {background-color: #f2f2f2;}
 		</nav>
 	</div>
 </div>
-
 
 <!-- modal -->
 <c:if test="${not empty result }">

@@ -3,6 +3,7 @@ package com.pj.mapper.food;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.javassist.compiler.ast.Keyword;
 
 import com.pj.domain.food.FoodVO;
 
@@ -21,9 +22,11 @@ public interface FoodMapper {
 	public List<FoodVO> getFoodListPage(@Param("from") Integer page, @Param("items") Integer numberPerPage,
 										@Param("searchType") String searchType, @Param("keyword") String keyword);
 
-	public Integer getFoodCountRows();
+	public Integer getFoodCountRows(@Param("searchType") String searchType, @Param("keyword") String keyword);
 
 	public int foodPlusCount(Integer id);
 
 	public int insert(String string);
+	
+	//public Integer getFoodCountRows(@Param("searchType") String searchType,@Param("keyword") String keyword);
 }
