@@ -36,38 +36,56 @@
 	<c:url value="/user" var="userUrl"></c:url>
 	<tag:flash></tag:flash>
 	<tag:nav></tag:nav>
-	<div class="main_container">
+	<div class="main_container main_page_default">
 		<div class="join_main_box">
-			<div class="join_main_wrapper">
-				<span>join</span>
-				<form method="post" class="join_main_form">
-					<input type="text" name="name" class="join_name" placeholder="name" required/>
-					<input type="text" name="nickName" class="join_nickName" placeholder="nickName" />
-					 <div class="join_input_group">
-	                    <input type="email" name="email" class="join_email" placeholder="email" required/>
-	                    <input type="button" class="join_email_check" value="check">
-	                    <div class="join_email_message"></div>
-	                </div>
-					<input type="text" name="password" class="join_pw" placeholder="password" required/>
-					<input type="text" class="join_pw_check" placeholder="passwordCheck" required/>
-					<input type="text" class="join_address" placeholder="addresss"/>
-					<input type="submit" class="join_submit" value="Join" disabled/>
-				</form>
-				<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=d1f2c7c111ea44b0957fc9dbf10a601f&redirect_uri=http://localhost:8080/controller/kakao/kakaoJoin&prompt=login
-                        " class="join_kakao">
-                     <div class="join_kakao_img_box">
-                         <i class="fas fa-comment"></i>
-                         <span>Join with Kakao</span>
-                     </div>
-                </a>
-                <a href="<%=apiURL%>" class="join_naver">
-                	<div class="join_naver_img_box">
-                		<span>N</span>
-                		<span>Join with Naver</span>
-                	</div>
-                </a>
-			</div>
-		</div>
+                <div class="join_main_wrapper">
+                    <span>회원가입</span>
+                    <form method="post" class="join_main_form">
+                        <div class="join_main_input_group">
+                            <label for="join_input1">*이름</label>
+                            <input type="text" id="join_input1" name="name" class="join_name" required/>
+                        </div>
+                        <div class="join_main_input_group">
+                            <label for="join_input2">닉네임</label>
+                            <input type="text" id="join_input2" name="nickName" class="join_nickName" />
+                        </div>
+                        <div class="join_main_input_group">
+                            <label for="join_input3">*이메일</label>
+                            <div class="join_input_group">
+                            <input type="email" id="join_input2" name="email" class="join_email" required/>
+                            <input type="button" class="join_email_check" value="Check">
+                            <div class="join_email_message">이메일을 확인해 주세요</div>
+                        </div>
+                        </div>
+                        <div class="join_main_input_group">
+                            <label for="join_input4">*비밀번호</label>
+                            <input type="text" id="join_input4" name="password" class="join_pw" required/>
+                        </div>
+                        <div class="join_main_input_group">
+                            <label for="join_input5">*비밀번호 확인</label>
+                            <input type="text" id="join_input5" class="join_pw_check" required/>
+                        </div>
+                        <div class="join_main_input_group">
+                            <label for="join_input6">주소</label>
+                            <input type="text" id="join_input6" class="join_address"/>
+                        </div>
+                        <input type="submit" class="join_submit" value="Join" disabled />
+                    </form>
+                    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=d1f2c7c111ea44b0957fc9dbf10a601f&redirect_uri=http://localhost:8080/controller/kakao/kakaoJoin&prompt=login
+                            " class="join_kakao">
+                         <div class="join_kakao_img_box">
+                             <i class="fas fa-comment"></i>
+                             <span>Join with Kakao</span>
+                         </div>
+                    </a>
+                    <a href="<%=apiURL%>" class="join_naver">
+                        <div class="join_naver_img_box">
+                            <span>N</span>
+                            <span>Join with Naver</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
 	</div>
 	<tag:footer></tag:footer>
 	<tag:menu></tag:menu>

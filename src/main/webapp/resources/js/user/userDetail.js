@@ -7,6 +7,7 @@ const mainContainer = document.querySelector(".main_container");
 const confirmModal = document.querySelector(".confirm_modal_container");
 const confirmModalYes = document.querySelector(".confirm_modal_yes");
 const confirmModalNo = document.querySelector(".confirm_modal_no");
+
 let appRoot;
 let path;
 let successMessage
@@ -74,9 +75,11 @@ const deleteBtnHandler = (e) =>{
 			url : appRoot + e.data.deleteLink,
 			type:"delete",
 			success: function(){
+				console.log("success")
 				$(".body_wrapper").append(successMessage)
 			},
 			error: function(){
+				console.log("fail")
 				$(".body_wrapper").append(failedMessage)
 			},
 			complete :function(){
@@ -97,40 +100,46 @@ const init = () =>{
     appRoot = appRootInput.value;
 	path = pathInput.value;
 	successMessage = $(`
-	<div class="flash_box">
-	    <div class="flash_message_box">
-	        <span class="flash_message_title">sucess</span>
-	        <span class="flash_message_content">삭제에 성공했습니다.</span>
-	    </div>
+	<div class="flash_box_success">
+	    <div class="flash_img_box">
+            <img src="${appRoot}/resource/img//잘생긴용피리.png" alt="">
+        </div>
+        <div class="flash_message_box">
+            <span class="flash_message_title">성공!!</span>
+            <span class="flash_message_content">삭제성공~~!!</span>
+        </div>
 	</div>
 	`)
 	
 	failedMessage = $(`
-	<div class="flash_box">
-	    <div class="flash_message_box">
-	        <span class="flash_message_title">fail</span>
-	        <span class="flash_message_content">삭제에 실패했습니다.</span>
-	    </div>
+	<div class="flash_box_fail">
+	    <div class="flash_img_box">
+            <img src="${appRoot}/resource/img/잘생긴용피리.png" alt="">
+        </div>
+        <div class="flash_message_box">
+            <span class="flash_message_title">실패..ㅠㅠ</span>
+            <span class="flash_message_content">삭제에 실패했어요..</span>
+        </div>
 	</div>
 	`)
 	
 	foodListBar = $(`
 	<div class="user_power_content_bar_food">
-	    <span class="user_power_content_bar_id">id</span>
-	    <span class="user_power_content_bar_name">title</span>
-	    <span class="user_power_content_bar_name">writer</span>
-	    <span class="user_power_content_bar_password">inserted</span>
+	    <span class="user_power_content_bar_id">ID</span>
+	    <span class="user_power_content_bar_name">제목</span>
+	    <span class="user_power_content_bar_name">작성자</span>
+	    <span class="user_power_content_bar_password">작성일</span>
 	    <span class="user_power_content_bar_password"><i class="fas fa-times"></i></span>
 	</div>`
 	);
 	
 	resellListBar = $(`
 	<div class="user_power_content_bar_resell">
-	    <span class="user_power_content_bar_id">id</span>
-	    <span class="user_power_content_bar_name">title</span>
-	    <span class="user_power_content_bar_writer">writer</span>
-	    <span class="user_power_content_bar_price">price</span>
-	    <span class="user_power_content_bar_updated">updated</span>
+	    <span class="user_power_content_bar_id">ID</span>
+	    <span class="user_power_content_bar_name">제목</span>
+	    <span class="user_power_content_bar_writer">작성자</span>
+	    <span class="user_power_content_bar_price">가격</span>
+	    <span class="user_power_content_bar_updated">수정일</span>
 	    <span class="user_power_content_bar_delete"><i class="fas fa-times"></i></span>
 	</div>
 	`)

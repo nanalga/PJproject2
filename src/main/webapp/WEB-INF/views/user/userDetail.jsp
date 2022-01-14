@@ -20,46 +20,39 @@
 <div class="body_wrapper">
 	<tag:flash></tag:flash>
 	<tag:nav></tag:nav>
-	<div class="main_container">
+	<div class="main_container main_page_default">
 		<div class="user_detail_container">
                 <div class="user_detail_wrapper">
+                    <span class="user_detail_title">상세정보</span>
                     <div class="user_detail_box">
-                        <span>User Detail</span>
-                    </div>    
-                    <div class="user_detail_box">
-                        <label for="user_detail_input1" class="user_detail_label">Name</label>
+                        <label for="user_detail_input1" class="user_detail_label">이름</label>
                         <input type="text" class="user_detail_input" id="user_detail_input1" value="${sessionScope.loggedUser.name}" readonly/>
                     </div>
                     <div class="user_detail_box">
-                        <label for="user_detail_input2" class="user_detail_label">nickName</label>
+                        <label for="user_detail_input2" class="user_detail_label">닉네임</label>
                         <input type="text" class="user_detail_input" id="user_detail_input2" value="${sessionScope.loggedUser.nickName}" readonly/>
                     </div>
                     <div class="user_detail_box">
-                        <label for="user_detail_input3" class="user_detail_label">Eamil</label>
+                        <label for="user_detail_input3" class="user_detail_label">이메일</label>
                         <input type="text" class="user_detail_input" id="user_detail_input3" value="${sessionScope.loggedUser.email}"  readonly/>
                     </div>
                     <div class="user_detail_box">
-                        <label for="user_detail_input4" class="user_detail_label">Password</label>
+                        <label for="user_detail_input4" class="user_detail_label">비밀번호</label>
                         <input type="text" class="user_detail_input" id="user_detail_input4" value="${sessionScope.loggedUser.password}" readonly/>
                     </div>
                     <div class="user_detail_box">
-                        <label for="user_detail_input5" class="user_detail_label">Address</label>
+                        <label for="user_detail_input5" class="user_detail_label">주소</label>
                         <input type="text" class="user_detail_input" id="user_detail_input5" value="${sessionScope.loggedUser.address}" readonly/>
                     </div>
-                    <div class="user_detail_box">
-                        <a href="${pageContext.request.contextPath }/user/edit" class="user_detail_editBtn">edit</a>
-                    </div>
+                    <a href="${pageContext.request.contextPath }/user/edit" class="user_detail_editBtn">edit</a>
                 </div>
                 <div class="user_power">
                     <div class="user_power_menu_container">
                         <div class="user_power_menu ${path == 'food'? 'select':''}">
-                            <a href="${ContextPath }/user/userDetail/food">Food</a>
+                            <a href="${ContextPath }/user/userDetail/food">맛집</a>
                         </div>
                         <div class="user_power_menu ${path == 'resell'? 'select':''}">
-                            <a href="${ContextPath }/user/userDetail/resell">Resell</a>
-                        </div>
-                        <div class="user_power_menu ${path == 'cm'? 'select':''}">
-                            <a href="${ContextPath }/user/userDetail/cm">Community</a>
+                            <a href="${ContextPath }/user/userDetail/resell">중고장터</a>
                         </div>
                         <input type="hidden" class="user_power_appRoot" value="${pageContext.request.contextPath}">
                         <input type="hidden" class="user_power_path" value="${path }"/>

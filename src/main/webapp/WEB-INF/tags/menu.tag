@@ -20,15 +20,6 @@
                         <a href="${ContextPath }/resellMarket/resellBoard/resellBoardList">Resell</a>
                     </div>
                 </div>
-                <div class="menu_list_box">
-                    <div class="menu_community">
-                        <a href="#" class="communityBtn">Commnunity</a>
-                        <div class="menu_coummunity_inner_el display_none">
-                            <a href="${ContextPath }/community/communityBoard/community_FreeBoard">-FreeBoard</a>
-                            <a href="#">-QnaBoard</a>
-                        </div>
-                    </div>
-                </div>
                 <c:if test="${loggedUser != null }">
                 	<c:if test="${loggedUser.admin == false }">
 		               	<div class="menu_list_box">

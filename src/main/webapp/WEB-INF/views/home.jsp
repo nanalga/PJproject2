@@ -8,70 +8,79 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/resource/css/icon/css/all.css" />
+	<link rel="stylesheet" href="${ContextPath }/resource/css/icon/css/all.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
+	<link rel="stylesheet" href="${ContextPath}/resource/css/styles.css" />
 	<title>Home</title>
 </head>
 <body>
 <body>
-    <div class="body_wrapper main_page">  
+    <div class="body_wrapper">  
     	<tag:flash></tag:flash>
     	<tag:nav></tag:nav>
-        <div class="main_container">
+        <div class="main_container main_page_default">
         	<div class="main_page_container">
         		<div class="main_title_box">
 	                <div class="main_title_img_box">
-	                    <img src="#" class="main_title_img">
+                        <div class="main_title_img_circle">
+                            <div class="main_title_img_yong_box">
+                                <img src="${ContextPath}/resource/img/머리만있는용피리.png" class="main_title_img">
+                                <img src="${ContextPath}/resource/img/용피리파이어.png" alt="">
+                            <!-- <img src="#" alt="" class="main_title_img"> -->
+                            </div>
+                            <div class="main_title_img_mountain_container">
+                                <div class="main_title_img_mountain_box">
+                                    <div class="main_title_img_mountain"></div>
+                                    <div class="main_title_img_mountain"></div>
+                                </div>
+                                <div class="main_title_img_mountain_box">
+                                    <div class="main_title_img_mountain"></div>
+                                    <div class="main_title_img_mountain"></div>
+                                </div>
+                                <div class="main_title_img_mountain_box">
+                                    <div class="main_title_img_mountain"></div>
+                                    <div class="main_title_img_mountain"></div> 
+                                </div>
+                            </div>
+                        </div>
 	                </div>   
 	                <div class="main_title_content_box">
-	                    <h2>New that lasts.</h2>
-	                    <p>Schwartz Media publishes intelligent news and current affairs that breaks the 24-hour news cycle. We offer a nuanced examination of Australia and the world, focused on fresh insight and literary expression. Our audience reads to know, not just to agree. We invest in long-form journalism where the issues demand it, providing writing of a quality that makes difficult topics clear. Schwartz Media publishes Australia’s most respected writers across The Saturday Paper, The Monthly magazine and the daily podcast 7am, alongside our sister publications, Quarterly Essay and Australian Foreign Affairs.</p>
+	                    <p>용피리 월드에 오신걸 환영합니다</p>
+                        <p>이제부터 용피리와 함께 양산시에 대해 알아보아용</p>
 	                </div>
             	</div>
             	<div class="main_content_box">
                 	<div class="main_content_food_box content_box">
-                    	<div class="main_content_img_box">
-                        	<img src="" alt="">
+                        <div class="main_content_box_background1 display_none"></div>
+                    	<div class="main_content_img_box1">
+                        	<img src="${ContextPath}/resource/img/foodIcon.png" alt="">
                     	</div>
                     	<div class="main_content_text_box">
-	                        <h2>Food</h2>
-	                        <p>Our journalists create in-depth, independent, original public interest reporting, focusing on storytelling and insight.</p>
-	                        <div class="food_link_btn">
-	                            <a href="${ContextPath }/food/foodList">go to Food</a>
-	                        </div>
+                            <a class="main_content_text_link_box" href="${ContextPath }/food/foodList">
+                                <h2>맛집</h2>
+                                <p>배고프죠? 용피리와 함께 맛집을 찾아떠나요~</p>
+                            </a>
                     	</div>     
                 	</div>
 	                <div class="main_content_resell_box content_box">
-	                    <div class="main_content_text_box">
-	                        <h2>Resell</h2>
-	                        <p>publishes long-form journalism from the nation's leading writers and thinkers, covering Australian politics, culture and ideas.</p>
-	                        <div class="food_link_btn">
-	                            <a href="${ContextPath }/resellMarket/resellBoard/resellBoardList">go to Resell</a>
-	                        </div>
+                        <div class="main_content_box_background2 display_none"></div>
+                        <div class="main_content_img_box2">
+                        	<img src="${ContextPath}/resource/img/resellIcon.png" alt="">
                     	</div>
-                    	<div class="main_content_img_box">
-                        	<img src="" alt="">
+	                    <div class="main_content_text_box">
+                            <a class="main_content_text_link_box" href="${ContextPath }/resellMarket/resellBoard/resellBoardList">
+                                <h2>중고장터</h2>
+                                <p>쓰지 않는 물건이 있다면</p>
+                                <p>버리지말고 용피리와 함께 팔아보아요~</p>
+                            </a>
                     	</div>
                 	</div>
-	                <div class="main_content_community_box content_box">
-	                    <div class="main_content_img_box">
-	                        <img src="" alt="">
-	                    </div>
-	                    <div class="main_content_text_box">
-	                        <h2>community</h2>
-	                        <p> is a weekly newspaper, dedicated to telling the whole story. It publishes long-form accounts of the week’s key stories.</p>
-	                        <div class="food_link_btn">
-	                            <a href="${ContextPath }/community/community_FreeBoard">go to Community</a>
-	                        </div>
-	                    </div>
-	                </div>
             	</div>
         	</div>
         </div>
         <tag:footer></tag:footer>
         <tag:menu></tag:menu>
     </div>
-    <script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
+    <script src="${ContextPath}/resource/js/main.js" type="module"></script>
 </body>
 </html>

@@ -65,6 +65,8 @@
   	<filter-name>CheckUserLogInFilter</filter-name>
   	<url-pattern>/CheckUserLogInFilter</url-pattern>
   	<url-pattern>/user/userDetail/*</url-pattern>
+  	<url-pattern>/user/user/userDelete</url-pattern>
+  	<url-pattern>/user/edit</url-pattern>
   	<url-pattern>/user/logout</url-pattern>
   	<url-pattern>/admin/adminDetail/*</url-pattern>
   </filter-mapping>

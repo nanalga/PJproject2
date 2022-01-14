@@ -3,14 +3,14 @@ package com.pj.service.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
-import com.pj.domain.community.CommunityFreeBoardVO;
-import com.pj.domain.food.FoodVO;
-import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.user.UserVO;
 import com.pj.domain.user.admin.AdminPageInfo;
-import com.pj.domain.user.community.UserCommunityVO;
 import com.pj.domain.user.food.UserFoodVO;
 import com.pj.domain.user.resell.UserResellVO;
 import com.pj.mapper.user.UserMapper;
@@ -22,6 +22,9 @@ public class UserService {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper userMapper;
+	
+//	@Autowired
+//	private ApplicationEventPublisher publisher;
 	
 	public String getUserInfo() {
 		
@@ -45,25 +48,10 @@ public class UserService {
 		}
 	}
 
-	public boolean deleteUserEmail(String emailInfo) {
-		return userMapper.deleteUserEmail(emailInfo) == 1;
-	}
-
 	public boolean update(UserVO vo) {
+//		publisher.publishEvent(new Object());
 		return userMapper.update(vo);
 	}
-
-//	public List<FoodVO> getFoodList() {
-//		return userMapper.getFoodList();
-//	}
-//
-//	public List<ResellBoardVO> getResllList() {
-//		return userMapper.getResellList();
-//	}
-//
-//	public List<CommunityFreeBoardVO> getCMList() {
-//		return userMapper.getCMList();
-//	}
 	
 	//userController/userDetail
 
@@ -75,25 +63,97 @@ public class UserService {
 		return userMapper.getResllListByUserId(id);
 	}
 
-	public List<UserCommunityVO> getCMListByUserId(int id) {
-		return userMapper.getCMListByUserId(id);
-	}
+//	public List<UserCommunityVO> getCMListByUserId(int id) {
+//		return userMapper.getCMListByUserId(id);
+//	}
 
-	public boolean deleteFoodByFoodId(Integer id) {
+	@Transactional
+	public boolean deleteUserByUserId(Integer id) throws RuntimeException{
+		int count1 = userMapper.selectCount("FoodReply","userId",id);
+		int count2 = userMapper.selectCount("rReply", "userId", id);
+		int count3 = userMapper.deleteReplyByUserId(id);
+		System.out.println("count1 :"+count1);
+		System.out.println("count2 :"+count2);
+		System.out.println("count3 :"+count3);
+		if((count1+count2) != count3) {
+			throw new RuntimeException("deleteReplyByUserId query error");
+		}
+		
+		List<UserFoodVO> foodVOs = userMapper.getFoodListByUserId(id);
+		for(UserFoodVO foodVO : foodVOs) {
+			userMapper.deleteFoodReplyByFoodId(foodVO.getId());
+		}
+		List<UserResellVO> resellVOs = userMapper.getResllListByUserId(id);
+		for(UserResellVO resellVO : resellVOs) {
+			userMapper.deleteResellReplyByResellId(resellVO.getId());
+		}
+		
+		int count4 = userMapper.selectCount("Food", "memberId", id);
+		int count5 = userMapper.selectCount("ResellBoard", "memberId", id);
+		int count6 = userMapper.deleteBoardByUserId(id);
+		
+		if((count4+count5) != count6) {
+			throw new RuntimeException("deleteBoardByUserId query error");
+		}
+		
+		return userMapper.deleteUserByUserId(id) == 1;
+	}
+	
+	@Transactional
+	public boolean deleteFoodByFoodId(Integer id) throws RuntimeException{
+		int count1 = userMapper.selectCount("FoodReply","foodBoardId",id);
+		int count2 = userMapper.deleteFoodReplyByFoodId(id);
+		
+		if(count1 != count2) {
+			throw new RuntimeException("deleteFoodReply query error");
+		}
+		
 		return userMapper.deleteFoodByFoodId(id) == 1;
 	}
 	
-	public boolean deleteUserByUserId(Integer id) {
-		return userMapper.deleteUserByUserId(id) == 1;
-	}
-
-	public boolean deleteResellByResellId(Integer id) {
+	@Transactional
+	public boolean deleteResellByResellId(Integer id) throws RuntimeException{
+		int count1 = userMapper.selectCount("rReply","boardId",id);
+		int count2 = userMapper.deleteResellReplyByResellId(id);
+		
+		if(count1 != count2) {
+//			publisher.publishEvent(new Object());
+			throw new RuntimeException("deleteResellReply query error");
+		}
+//		publisher.publishEvent(new Object());
+		
+//		int c = 4/0;
+		
 		return userMapper.deleteResellByResellId(id) == 1;
 	}
+	
+//	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+//	public void afterCommit(Object e) {
+//		System.out.println("@#@#@#@#@#@#@#@#@#@#@##@#@#@#@#@##@#@#@#@#");
+//		System.out.println("afterCommit");
+//	}
+//	
+//	@TransactionalEventListener(phase = TransactionPhase.AFTER_ROLLBACK)
+//	public void afterRollback(Object e) {
+//		System.out.println("@#@#@#@#@#@#@#@#@#@#@##@#@#@#@#@##@#@#@#@#");
+//		System.out.println("after rollback");
+//	}
+//	
+//	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMPLETION)
+//	public void afterCom(Object e) {
+//		System.out.println("@#@#@#@#@#@#@#@#@#@#@##@#@#@#@#@##@#@#@#@#");
+//		System.out.println("after complete");
+//	}
+//	
+//	@TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+//	public void beforeCommit(Object e) {
+//		System.out.println("@#@#@#@#@#@#@#@#@#@#@##@#@#@#@#@##@#@#@#@#");
+//		System.out.println("before commit");
+//	}
 
-	public boolean deleteCMByCMId(Integer id) {
-		return userMapper.deleteCMByCMId(id) == 1;
-	}
+//	public boolean deleteCMByCMId(Integer id) {
+//		return userMapper.deleteCMByCMId(id) == 1;
+//	}
 	
 	//adminController/adminDetail
 

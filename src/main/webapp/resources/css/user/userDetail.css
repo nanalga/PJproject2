@@ -1,79 +1,119 @@
 .user_detail_container{
-	
-	width: 60%;
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.user_detail_container a{
+    text-decoration: none;
+    color: black;
 }
 
 .user_detail_wrapper{
-    padding-top: 30px;
-    padding-bottom: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
-	border: 5px solid rgb(96, 202, 235);
+    width: 50%;
+    min-width: 700px;
+    padding: 40px 20px;
+	border: 5px solid #35858B;
 	border-radius: 20px;
 	margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #EEF2FF;
+}
+
+.user_detail_title,
+.user_detail_box>label{
+    color: #072227;
+}
+
+.user_detail_title{
+    font-size: 40px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    font-family: 'Vitro_core';
+    margin-bottom: 20px;
 }
 
 .user_detail_box{
     height: 50px;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.user_detail_box:first-child>span{
-    font-size: 40px;
-    font-weight: 600;
-    padding-bottom: 10px;
-}
-
-.user_detail_box:not(:last-child){
+    display: grid;
+    grid-template-columns: 2fr 8fr;
     margin-bottom: 20px;
 }
 
 .user_detail_label{
-    width: 20%;
-    margin-left: 10px;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Vitro_core';
+    margin-right: 5px;
 }
 
 .user_detail_input{
-    height: 100%;
-    width: 80%;
+    height: 50px;
+    padding: 0 10px;
     border-radius: 10px;
+    border: 2px solid #35858B;
+    font-size: 20px;
 }
 
 .user_detail_editBtn{
-    background-color: aqua;
-    height: 100%;
+    width: 50%;
+    height: 50px;
+    border-radius: 12px;
+    background-color: #676FA3;
+    border-style: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 40px;
-    border-radius: 10px;
+    font-size: 25px;
+    font-family: 'Vitro_core';
+    margin-top: 50px;
 }
 
+
+
+
+
+
 .user_power{
-    height: 100%;
-    /* border-top: 1px solid black; */
+    width: 70%;
+    min-width: 900px;
+    border-top:5px solid black;
 }
 
 .user_power_menu_container{
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    width: 100%;
+    margin-top:20px;
+    padding-bottom: 20px;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(2,1fr);
+    column-gap: 10px;
+    border-bottom: 5px solid #35858B;
 }
 
 .user_power_menu{
+    background-color: rgb(175, 166, 166);
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 17px 0;
+    height: 70px;
+    font-size: 30px;
 }
-
-.user_power_menu>span{
-    font-size: 25px;
-    font-weight: 600;
+.user_power_menu>a{
+    color: white;
+    font-family: 'Vitro_core';
+    width: 100%;
+    height: 100%;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .user_power_list_container_user{
@@ -87,18 +127,28 @@
     width: 100%;
 }
 
-.user_power_content_bar,
+.user_power_content_bar_food,
+.user_power_content_bar_resell{
+    height: 70px;
+    border-bottom: 3px solid #35858B;
+}
+
+/* .user_power_content_bar,
 .user_power_content_info{
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 3fr 5fr 3fr 2fr 1fr;
-}
+    justify-items: center;
+    align-items: center;
+} */
 
 .user_power_content_bar_food,
 .user_power_content_info_food{
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 6fr 3fr 3fr 1fr;
+    justify-items: center;
+    align-items: center;
 }
 
 .user_power_content_bar_resell,
@@ -106,75 +156,66 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 3fr 3fr 3fr 3fr 1fr;
+    justify-items: center;
+    align-items: center;
 }
 
-.user_power_content_bar_CM,
-.user_power_content_info_CM{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 4fr 4fr 3fr 1fr;
-}
 
-.user_power_content_bar,
-.user_power_content_bar_food,
-.user_power_content_bar_resell,
-.user_power_content_bar_CM
-{
-    border-bottom: 1px solid black;
-    padding: 15px 0;
-}
 
 .user_power_content_info,
 .user_power_content_info_food,
-.user_power_content_info_resell,
-.user_power_content_info_CM{
-    padding: 10px 0;
-    border-bottom: 1px solid black;
+.user_power_content_info_resell{
+    border-bottom: 3px solid #35858B;
+    height: 50px;
 }
-
 
 .user_power_content_bar>span,
 .user_power_content_info>span,
 .user_power_content_bar_food>span,
 .user_power_content_info_food>span,
 .user_power_content_bar_resell>span,
-.user_power_content_info_resell>span,
-.user_power_content_bar_CM>span,
-.user_power_content_info_CM>span
+.user_power_content_info_resell>span
 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.user_power_content_info_food>span:first-child,
+.user_power_content_info_resell>span:first-child{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #676FA3;
+    color: white;
+    font-weight: 600;
+}
+
 .user_power_content_bar>span,
 .user_power_content_bar_food>span,
-.user_power_content_bar_resell>span,
-.user_power_content_bar_CM>span
-{
+.user_power_content_bar_resell>span{
+	font-family: 'Vitro_core';
     font-size: 22px;
 }
 
-.user_power_content_info>span:not(:last-child),
+/* .user_power_content_info>span:not(:last-child),
 .user_power_content_info_food>span:not(:last-child),
-.user_power_content_info_resell>span:not(:last-child),
-.user_power_content_info_CM>span:not(:last-child){
-    border-right: 1px solid black;
-}
+.user_power_content_info_resell>span:not(:last-child){
+    border-right: 1px solid #35858B;
+} */
 
 .user_power_content_info>a,
 .user_power_content_info_food>a,
-.user_power_content_info_resell>a,
-.user_power_content_info_CM>a{
+.user_power_content_info_resell>a{
     display: flex;   
     justify-content: center;
     align-items: center;
 }
 
-.user_power_conent_name_link{
-    border-right: 1px solid black;
-}
+/* .user_power_conent_name_link{
+    border-right: 1px solid #35858B;
+} */
 
 .select{
-    background-color: rgb(175, 166, 166);
+    background-color: #35858B;
 }

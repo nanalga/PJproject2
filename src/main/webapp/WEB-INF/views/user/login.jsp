@@ -34,30 +34,43 @@
 	<c:url value="/user" var="userUrl"></c:url>
 	<tag:flash></tag:flash>
 	<tag:nav></tag:nav>
-	<div class="main_container">
+	<div class="main_container main_page_default">
 		<div class="login_main_box">
-			<div class="login_main_wrapper">
-	            <span>login</span>
-				<form method="post" action="${userUrl }/login" class="login_main_form">
-					<input type="text" name="email" class="login_input_id" placeholder="email"/>
-					<input type="text" name="password" class="login_input_pw" placeholder="password"/>
-					<input type="submit" class="login_input_submit" value="LogIn"/>
-					<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=d1f2c7c111ea44b0957fc9dbf10a601f&redirect_uri=http://localhost:8080/controller/kakao/kakaoLogin&prompt=login
-                        " class="login_kakao">
-                         <div class="login_kakao_img_box">
-                             <i class="fas fa-comment"></i>
-                             <span>Login with Kakao</span>
-                         </div>
-                    </a>
-                    <a href="<%=apiURL%>" class="login_naver">
-                         <div class="login_naver_img_box">
-                             <span>N</span>
-                             <span>Login with Naver</span>
-                         </div>
-                    </a>
-				</form>
-			</div>
-		</div>
+                <div class="login_main_wrapper">
+                    <span>로그인</span>
+                    <form method="post" action="${userUrl }/login" class="login_main_form">
+                        <div class="login_main_input_group">
+                            <label for="login_main_input1">이메일</label>
+                            <input type="text" id="login_main_input1" name="email" class="login_input_id"/>
+                        </div>
+                        <div class="login_main_input_group">
+                            <label for="login_main_input2">비밀번호</label>
+                            <input type="text" id="login_main_input2" name="password" class="login_input_pw"/>
+                        </div>
+                        <div class="login_submitBtn_container">
+                            <div class="login_submit_empty_box"></div>
+                            <div class="login_submitBtn_local">
+                                <input type="submit" class="login_input_submit" value="Login"/>
+                            </div>
+                            <div class="login_submitBtn_social">
+                                <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=d1f2c7c111ea44b0957fc9dbf10a601f&redirect_uri=http://localhost:8080/controller/kakao/kakaoLogin&prompt=login
+                                " class="login_kakao">
+                                    <div class="login_kakao_img_box">
+                                        <i class="fas fa-comment"></i>
+                                        <span>Login with Kakao</span>
+                                    </div>
+                                </a>
+                                <a href="<%=apiURL%>" class="login_naver">
+                                    <div class="login_naver_img_box">
+                                        <span>N</span>
+                                        <span>Login with Naver</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 	</div>
 	<tag:footer></tag:footer>
 	<tag:menu></tag:menu>

@@ -48,11 +48,13 @@ public class AdminController {
 			List<UserFoodVO> vo = userService.getFoodList(page,pagePerNumber);
 			model.addAttribute("path",path);
 			model.addAttribute("page",page);
+			System.out.println(vo);
 			model.addAttribute("foodList",vo);
 		}
 		
 		if(path.equals("resell")) {
 			List<UserResellVO> vo = userService.getResellList(page,pagePerNumber);
+			System.out.println(vo);
 			model.addAttribute("path",path);
 			model.addAttribute("page",page);
 			model.addAttribute("resellList",vo);
@@ -70,13 +72,23 @@ public class AdminController {
 		boolean ok = false;
 		
 		if(path.equals("user")) {
-			ok = userService.deleteUserByUserId(id);
+			try {
+				ok = userService.deleteUserByUserId(id);
+			} catch (Exception e) {
+				ok = false;
+			}
 		}else if(path.equals("food")) {
-			ok = userService.deleteFoodByFoodId(id);
+			try {
+				ok = userService.deleteFoodByFoodId(id);
+			} catch (Exception e) {
+				ok = false;
+			}
 		}else if(path.equals("resell")) {
-			ok = userService.deleteResellByResellId(id);
-		}else if(path.equals("cm")) {
-			ok = userService.deleteCMByCMId(id);
+			try {
+				ok = userService.deleteResellByResellId(id);
+			} catch (Exception e) {
+				ok = false;
+			}
 		}else {
 			System.out.println("admin/adminDetail/${path}/delete error");
 		}
