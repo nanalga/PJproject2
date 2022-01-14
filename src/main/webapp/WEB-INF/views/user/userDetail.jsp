@@ -13,6 +13,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/css/icon/css/all.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <title>User Detail</title>
 </head>
 <body>
@@ -29,12 +30,20 @@
                         <input type="text" class="user_detail_input" id="user_detail_input1" value="${sessionScope.loggedUser.name}" readonly/>
                     </div>
                     <div class="user_detail_box">
-                        <label for="user_detail_input2" class="user_detail_label">Eamil</label>
-                        <input type="text" class="user_detail_input" id="user_detail_input2" value="${sessionScope.loggedUser.email}"  readonly/>
+                        <label for="user_detail_input2" class="user_detail_label">nickName</label>
+                        <input type="text" class="user_detail_input" id="user_detail_input2" value="${sessionScope.loggedUser.nickName}" readonly/>
                     </div>
                     <div class="user_detail_box">
-                        <label for="user_detail_input3" class="user_detail_label">Password</label>
-                        <input type="text" class="user_detail_input" id="user_detail_input3" value="${sessionScope.loggedUser.password}" readonly/>
+                        <label for="user_detail_input3" class="user_detail_label">Eamil</label>
+                        <input type="text" class="user_detail_input" id="user_detail_input3" value="${sessionScope.loggedUser.email}"  readonly/>
+                    </div>
+                    <div class="user_detail_box">
+                        <label for="user_detail_input4" class="user_detail_label">Password</label>
+                        <input type="text" class="user_detail_input" id="user_detail_input4" value="${sessionScope.loggedUser.password}" readonly/>
+                    </div>
+                    <div class="user_detail_box">
+                        <label for="user_detail_input5" class="user_detail_label">Address</label>
+                        <input type="text" class="user_detail_input" id="user_detail_input5" value="${sessionScope.loggedUser.address}" readonly/>
                     </div>
                     <div class="user_detail_box">
                         <a href="${pageContext.request.contextPath }/user/edit" class="user_detail_editBtn">edit</a>
@@ -51,10 +60,12 @@
                         <div class="user_power_menu ${path == 'cm'? 'select':''}">
                             <a href="${ContextPath }/user/userDetail/cm">Community</a>
                         </div>
+                        <input type="hidden" class="user_power_appRoot" value="${pageContext.request.contextPath}">
+                        <input type="hidden" class="user_power_path" value="${path }"/>
                     </div>
                     <div class="user_power_list_container_user">
                         <div class="user_power_content">
-                        	<c:if test="${path == 'food' }">
+                        	<%-- <c:if test="${path == 'food' }">
                         		<div class="user_power_content_bar_food">
 	                                <span class="user_power_content_bar_id">id</span>
 	                                <span class="user_power_content_bar_title">title</span>
@@ -66,7 +77,7 @@
 		                            <div class="user_power_content_info_food">
 		                                <span class="user_power_conent_id">${food.id }</span>
 		                                <span class="user_power_conent_title">${food.title }</span>
-		                                <span class="user_power_conent_writer">${food.writer }</span>
+		                                <span class="user_power_conent_writer">${food.name }</span>
 		                                <span class="user_power_conent_inserted">${food.inserted }</span>
 		                                <input type="hidden" class="board_type_info" value="food">
 		                                <a href="" class="user_power_conent_delete"><i class="fas fa-times"></i></a>
@@ -86,7 +97,7 @@
 		                            <div class="user_power_content_info_resell">
 		                                <span class="user_power_conent_id">${resell.id }</span>
 		                                <span class="user_power_conent_title">${resell.title }</span>
-		                                <span class="user_power_conent_writer">${resell.writer }</span>
+		                                <span class="user_power_conent_writer">${resell.name }</span>
 		                                <span class="user_power_content_price">${resell.price }</span>
 		                                <span class="user_power_conent_password">${resell.updated }</span>
 		                                <input type="hidden" class="board_type_info" value="resell">
@@ -112,12 +123,13 @@
 		                                <a href="" class="user_power_conent_delete"><i class="fas fa-times"></i></a>
 		                            </div>
 	                            </c:forEach>
-                            </c:if>
+                            </c:if> --%>
                         </div>
                     </div>
                 </div>
             </div>
 	</div>
+	<tag:confirm_modal></tag:confirm_modal>
 	<tag:footer></tag:footer>
     <tag:menu></tag:menu>
 </div>

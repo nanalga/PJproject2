@@ -3,6 +3,8 @@ package com.pj.controller.resell;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,6 +28,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.JsonObject;
 import com.pj.domain.resell.ResellBoardVO;
 import com.pj.domain.resell.ResellPageInfoVO;
+import com.pj.domain.resell.ResellReplyVO;
+import com.pj.domain.user.UserVO;
 import com.pj.service.resell.ResellBoardService;
 import com.pj.service.resell.ResellReplyService;
 
@@ -61,14 +66,17 @@ public class ResellBoardController implements WebMvcConfigurer {
 	}
 	
 	@GetMapping("/resellBoardList")
-	public void list(@RequestParam(value="page", defaultValue = "1") Integer page,
+	public void list(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			Model model) {
-		
+
 		System.out.println(searchType + ", " + keyword);
-		System.out.println(page);
+		System.out.println("boardlistpage : " + page);
+		
+		System.out.println("");
 		Integer numberPerPage = 10; // 한 페이지의 row 수
+
 		
 		
 		// 3. 비즈니스 로직
@@ -84,14 +92,22 @@ public class ResellBoardController implements WebMvcConfigurer {
 		
 		//jsp path : /WEB-INF/views/resellMarket/list
 		
+		
 	}
+		
+		
+		
+		
+		
 	
 	
 	//resellBoard/get?id=10
 	@GetMapping({"/resellBoardGet","resellBoardModify"})
 	public void get(@RequestParam("id") Integer id, Model model) {
+		
 		ResellBoardVO resellBoard = service.get(id);
 		
+		service.boardPlusCnt(id);
 		
 		model.addAttribute("resellBoard", resellBoard);
 		
@@ -117,22 +133,24 @@ public class ResellBoardController implements WebMvcConfigurer {
 	}
 	
 	@PostMapping("/resellBoardRegister")
-	public String register(ResellBoardVO resellBoard, RedirectAttributes rttr, MultipartFile[] files) {
-		// 2. request 분석 가공 dispatcherServlcet이 해줌
+	public String register(ResellBoardVO resellBoard, RedirectAttributes rttr,@SessionAttribute(value= "loggedUser", required = false) UserVO logged) {
+		System.out.println("resellBoard :" + resellBoard);
 		
+		// 2. request 분석 가공 dispatcherServlcet이 해줌
+		resellBoard.setMemberId(logged.getId());
 	
 		// 3. 비즈니스 로직
+		service.register(resellBoard);
+/*		
 		try {
-			service.register(resellBoard, files);
-			// 4. add attribute
-			rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되었습니다.");
 
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되지않았습니다");
 		}
-		
+*/		
+		// 4. add attribute
+		rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되었습니다.");
 		
 		// 5. forward.redirect
 		return "redirect:/resellMarket/resellBoard/resellBoardList";

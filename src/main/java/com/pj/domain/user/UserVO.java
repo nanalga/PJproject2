@@ -15,4 +15,5 @@ public class UserVO {
 	private String social;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	private boolean admin;
 }

@@ -23,6 +23,10 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+<!-- include plugin -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/summernote-ko-KR.js" type="module" ></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/summernote-lite.js" type="module" ></script>
+
 <!--주소화면 외부js  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="<%=request.getContextPath()%>/resource/js/address.js"></script>
@@ -41,6 +45,10 @@
 	<div class="row" style="width: 80%; margin : auto;" >
 		<div class="col">
 			<h1>게시물 작성</h1>
+				<input type="hidden" name="id" value="${resellBoard.id }">
+				<input type="hidden" name="name" value="${sessionScope.loggedUser.name }">
+				<input type="hidden" name="memberId" value="${sessionScope.loggedUser.id }">
+				
 			<!-- form>.form-group*4>label[for=input$]+input.form-control#input$ -->
 			<form action="" method="post" enctype="multipart/form-data" >
 				<div class="form-group">
@@ -52,18 +60,14 @@
 					<textarea class="form-control" id="summernote" name="content"></textarea>
 				</div>
 				<!-- .form-group>label[for=input4]+input[type=file].form-control-file#input4[name=files] -->
-				  <div class="form-group">
-				    <label for="input4"> images files </label>
-				    <input type="file" class="form-control-file" id="input4" name="files" accept="" multiple>
-				  </div>
 				<div class="form-group">
 					<label for="writerInput">작성자</label>
-					<input type="text" class="form-control" id="writerInput" name="input3"  readonly value="${sessionScope.loggedUser.name }">
+					<input type="text" class="form-control" id="writerInput" name="nickName"  readonly value="${sessionScope.loggedUser.nickName }">
 				</div>
-				<input type="hidden" name="writer" value="${sessionScope.loggedUser.name }">
+
 				<div class="form-group">
 					<label for="addressInput">주소</label>
-					<input type="text" class="form-control" id="addressInput" required name="address" readonly value="">
+					<input type="text" class="form-control" id="addressInput" required name="address"  value="${loggedUser.address }">
 				</div>	 				
  				
  				<div class="form-group">
@@ -89,77 +93,80 @@ $(document).ready(function(){
 	const appRoot = '${pageContext.request.contextPath}';
 	
 	var fontList = ['맑은 고딕', '돋움', '궁서', '굴림', '굴림체', '궁서체', '나눔 고딕', '바탕', '바탕체',
-					'새굴림', 'HY견고딕', 'HY견명조', 'HY궁서B', 'HY그래픽M', 'HY목각파임B', 'HY신명조', 'HY얕은샘물M',
-					'HY엽서L', 'HY엽서M', 'HY중고딕', 'HY헤드라인M', '휴먼매직체', '휴먼모음T', '휴먼아미체',
-					'휴먼둥근헤드라인', '휴먼편지체', '휴먼옛체'
-					];
-	var toolbar =  [
-	    ['style', ['style']],
-	    ['font', ['bold', 'underline', 'clear']],
-	    ['fontname', ['fontname','fontsize','fontsizeunit']],
-	    ['color', ['color']],
-	    ['para', ['ul', 'ol', 'paragraph']],
-	    ['table', ['table']],
-	    ['insert', ['link', 'picture']],
-	    ['view', ['fullscreen', 'codeview', 'help']]
-	  ];
-	var setting = {
-			 placeholder: 'Hello stand alone ui',
-			 height: 400,
-	         lang : 'ko-KR',
-			 minHeight: null,
-			 maxHeight: null,
-			 fontNames: fontList,
-			 fontNamesIgnoreCheck: fontList,
-			 fontSizes: ['8','9','10','11','12','14','18','24','36'],
-			 toolbar : toolbar,
-			 //콜백 함수
-			 /*
-	         callbacks : { 
-	            onImageUpload : function(files, editor, welEditable) {
-	            	// 파일 업로드(다중업로드를 위해 반복문 사용)
-	            	for (var i = files.length - 1; i >= 0; i--) {
-	            		uploadSummernoteImageFile(files[i], this);
-	            	}
-	            }
-	         }
-	*/
-			 callbacks : {
-				 onImageUpload: function(files) {
-				     // upload image to server and create imgNode...
-				     for(var i = files.length -1; i>= 0; i-- ){
-				    	 uploadSummernoteImageFile(files[i], this);
-				     }
-				     // uploadSummernoteImageFile(files[0], this);
-			     }
-			 }
-	};
-	
-	$('#summernote').summernote(setting);
-	
-	/**
-	* 이미지 파일 업로드
-	*/
-    function uploadSummernoteImageFile(file, el) {
-		let data = new FormData();
-		data.append("file", file);
-		$.ajax({
-			data : data,
-			type : "POST",
-			url : appRoot + "/food/uploadSummernoteImageFile",
-			contentType : false,
-			enctype : 'multipart/form-data',
-			processData : false,
-			success : function(d) {
-				/* const parseData = JSON.parse(d);
-				console.log("s-data:", parseData.url); */
-				//$(el).summernote('editor.insertImage', d.url);
-				let imgNode = document.createElement("img");
-				$(imgNode).attr("src", d.url);
-				$(el).summernote('insertNode', imgNode);
-			}
-		});
-	}
+		'새굴림', 'HY견고딕', 'HY견명조', 'HY궁서B', 'HY그래픽M', 'HY목각파임B', 'HY신명조', 'HY얕은샘물M',
+		'HY엽서L', 'HY엽서M', 'HY중고딕', 'HY헤드라인M', '휴먼매직체', '휴먼모음T', '휴먼아미체',
+		'휴먼둥근헤드라인', '휴먼편지체', '휴먼옛체'
+		];
+var toolbar =  [
+['style', ['style']],
+['font', ['bold', 'underline', 'clear']],
+['fontname', ['fontname','fontsize','fontsizeunit']],
+['color', ['color']],
+['para', ['ul', 'ol', 'paragraph']],
+['table', ['table']],
+['insert', ['link', 'picture']],
+['view', ['fullscreen', 'codeview', 'help']]
+];
+var setting = {
+ placeholder: 'Hello stand alone ui',
+ height: 400,
+ lang : 'ko-KR',
+ minHeight: null,
+ maxHeight: null,
+ fontNames: fontList,
+ fontNamesIgnoreCheck: fontList,
+ fontSizes: ['8','9','10','11','12','14','18','24','36'],
+ toolbar : toolbar,
+ //콜백 함수
+ /*
+ callbacks : { 
+    onImageUpload : function(files, editor, welEditable) {
+    	// 파일 업로드(다중업로드를 위해 반복문 사용)
+    	for (var i = files.length - 1; i >= 0; i--) {
+    		uploadSummernoteImageFile(files[i], this);
+    	}
+    }
+ }
+*/
+ callbacks : {
+	 onImageUpload: function(files) {
+	     // upload image to server and create imgNode...
+	     for(var i = files.length -1; i>= 0; i-- ){
+	    	 uploadSummernoteImageFile(files[i], this);
+	     }
+	     
+	     //uploadSummernoteImageFile(files[0], this);
+	     
+     }
+ }
+};
+
+$('#summernote').summernote(setting);
+
+/**
+* 이미지 파일 업로드
+*/
+
+function uploadSummernoteImageFile(file, el) {
+let data = new FormData();
+data.append("file", file);
+$.ajax({
+data : data,
+type : "POST",
+url : appRoot + "/food/uploadSummernoteImageFile",
+contentType : false,
+enctype : 'multipart/form-data',
+processData : false,
+success : function(d) {
+	/* const parseData = JSON.parse(d);
+	console.log("s-data:", parseData.url); */
+	//$(el).summernote('editor.insertImage', d.url);
+	let imgNode = document.createElement("img");
+	$(imgNode).attr("src", d.url);
+	$(el).summernote('insertNode', imgNode);
+}
+});
+}
 	
 	
 	// #submitButton1 버튼 클릭됬을때
