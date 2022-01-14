@@ -15,6 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
+<script src="${ContextPath}/resource/js/main.js" type="module"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/food/foodGet.css" />
 
@@ -38,7 +39,7 @@ $(document).ready(function(){
 							<div class="food_get_body_main_box_comment_writer_content">
 								<p class="food_reply_body" style="white-space: pre;"></p>
 								<h5 class="food_reply_mt">
-									<i class="far fa-comment"></i>
+									<i class="far fa-comment"></i> 
 									<span class="reply-name"> \${list[i].name} </span>님이 \${list[i].customInserted}에 작성
 								</h5>
 							</div>
@@ -167,7 +168,7 @@ $(document).ready(function(){
                  <img src="${pageContext.request.contextPath }/resource/img/foodImg/dragon_head_food.png" alt="" class="food_get_body_top_info_content_mainicon_iconimage">
              </div>
              <div class="food_get_body_top_info_content">
-                 용피리에게 다양한 맛집을 알려주세요~
+                 용필이에게 다양한 맛집을 알려주세요~
              </div>
          </div>
      </div>
@@ -176,11 +177,11 @@ $(document).ready(function(){
         <div class="food_get_body_main_box">
             <div class="food_get_main_box_title">
                 <div class="food_get_body_foodBoardTitle">
-                    용피리 골목식당
+                    용필이 골목식당
                 </div>
             </div>
             <div class="food_get_body_main_box_backList">
-                <a href="foodList">목록으로</a>
+                <a href="foodList" class="food_get_body_main_box_backList_foodlist">목록으로</a>
             </div>
         </div>
         <!-- 게시글 제목, 날짜, 조회수, 댓글수  -->
@@ -252,11 +253,9 @@ $(document).ready(function(){
         <!-- 댓글 작성 구역 -->
         <c:if test="${not empty sessionScope.loggedUser }">
         <div class="food_get_body_main_box">
-            <div class="food_get_body_comment_title_frame">
-                <div class="food_get_body_comment_write">
-                 
-                </div>
-            </div>
+<!--        <div class="food_get_body_comment_title_frame">
+                <div class="food_get_body_comment_write"></div>
+            </div> -->
             <div class="food_get_body_comment_textarea_frame">
                 <textarea name="" id="replyTextarea" class="food_get_body_comment_textarea"></textarea>
             </div>
@@ -285,7 +284,7 @@ $(document).ready(function(){
         <div class="food_get_body_main_bottom_box">
             <div class="food_get_main_bottom_box_title">
                 <div class="food_get_main_bottom_foodBoardTitle">
-                    용피리 골목식당
+                    용필이 골목식당
                 </div>
             </div>
             <div class="food_get_main_bottom_mainicon">
