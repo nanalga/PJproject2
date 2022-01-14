@@ -101,33 +101,45 @@ public class ResellBoardService {
 	
 	public String uploadToS3(String key, MultipartFile file) throws IOException {
 //		String key = "";
-		putObject(key, file.getSize(), file.getInputStream());
+		putObject("resell/" + key, file.getSize(), file.getInputStream());
+		//String resellFileUrl = "resell" + key;
+		//filemapper.fileUrlInsert(resellFileUrl);
+		
+		System.out.println("staticUrl : " + staticUrl);
+		System.out.println("staticUrl + / + key :" + staticUrl + "/" + key);
 		
 		return staticUrl + "/" + key;
 	}	
 	
 	public String modifyToS3(String key, MultipartFile file) throws IOException {
 		
+		System.out.println("key1 :" + key);
+		
 		deleteObject(key);
 		
-		putObject(key, file.getSize(), file.getInputStream());
+		putObject("resell/" + key, file.getSize(), file.getInputStream());
+		
+		System.out.println("key2 : " + key);
 		
 		return staticUrl + "/" + key;
 	}	
 	
 	
 	
-	public boolean register(ResellBoardVO ResellBoard) {
+	public boolean register(ResellBoardVO resellBoard) {
 		
-		return mapper.insert(ResellBoard) == 1;
+		return mapper.insert(resellBoard) == 1;
 	}
 	
 	public ResellBoardVO get(Integer id ) {
+		
 		return mapper.select(id);
 	}
 	
-	public boolean modify(ResellBoardVO ResellBoard) {
-		return mapper.update(ResellBoard) == 1;
+	public boolean modify(ResellBoardVO resellBoard) {
+		
+		
+		return mapper.update(resellBoard) == 1;
 	}
 	
 	@Transactional
@@ -135,7 +147,24 @@ public class ResellBoardService {
 		// 1. 게시물 달린 댓글 지우기
 		replyMapper.deleteByBoardId(id);
 		
+//		String [] file = mapper.selectNamesByBoardId(id);
+		String[] files = mapper.selectImageKeyByBoardId(id);
+		System.out.println( "files :" + files.toString());
 		
+		if ( files != null) {
+			
+			for (String file : files  ) {
+				String[] keys = file.split(",");
+				System.out.println("keys :" + keys);
+				for ( String key : keys) {
+					System.out.println("key :" + key);
+					deleteObject(key);
+				}
+				
+			}
+		}
+				
+				
 		// 2. 게시물 지우기
 		
 		return mapper.delete(id) == 1;
@@ -249,6 +278,8 @@ public class ResellBoardService {
 		
 		return pageInfo;
 	}
+
+
 
 	/* 이미지버튼 추가관련
 	@Transactional

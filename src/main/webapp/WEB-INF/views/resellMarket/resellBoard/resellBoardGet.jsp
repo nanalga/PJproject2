@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%-- <%@ taglib prefix="rb" tagdir="/WEB-INF/tags/resellBoard"%> --%>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 
 
@@ -18,9 +17,26 @@
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 
-!-- summernote -->
+
+<!-- summernote -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+
+<!-- include plugin -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/summernote-ko-KR.js" type="module" ></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/summernote-lite.js" type="module" ></script>
+
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4312ec82fed74fec65ab6c6ffa59a5c8&libraries=services,clusterer,drawing"></script>
+
+<!--주소화면 외부js  -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="<%=request.getContextPath()%>/resource/js/address.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+
+
 
 <script>
 $(document).ready(function() {
@@ -160,6 +176,8 @@ $(document).ready(function() {
 		});
 	});
 	
+	
+	
 });
 
 </script>
@@ -180,7 +198,7 @@ $(document).ready(function() {
 					<div class="board-view">
 						<!-- .form-group*3>label[for=input$]+input.form-control#input$[readonly] -->
 						<div class="form-group">
-							<label for=""titleInput"">제목</label>
+							<label for="titleInput">제목</label>
 							<input type="text" class="form-control" id="titleInput" readonly value="${resellBoard.title }">
 						</div>
 						<div class="form-group">
@@ -206,12 +224,20 @@ $(document).ready(function() {
 							<label for="priceInput">가격</label>
 							<input type="text" class="form-control" id="priceInput" readonly value="${resellBoard.price }">
 						</div>
-					<button class="btn btn-outline-primary" style="float: right;"><a href="resellBoardList">글목록</a></button>
+		 				<div class="form-group">
+							<div id="map" style="width: 500px; height: 280px; margin-top: 10px;"></div>
+							<div id="clickLatlng" style="display: none"></div>
+		 				</div>						
+						
+					<!-- <button class="btn btn-outline-primary" style="float: right;"><a href="resellBoardList">글목록</a></button> -->
 					<a href='<c:url value='/resellMarket/resellBoard/resellBoardList'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center" style="float : right;">글 목록</a>
 						<!-- a.btn.btn-outline-secondary{modify/delete} -->
 						<c:if test="${sessionScope.loggedUser.id eq resellBoard.memberId }">
 						<a href="resellBoardModify?id=${resellBoard.id }" class="btn btn-outline-secondary"> modify/delete</a>
 						</c:if>
+						<button class="btn btn-outline-primary" style="float: right;">
+							<a href="javascript:history.back();">뒤로가기</a>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -280,15 +306,82 @@ $(document).ready(function() {
 
 	<script>
 	$(document).ready(function() {
+		const mapInput = document.querySelector("#addressInput");
 		if (history.state == null) {
 			$("#staticBackdrop").modal('show');
 			history.replaceState("hello",null);
 		}
 		
-	});
+		
+/*ㅇㅇㅇ  */		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+		    center: new kakao.maps.LatLng(37.499817, 127.030277), // 지도의 중심좌표
+		    level: 3 // 지도의 확대 레벨
+		};  
+
+		//지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+		
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		//주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		var addressMap = $("#addressInput").val();
+		console.log(addressMap);
+		//주소로 좌표를 검색합니다
+
+		const mapHandler = () => {
+		 //카카오 지도 발생
+		
+		    	const mapValue = mapInput.value; // 주소 넣기
+		       
+		        geocoder.addressSearch(mapValue, function(result, status) {
+		            // 정상적으로 검색이 완료됐으면 
+		             
+		                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		        		var message = 'latlng: new kakao.maps.LatLng(' + result[0].y + ', ';
+		        		message += result[0].x + ')';
+		        		
+		        		var resultDiv = document.getElementById('clickLatlng'); 
+		        		resultDiv.innerHTML = message;
+		        		
+		                // 결과값으로 받은 위치를 마커로 표시합니다
+		                var marker = new kakao.maps.Marker({
+		                    map: map,
+		                    position: coords
+		                });
+
+		                // 인포윈도우로 장소에 대한 설명을 표시합니다
+		                var infowindow = new kakao.maps.InfoWindow({
+		                    content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
+		                });
+		                infowindow.open(map, marker);
+
+		                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		                map.setCenter(coords);
+
+		})
+
+		}
+
+		
+		
+		
+		setTimeout(mapHandler,2000);
+
+		})
+		
 </script>
-
-
 
 </body>
 </html>

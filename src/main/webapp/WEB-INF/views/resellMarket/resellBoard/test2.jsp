@@ -14,11 +14,63 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<style>
+
+
+
+</style>
+
+
+
 <title>Insert title here</title>
 </head>
 <body>
     <h1>내사이트임 ㅎㅇ</h1>
     <p></p>
+    <form id="resellFormRegister" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="titleInput">제목</label>
+							<input type="text" class="form-control" id="titleInput" name="title">
+						</div>
+						<div class="form-group">
+							<label for="contentInput">내용</label>
+							<textarea class="form-control" id="summernote" name="content"></textarea>
+						</div>
+						<!-- .form-group>label[for=input4]+input[type=file].form-control-file#input4[name=files] -->
+						<div class="form-group">
+							<label for="writerInput">작성자</label>
+							<input type="text" class="form-control" id="writerInput" name="nickName" readonly value="${sessionScope.loggedUser.nickName }">
+						</div>
+
+						<div class="form-group">
+							<label for="addressInput">주소</label>
+							<input type="text" class="form-control" id="addressInput" required name="address" value="${loggedUser.address }">
+						</div>
+						<div class="form-group">
+							<div id="map" style="width: 500px; height: 280px; margin-top: 10px;"></div>
+							<%--
+ 					 <div id="map" style="width:400px;height:400px;"></div> 
+   --%>
+							<div id="clickLatlng" style="display: none"></div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="priceInput">가격</label>
+							<input type="text" class="form-control" id="priceInput" name="price">
+						</div>
+						<button class="btn btn-outline-primary" id="submitButton1">등록</button>
+						<button class="btn btn-outline-primary" style="float: right;">
+							<a href="javascript:history.back();">뒤로가기</a>
+						</button>
+						<%--
+				<input id="subBtn" type="submit" value="글 목록" style="float: right;" onclick="${history.go(-1)}"/>
+		 --%>
+					</form>
+    
+    
+    
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
