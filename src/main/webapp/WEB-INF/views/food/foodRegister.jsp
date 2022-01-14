@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha512-bnIvzh6FU75ZKxp0GXLH9bewza/OIw6dLVh9ICg0gogclmYGguQJWl8U30WpbsGTqbIiAwxTsbe76DErLq5EDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 
 <!-- summernote -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -24,26 +28,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>테스트 썸머 노트</h1>
-
-<div style="width:80%; margin: auto;">
-	<form id="form1" method="post" enctype="multipart/form-data">
-	
-		<label>작성자</label>
-			<input class="form-control" type="text" id="inputWriter" name="writer" style="width: 40%;" readonly="readonly" value="${sessionScope.loggedUser.name }" /> <br>
-		<label>제목</label>
-			<input class="form-control" type="text" id="inputTitle" name="title" style="width: 100%;" placeholder="제목"/> <br>
-		<label>내용</label>
-			<textarea id="summernote" name="contents"></textarea>
-		<button id="RegisterSubBtn" >글작성</button>
+<div class="body_wrapper">	
+	<tag:nav></tag:nav>
+	<div style="width:80%; margin: auto;">
+		<form id="form1" method="post" enctype="multipart/form-data">
 		
-		<!-- <input id="subBtn" type="submit" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/> -->
-		<small class="form-text" id="nickNameCheckMessage"></small>
-		<!-- <button id="modifySubmitButton" type="submit" value="글 수정" style="float: right;">글 작성</button> -->
-	</form>
-		<a href="foodList" class="btn btn-outline-secondary">목록</a>
+			<label>작성자</label>
+				<input class="form-control" type="text" id="inputWriter" name="writer" style="width: 40%;" readonly="readonly" value="${sessionScope.loggedUser.name }" /> <br>
+			<label>제목</label>
+				<input class="form-control" type="text" id="inputTitle" name="title" style="width: 100%;" placeholder="제목"/> <br>
+			<label>내용</label>
+				<textarea id="summernote" name="contents"></textarea>
+			<button id="RegisterSubBtn" >글작성</button>
+			
+			<!-- <input id="subBtn" type="submit" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/> -->
+			<small class="form-text" id="nickNameCheckMessage"></small>
+			<!-- <button id="modifySubmitButton" type="submit" value="글 수정" style="float: right;">글 작성</button> -->
+		</form>
+			<a href="foodList" class="btn btn-outline-secondary">목록</a>
+	</div>
 </div>
-
 <script>
 $(document).ready(function(){
 	const appRoot = '${pageContext.request.contextPath}';
@@ -91,25 +95,12 @@ $(document).ready(function(){
 			 fontSizes: ['8','9','10','11','12','14','18','24','36'],
 			 toolbar : toolbar,
 			 //콜백 함수
-			 /*
-	         callbacks : { 
-	            onImageUpload : function(files, editor, welEditable) {
-	            	// 파일 업로드(다중업로드를 위해 반복문 사용)
-	            	for (var i = files.length - 1; i >= 0; i--) {
-	            		uploadSummernoteImageFile(files[i], this);
-	            	}
-	            }
-	         }
-	*/
 			 callbacks : {
 				 onImageUpload: function(files) {
 				     // upload image to server and create imgNode...
 				     for(var i = files.length -1; i>= 0; i-- ){
 				    	 uploadSummernoteImageFile(files[i], this);
 				     }
-				     
-				     //uploadSummernoteImageFile(files[0], this);
-				     
 			     }
 			 }
 	};
@@ -145,6 +136,9 @@ $(document).ready(function(){
 	
 });
 </script>
+ 
+<tag:footer></tag:footer>
+<tag:menu></tag:menu>
  ﻿
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>

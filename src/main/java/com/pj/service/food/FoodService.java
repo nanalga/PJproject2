@@ -111,6 +111,7 @@ public class FoodService {
 	}
 
 	public boolean modify(FoodVO food) {
+		
 		return mapper.modify(food) == 1;
 	}
 
@@ -119,7 +120,20 @@ public class FoodService {
 		replyMapper.foodDeleteByBoardId(id);
 		
 		// 파일(사진) s3 지우기
+		String[] files = mapper.selectNameByBoardId(id);
+		System.out.println("files : " + files);
 		
+		if (files != null) {
+			for (String file : files) {
+				
+				String[] keys = file.split(",");
+				
+				for(String key : keys) {
+					System.out.println("remove 게시물 : " + id + " / imageKey : " + key);
+					deleteObject(key);
+				}
+			}
+		}
 		
 		// 게시물 지우기
 		return mapper.delete(id) == 1;
@@ -129,21 +143,25 @@ public class FoodService {
 //		String key = "";
 		putObject("board/" + key, file.getSize(), file.getInputStream());
 		
-		String foodFileUrl = "board/" + key;
-		System.out.println("foodFileUrl : " + foodFileUrl);
+//		String foodFileUrl = "board/" + key;
+//		System.out.println("foodFileUrl : " + foodFileUrl);
 		//filemapper.fileUrlInsert(foodFileUrl);
 		
-		System.out.println("staticUrl : " + staticUrl);
-		System.out.println("staticUrl + / + key : " + staticUrl + "/" + key);
+//		System.out.println("staticUrl : " + staticUrl);
+//		System.out.println("staticUrl + / + key : " + staticUrl + "/" + key);
 		
 		return staticUrl + "/" + key;
 	}
 	
 	public String modifyToS3(String key, MultipartFile file) throws IOException {
 		
+		System.out.println("S3 modify key : " + key);
+		
 		deleteObject(key);
 		
 		putObject("board/" + key, file.getSize(), file.getInputStream());
+		
+		System.out.println("s3 modify new board/ : " + key);
 		
 		return staticUrl + "/" + key;
 	}
@@ -198,7 +216,5 @@ public class FoodService {
 	public boolean foodPlusCount(Integer id) {
 		return mapper.foodPlusCount(id) == 1;
 	}
-
-
 
 }

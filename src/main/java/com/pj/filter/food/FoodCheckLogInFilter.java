@@ -1,4 +1,4 @@
-package com.pj.filter;
+package com.pj.filter.food;
 
 import java.io.IOException;
 import javax.servlet.Filter;

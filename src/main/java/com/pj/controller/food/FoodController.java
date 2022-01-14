@@ -71,11 +71,16 @@ public class FoodController implements WebMvcConfigurer {
 		
 	}
 	
+//	@GetMapping("/foodGet_test")
+//	public void foodGet_test () {
+//		System.out.println("controller foodget_test접근");
+//	}
+	
 	@GetMapping({ "/foodGet", "/foodModify" })
 	public void foodGet(@RequestParam("id") Integer id, Model model) {
-		System.out.println("foodget접근");
+		System.out.println("controller foodget접근");
 		FoodVO food = service.get(id);
-		
+		System.out.println("foodGet : "+ food.getFoodReplyCount());
 		service.foodPlusCount(id);
 
 		model.addAttribute("food", food);
@@ -83,13 +88,13 @@ public class FoodController implements WebMvcConfigurer {
 
 	@GetMapping("/foodRegister")
 	public void foodRegister() {
-		System.out.println("foodRegister 접근");
+		System.out.println("controller foodRegister 접근");
 	}
 
 	@PostMapping("/foodModify")
-	public String foodModify(FoodVO food, RedirectAttributes rttr) {
-		System.out.println("foodModify Post 접근");
-		
+	public String foodModify(FoodVO food, RedirectAttributes rttr, @RequestParam(value = "id", required = true) Integer id) {
+		System.out.println("controller foodModify Post 접근");
+				
 		if (service.modify(food)) {
 			rttr.addFlashAttribute("result", food.getId() + "의 게시글이 수정되었습니다.");
 		} else {
@@ -122,14 +127,14 @@ public class FoodController implements WebMvcConfigurer {
 		return "redirect:/food/foodList";
 	}
 	
-	@RequestMapping("/gisTest")
-	public void gisTest() {
-		
-	}
+//	@RequestMapping("/gisTest")
+//	public void gisTest() {
+//		
+//	}
 
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8" )
 	@ResponseBody
-	public String uploadSummernoteImageFile(FoodVO food , @RequestParam("file") MultipartFile multipartFile,
+	public String uploadSummernoteImageFile(FoodVO food, @RequestParam("file") MultipartFile multipartFile,
 			HttpServletRequest request) {
 		JsonObject jsonObject = new JsonObject();
 
@@ -170,7 +175,7 @@ public class FoodController implements WebMvcConfigurer {
 
 	@RequestMapping(value = "/modifySummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
-	public String modifySummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
+	public String modifySummernoteImageFile(FoodVO food, @RequestParam("file") MultipartFile multipartFile,
 			HttpServletRequest request) {
 
 		JsonObject jsonObject = new JsonObject();
@@ -197,6 +202,7 @@ public class FoodController implements WebMvcConfigurer {
 
 			// s3에 수정
 			jsonObject.addProperty("url", service.modifyToS3(savedFileName, multipartFile));
+			jsonObject.addProperty("imageKey", "board/" + savedFileName);
 
 		} catch (IOException e) {
 //			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
