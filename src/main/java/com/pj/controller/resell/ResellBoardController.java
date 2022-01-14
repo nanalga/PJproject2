@@ -71,7 +71,8 @@ public class ResellBoardController implements WebMvcConfigurer {
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			Model model) {
-
+		
+		System.out.println("resellBoardSearch 도착");
 		System.out.println(searchType + ", " + keyword);
 		System.out.println("boardlistpage : " + page);
 		
@@ -100,7 +101,7 @@ public class ResellBoardController implements WebMvcConfigurer {
 			Model model) {
 
 // if (page == null) { page =1; }
-		
+		System.out.println("resellBoardList 도착");
 		
 		System.out.println(searchType + ", " + keyword);
 		System.out.println("boardlistpage : " + page);
@@ -126,45 +127,48 @@ public class ResellBoardController implements WebMvcConfigurer {
 		System.out.println("pageinfo : " + pageInfo);
 	}
 		
-		
-		
-		
-		
 	
 	
 	//resellBoard/get?id=10
 	@GetMapping({"/resellBoardGet","resellBoardModify"})
-	public void get(@RequestParam("id") Integer id, Model model) {
+	public void get(@RequestParam("id") Integer id, Model model, MultipartFile file) {
+		System.out.println("resellBoardGet or Modify 도착");
 		
 		ResellBoardVO resellBoard = service.get(id);
+		System.out.println("board주소 : " + resellBoard.getAddress());
 		
 		service.boardPlusCnt(id);
 		
+		
+
 		model.addAttribute("resellBoard", resellBoard);
 		
 	}
 	
 	@PostMapping("/resellBoardModify")
 	public String  modify(ResellBoardVO resellBoard, RedirectAttributes rttr ) {
+		System.out.println("resellBoardModify Post 도착");
+		
 		if (service.modify(resellBoard)) {
 			rttr.addFlashAttribute("result", resellBoard.getId() + "번 게시글이 수정되었습니다.");
 		}
-		
-		rttr.addAttribute("id", resellBoard.getId());
+		//쿼리 스트링
+		rttr.addAttribute("id", resellBoard.getId()); 
 		/*게시물 조회로 redirect
 		return "redirect:/resellMarket/resellBoard/resellBoardGet";
 		*/
+		System.out.println("imageKey :" + resellBoard.getImageKey());
 		return "redirect:/resellMarket/resellBoard/resellBoardList";
 	}
 	
 
 	@GetMapping("/resellBoardRegister")
 	public void register() {
-		
+		System.out.println("resellBoardRegister도착");
 	}
 	
 	@PostMapping("/resellBoardRegister")
-	public String register(ResellBoardVO resellBoard, RedirectAttributes rttr,@SessionAttribute(value= "loggedUser", required = false) UserVO logged) {
+	public String register(ResellBoardVO resellBoard, MultipartFile[] files, RedirectAttributes rttr,@SessionAttribute(value= "loggedUser", required = false) UserVO logged) {
 		System.out.println("resellBoard :" + resellBoard);
 		
 		// 2. request 분석 가공 dispatcherServlcet이 해줌
@@ -172,14 +176,8 @@ public class ResellBoardController implements WebMvcConfigurer {
 	
 		// 3. 비즈니스 로직
 		service.register(resellBoard);
-/*		
-		try {
-
-		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-*/		
+		
+		System.out.println("imageKey :" + resellBoard.getImageKey());
 		// 4. add attribute
 		rttr.addFlashAttribute("result", resellBoard.getId() +"번 게시글이 등록되었습니다.");
 		
@@ -201,7 +199,7 @@ public class ResellBoardController implements WebMvcConfigurer {
 	// 검색내
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
-	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
+	public String uploadSummernoteImageFile(ResellBoardVO ResellBoard,@RequestParam("file") MultipartFile multipartFile,
 			HttpServletRequest request) {
 
 		JsonObject jsonObject = new JsonObject();
@@ -230,28 +228,58 @@ public class ResellBoardController implements WebMvcConfigurer {
 
 			// s3에 저장
 			jsonObject.addProperty("url", service.uploadToS3(savedFileName, multipartFile));
-
+			jsonObject.addProperty("imageKey", "resell/" + savedFileName);
+			
 		} catch (IOException e) {
-			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
+//			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
 			e.printStackTrace();
 		}
-		String a = jsonObject.toString();
-		return a;
+		String imageUrl = jsonObject.toString();
+		System.out.println("uploadSummernoteImageFile imageUrl : " + imageUrl);
+		return imageUrl;
 	}
-/*
-	@GetMapping("/resellGetSearchList")
+
+	@RequestMapping(value = "/modifySummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
-	private List<ResellBoardVO> getSearchList(@RequestParam("type") String type,
-			@RequestParam("keyword") String keyword, Model model) throws Exception {
-		
-		ResellBoardVO boardVo = new ResellBoardVO();
-		boardVo.setType(type);
-		boardVo.setKeyword(keyword);
-		
-		return service.getSearchList(boardVo);
+	public String modifySummernoteImageFile(ResellBoardVO ResellBoard, @RequestParam("file") MultipartFile multipartFile,
+			HttpServletRequest request) {
+		System.out.println("modifySummernoteImageFile 접근");
+		JsonObject jsonObject = new JsonObject();
+
+		/*
+		 * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
+		 */
+
+		// 내부경로로 저장
+		String contextRoot = "C:\\Users\\user\\Desktop\\COURS\\java\\workspace\\PJproject\\src\\main\\webapp\\";
+		String fileRoot = contextRoot + "resources\\fileupload\\";
+
+		String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
+		String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
+		String savedFileName = UUID.randomUUID() + extension; // 저장될 파일 명
+
+//		File targetFile = new File(fileRoot + savedFileName);
+		try {
+//			InputStream fileStream = multipartFile.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
+//			jsonObject.addProperty("url", targetFile.getAbsolutePath()); // contextroot + resources + 저장할 내부 폴더명
+//			jsonObject.addProperty("url", "/fileupload"); // contextroot + resources + 저장할 내부 폴더명
+			jsonObject.addProperty("responseCode", "success");
+
+			// s3에 수정
+			jsonObject.addProperty("url", service.modifyToS3(savedFileName, multipartFile));
+			jsonObject.addProperty("imageKey", "resell/" + savedFileName);
+			System.out.println("urlModify :"  + savedFileName);
+		} catch (IOException e) {
+//			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
+			jsonObject.addProperty("responseCode", "error");
+			e.printStackTrace();
+		}
+		String imageUrl = jsonObject.toString();
+		System.out.println("uploadSummernoteImageFile imageUrl : " + imageUrl);
+		return imageUrl;
 	}
- */
 	
 
 }

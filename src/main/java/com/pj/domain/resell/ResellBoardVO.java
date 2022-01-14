@@ -29,6 +29,7 @@ public class ResellBoardVO {
 	private String address;
 	private Integer replyCount;
 	private Integer boardCount;
+	private String imageKey;
 	
 	public String getCustomInserted() {
 		//현재 일시

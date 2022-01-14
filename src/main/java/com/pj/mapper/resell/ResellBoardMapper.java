@@ -38,6 +38,13 @@ public interface ResellBoardMapper {
 
 	public Integer getCount(@Param("searchType") String searchType,@Param("keyword") String keyword);
 
+	public String[] selectImageKeyByBoardId(Integer id);
+
+
+
+//	public String[] selectNamesByBoardId(Integer id);
+
+
 	
 
 
