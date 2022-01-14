@@ -217,6 +217,7 @@ img{
     height: 0px;
     border-bottom: 250px solid #7C99AC;
     border-right: 250px solid transparent;
+    transform: translateX(-1px);
 }
 .main_title_img_mountain_box:nth-child(3){
     animation: mountain3 3s ease forwards;
