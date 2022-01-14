@@ -16,15 +16,62 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resource//css/kocss/mystyle.css">
 <!--외부 css -->
 
 
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource//css/kocss/mystyle.css">
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <style>
- 
+        .font_big { font-size: 1em;}
+        .font_italic { font-style: italic;}
+        .font_bold { font-weight: bold;}
+        .font_center { text-align: center;}
+        .writeBtn {
+            width: 50px;
+            height: 25px;
+            background-color: #d734ecb2;
+            border: 10px solid #FFFFFF;
+            border-radius: 30px;
+            box-shadow: 5px 5px 5px #9c3131;
+        }
+        
+          .writeBtn > a {
+            display: block;
+            line-height: 18px;
+        }
+        
+        .tdcss {
+       		 font-size: 1em;
+       		 font-style: italic;
+       		 font-weight: bold;
+       		 
+        }
+        
+        .thcss {
+        	font-style: italic;
+        	color : #889EC8;
+        	font-weight : 800;
+        }
+        
+   	.listHead {
+		font-size :32px;
+		font-weight : bolder;
+		font-style : italic;
+		text-align : center;
+		text-shadow: 5px 5px 11px rgba(137, 68, 116, 1);
+		
+	}
+	
+	.listHeadDiv	{
+		width : 100%;
+		height : 50px;
+		-webkit-box-shadow: 0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+		-moz-box-shadow:    0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+		box-shadow:         0px 0px 23px 0px rgba(217, 111, 77, 0.52);
+	}
+
 </style>
 <style>
 .face {
@@ -59,17 +106,17 @@
 					<h1 class="listHead">게시물 목록</h1>
 				</div>
 					<!-- table.table>thead>tr>th*4>^^tbody -->
-					<table class="table table-hover ">
+					<table class="table tb">
 						<thead>
 							<tr>
 								<th>
 									<i class="fas fa-tag"></i>
 								</th>
-								<th >제목</th>
-								<th >작성자</th>
-								<th >가격</th>
-								<th >작성일</th>
-								<th >조회수</th>
+								<th class="thcss">제목</th>
+								<th class="thcss">작성자</th>
+								<th class="thcss">가격</th>
+								<th class="thcss">작성일</th>
+								<th class="thcss">조회수</th>
 							</tr>
 						<tbody>
 							<c:forEach items="${resellList}" var="resellBoard">
@@ -99,6 +146,7 @@
 					<div >
 					<a href='<c:url value='/resellMarket/resellBoard/resellBoardRegister'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center">글쓰기</a>
 					<a href='<c:url value='/resellMarket/resellBoard/resellBoardList'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center" style="float : right;">글 목록</a>
+						<a href='<c:url value='/resellMarket/resellBoard/test2'/>' role="button" class="btn btn-outline-primary font_big font_italic font_bold font_center" style="float : right;">테트?</a>
 					</div>
 					<div>
 					</div>
@@ -134,7 +182,7 @@
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
 					<c:if test="${pageInfo.hasPrevButton }">
-						<c:url value="/resellMarket/resellBoard/resellBoardList" var="pageLink">
+						<c:url value="/resellMarket/resellBoard/resellBoardSearch" var="pageLink">
 							<c:param name="page" value="${pageInfo.leftPageNumber - 1 }"></c:param>
 						</c:url>
 						<li class="page-item">
@@ -145,17 +193,17 @@
 					</c:if>
 
 					<c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
-						<c:url value="/resellMarket/resellBoard/resellBoardList" var="pageLink">
+						<c:url value="/resellMarket/resellBoard/resellBoardSearch"  var="pageLink">
 							<c:param name="page" value="${pageNumber }"></c:param>
 							<c:param name="searchType" value="${pageInfo.searchType }"></c:param>
-							<c:param name="keyword" value="${pageInfo.keyword }"></c:param>							
+							<c:param name="keyword" value="${pageInfo.keyword }"></c:param>
 						</c:url>
 						<li class="page-item ${pageInfo.currentPage == pageNumber ? 'active' : '' }">
 							<a class="page-link" href="${pageLink }">${pageNumber }</a>
 						</li>
 					</c:forEach>
 					<c:if test="${pageInfo.hasNextButton }">
-						<c:url value="/resellMarket/resellBoard/resellBoardList" var="pageLink">
+						<c:url value="/resellMarket/resellBoard/resellBoardSearch" var="pageLink">
 							<c:param name="page" value="${pageInfo.rightPageNumber + 1 }"></c:param>
 						</c:url>
 						<li class="page-item">

@@ -1,9 +1,21 @@
+const bodyWrapper = document.querySelector(".body_wrapper");
 const pw1 = document.querySelector(".join_pw");
 const pw2 = document.querySelector(".join_pw_check");
 const submitBtn = document.querySelector(".join_submit");
 const email = document.querySelector(".join_email");
 const emailCheckBtn = document.querySelector(".join_email_check");
 const emailAlertMessage = document.querySelector(".join_email_message")
+const joinMainBox = document.querySelector(".join_main_box");
+
+/*const flashMessage = $(`
+	<div class="flash_box">
+	    <div class="flash_message_box">
+	        <span class="flash_message_title">fail</span>
+	        <span class="flash_message_content">회원정보를 입력해주세요</span>
+	    </div>
+	</div>
+`)
+*/
 let httpRequest;
 
 let canUseEamil = false;
@@ -54,14 +66,15 @@ function alertContents() {
 			email.readOnly=true;
 			emailCheckBtn.value="again"
 			canUseEamil = true;
-			emailCheckBtn.removeEventListener("click",makeRequest);
+			emailCheckBtn.removeEventListener("click",checkInsertInputValue);
 			emailCheckBtn.addEventListener("click",()=>{
-				email.innerText ="";
 				email.readOnly=false;
+				email.value =""; 
+				emailAlertMessage.innerText = "";
 				canUseEamil = false;
 				emailCheckBtn.value="check"
 				checkCanPushSubmitBtn();
-				emailCheckBtn.addEventListener("click",makeRequest);
+				emailCheckBtn.addEventListener("click",checkInsertInputValue);
 			})
 			checkCanPushSubmitBtn();
 		}else{
@@ -81,13 +94,19 @@ const checkCanPushSubmitBtn = () =>{
 	}
 }
 
+const checkInsertInputValue = () =>{
+	const value = email.value;
+	if(value != ''){
+		makeRequest();
+	}
+}
+
 const init = () =>{
     pw2.addEventListener("keyup",checkPw);
 	pw1.addEventListener("keyup",checkPw);
-    emailCheckBtn.addEventListener("click",makeRequest);
+	emailCheckBtn.addEventListener("click",checkInsertInputValue);
 }
 
-if(pw1!=null){
-	console.log("join.js file work")
+if(joinMainBox!=null){
 	init();	
 }

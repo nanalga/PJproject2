@@ -1,8 +1,21 @@
 @charset "UTF-8";
 
-.footer{
+.footer_container{
+    width: 100%;
+    padding: 50px 0;
+    background-color:white;
+    background-color: #35858B;
     display: flex;
     justify-content: center;
-    align-items: center;
-    border-top: 1px solid black;
+}
+.footer_container2{
+    width: 100%;
+    padding: 50px 0;
+    background-color:white;
+    background-color: #C84B31;
+    display: flex;
+    justify-content: center;
+}
+.footer_box>span{
+	font-size: 25px;
 }

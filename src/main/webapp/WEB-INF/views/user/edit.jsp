@@ -18,6 +18,7 @@
 </head>
 <body>
 <div class="body_wrapper">
+	<tag:flash></tag:flash>
 	<tag:nav></tag:nav>
 	<div class="main_container">
             <div class="user_edit_container">

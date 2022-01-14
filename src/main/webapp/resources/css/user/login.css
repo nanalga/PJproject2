@@ -1,25 +1,23 @@
 @charset "UTF-8";
-a{
-    text-decoration: none;
-    color: black;
-    
-}
-/* div{
-	border: 1px solid black;
-}
-span{
-    border: 1px solid black;
-} */
+
 .login_main_box{
     width: 100%;
-    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.login_main_box a{
+    text-decoration: none;
+	color: black;
+}
 .login_main_wrapper{
-    height: 60%;
     width: 50%;
+    padding: 40px 20px;
+    max-width: 600px;
+    border: 5px solid #35858B;
+    background-color: #EEF2FF;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,6 +31,7 @@ span{
     align-items: center;
     margin-bottom: 20px;
     text-transform: uppercase;
+    font-family: 'Vitro_core';
 } 
 .login_main_form{
     width: 100%;
@@ -41,35 +40,76 @@ span{
     justify-content: center;
     align-items: center;
 }
-.login_main_form input{
+.login_main_input_group{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    margin-bottom: 10px;
+}
+.login_main_input_group label{
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Vitro_core';
+    margin-right: 5px;
+}
+
+.login_main_input_group input{
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid #35858B;
+}
+.login_main_form input:not(:last-child){
     height: 50px;
     border-radius: 10px;
 }
-.login_main_form input:not(:last-child){
+
+.login_submitBtn_container{
+    height: 100px;
     width: 100%;
-    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 4fr 6fr 10fr;
+    margin-top: 20px;
 }
+.login_submitBtn_local{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .login_input_submit{
-    width: 40%;
+    width: 95%;
+    height: 100%;
     background-color: #676FA3;
     border-style: none;
-    font-size: 20px
+    border-radius: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: 'Vitro_core';
+}
+.login_submitBtn_social{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 10px;
 }
 .login_kakao{
-    width: 100%;
-    height: 50px;
-    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.login_kakao:hover{
-	text-decoration: none;
-	color:black;
+.login_naver{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .login_kakao_img_box{
-    border-radius: 12px;
     width: 100%;
     height: 100%;
+    border-radius: 12px;
     background-color: #FEE500;
     display: flex;
     justify-content: center;
@@ -86,13 +126,6 @@ span{
 }
 
 .login_naver{
-    width: 100%;
-    height: 50px;
-}
-
-.login_naver:hover{
-	text-decoration: none;
-	color:black;
 }
 
 .login_naver_img_box{
@@ -114,4 +147,5 @@ span{
 
 .login_naver_img_box>span:nth-child(2){
     font-size: 20px;
-}
+} 
+

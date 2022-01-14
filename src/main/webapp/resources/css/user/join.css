@@ -1,21 +1,26 @@
-
-
 .join_main_box{
     width: 100%;
-    /* height: 70vh; */
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
+}
+
+.join_main_box a{
+	text-decoration: none;
+	color: black;
 }
 
 .join_main_wrapper{
     padding: 40px 20px;
-    border: 5px solid rgb(93, 161, 240);
+    border: 5px solid #35858B;
     border-radius: 20px;
     width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #EEF2FF;
+    
 }
 
 .join_main_wrapper>span{
@@ -26,6 +31,7 @@
     text-transform: uppercase;
     font-weight: 600;
     margin-bottom: 20px;
+    font-family: 'Vitro_core';
 }
 
 .join_main_form{
@@ -35,15 +41,49 @@
     align-items: center;
 }
 
-.join_main_form>input{
+.join_main_input_group input{
     height: 50px;
     border-radius: 10px;
+    border: 2px solid #35858B;
 }
+
+.join_main_input_group{
+	width: 100%;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    margin-bottom: 10px;
+}
+
+.join_main_input_group:nth-child(3){
+    height: 70px;
+    align-items: flex-start;
+}
+
+.join_main_input_group label{
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Vitro_core';
+    margin-right: 5px;
+}
+
+.join_main_input_group:nth-child(3) label{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.join_main_input_group:nth-child(5) label{
+    font-size: 18px;
+}
+
 
 .join_input_group{
 	width: 100%;
-	height: 50px;
-	margin-bottom: 25px;
+    height: 100%;
 	display: grid;
 	grid-template-columns: 4fr 1fr;
 	column-gap: 5px;
@@ -51,8 +91,13 @@
 
 .join_input_group>input{
 	height: 50px;
-	border-radius: 10px;
-	
+}
+
+.join_email_check{
+	background-color: #676FA3;
+	border-style: none;
+	font-size: 20px;
+	font-family: 'Vitro_core';
 }
 
 .join_email_message{
@@ -67,9 +112,13 @@
 
 .join_submit{
     width: 50%;
+    height: 50px;
+    border-radius: 10px;
     background-color: #676FA3;
     border-style: none;
     font-size: 20px;
+    margin-top: 50px;
+    font-family: 'Vitro_core';
 }
 
 .join_kakao{
