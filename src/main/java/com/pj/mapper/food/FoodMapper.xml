@@ -5,6 +5,10 @@
 
 <mapper namespace="com.pj.mapper.food.FoodMapper">
 	
+	<select id="selectNameByBoardId" resultType="String">
+	SELECT imageKey FROM Food WHERE id = #{id}
+	</select>
+	
 	<update id="foodPlusCount">
 	UPDATE Food SET boardCnt = boardCnt + 1 WHERE id = #{id}
 	</update>
@@ -77,7 +81,8 @@
 		title = #{title},
 		contents = #{contents},
 		writer = #{writer},
-		updated = NOW()
+		updated = NOW(),
+		imageKey = concat( imageKey, ',' , ifnull(#{imageKey }, '')  )
 	WHERE
 		id = #{id}
 	</update>
@@ -91,15 +96,20 @@
 	
 	<select id="selectRead" resultType="com.pj.domain.food.FoodVO">
 	SELECT
-		id,
-		title,
-		writer,
-		contents,
-		inserted,
-		updated
+		f.id,
+		f.title,
+		f.writer,
+		f.contents,
+		f.inserted,
+		f.boardCnt,
+		f.imageKey,
+		f.updated,
+		COUNT(fr.id) foodReplyCount
 	FROM
-		Food
-	WHERE id = #{id}
+		Food f
+			LEFT JOIN
+		FoodReply fr ON f.id = fr.foodBoardId
+	WHERE f.id = #{id}
 	</select>
 
 	<select id="getList" resultType="com.pj.domain.food.FoodVO">
@@ -109,6 +119,7 @@
 		contents,
 		writer,
 		boardCnt,
+		foodReplyCount,
 		inserted,
 		updated
 	FROM

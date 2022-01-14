@@ -41,12 +41,13 @@
   <filter>
     <display-name>FoodCheckLogInFilter</display-name>
     <filter-name>FoodCheckLogInFilter</filter-name>
-    <filter-class>com.pj.filter.FoodCheckLogInFilter</filter-class>
+    <filter-class>com.pj.filter.food.FoodCheckLogInFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>FoodCheckLogInFilter</filter-name>
     <url-pattern>/FoodCheckLogInFilter</url-pattern>
     <url-pattern>/food/foodRegister</url-pattern>
+    <url-pattern>/food/foodModify</url-pattern>
   </filter-mapping>
 
 </web-app>

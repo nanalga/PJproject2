@@ -16,6 +16,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 
 <style>
+.main_container {
+	background-color: ;
+}
+
 .bbsTitleBox{
     border: 1px solid #DDD;
     /* margin: 0 auto 10px; */
@@ -106,14 +110,14 @@ tr:hover {background-color: #f2f2f2;}
 <title>Insert title here</title>
 </head>
 <body>
-
 <!-- .container>.row>.col>h1{맛집 목록} -->
 <div class="body_wrapper">	
 	<tag:nav></tag:nav>
-	<div class="main_container">
+	<div class="main_container" >
 		<div class="row" style="width: 100%" >
 			<div class="main_bbsFood" style="width: 80%">
 				<div class="bbsTitleBox">
+				
 					<div class="bbsTitle">
 						<a href="#">맛집</a>
 						<div class="bbsBtnGroup"></div>
@@ -122,7 +126,6 @@ tr:hover {background-color: #f2f2f2;}
 						<div>- 공유할 동네 맛집 정보 글을 올려주세요.</div>
 					</div>
 				</div>
-			
 				<!-- table.table>thead>tr>th*4^^tbody -->
 				<table class="table">
 					<thead id="title_thead">

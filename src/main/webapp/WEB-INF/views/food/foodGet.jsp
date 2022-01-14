@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/food/foodGet.css" />
 
 <script>
 $(document).ready(function(){
@@ -27,25 +32,29 @@ $(document).ready(function(){
 			success : function(list){
 				for(let i = 0; i < list.length; i++){
 					const foodReplyMediaObject =$(`
-						<hr>					
-						<div class="media">
-						<div class="media-body">
-							<h5 class="mt-0">
-								<i class="far fa-comment"></i>
-								<span class="reply-name"> \${list[i].name} </span>
-								님이 \${list[i].customInserted}에 작성 
-							</h5>
-							<p class="reply-body" style="white-space: pre;"></p>
-							
-							<div class="input-group" style="display:none">
+								
+					<div class="food_get_body_main_box_comment_txt_media">
+						<div class="food_get_body_main_box_comment_txt_media-body">
+							<div class="food_get_body_main_box_comment_writer_content">
+								<p class="food_reply_body" style="white-space: pre;"></p>
+								<h5 class="food_reply_mt">
+									<i class="far fa-comment"></i>
+									<span class="reply-name"> \${list[i].name} </span>님이 \${list[i].customInserted}에 작성
+								</h5>
+							</div>
+							<div class="food_reply_input_group" style="display:none">
 								<textarea name="" id="replyTextarea\${list[i].id}" class="form-control"></textarea>
-								<div class="iput-group-append">
-									<button class="btn-outline-secondary cancel-button"><i class="fas fa-ban"></i></button>
-									<button class="btn-outline-secondary" id="sendReply\${list[i].id}"><i class="far fa-comment-dots fa-lg"></i></button>
+								<div class="input_group_append_button">
+									<button class="btn-outline-secondary cancel-button">취소</button>
+									<button class="btn-outline-secondary" id="sendReply\${list[i].id}">댓글수정</button>
 								</div>
 							</div>
-						 </div>
-						</div>`);
+							<div class="food_reple_input_modify_group">
+								<button class='recoment_modify_button'>수정</button>
+								<button class='recoment_remove_button'>삭제</button>
+							</div>
+						</div>
+					</div>`);
 					
 					foodReplyMediaObject.find("#sendReply" + list[i].id).click(function(){
 						const replyText = foodReplyMediaObject.find("#replyTextarea" + list[i].id).val();
@@ -64,28 +73,28 @@ $(document).ready(function(){
 					});
 					
 					foodReplyMediaObject.find(".reply-name").text(list[i].name);
-					foodReplyMediaObject.find(".reply-body").text(list[i].replyText);
+					foodReplyMediaObject.find(".food_reply_body").text(list[i].replyText);
 					foodReplyMediaObject.find(".form-control").text(list[i].replyText);
 					foodReplyMediaObject.find(".cancel-button").click(function(){
-						foodReplyMediaObject.find(".reply-body").show();
-						foodReplyMediaObject.find(".input-group").hide();
+						foodReplyMediaObject.find(".food_reply_body").show();
+						foodReplyMediaObject.find(".food_reply_input_group").hide();
 					});
 					
 					/* 로그인 후 댓글 수정,삭제 버튼 추가 */
 					if (list[i].own) {	// own true(로그인)경우 버튼 추가
 						// 본인이 작성한 것만 수정버튼 추가
-						const modifyButton = $("<button class='btn btn-outline-secondary'>수정</button>");
-						modifyButton.click(function(){
-							$(this).parent().find('.reply-body').hide();
-							$(this).parent().find('.input-group').show();
+						//const modifyButton = $(".btn btn-outline-secondary");
+						$(".recoment_modify_button").click(function(){
+							$(this).parent().find('.food_reply_body').hide();
+							$(this).parent().parent().find('.food_reply_input_group').show();
 						});
 						
-						foodReplyMediaObject.find(".media-body").append(modifyButton);
+						//foodReplyMediaObject.find(".food_get_body_main_box_comment_txt_media-body").append(modifyButton);
 						
 						// 삭제버튼 추가
-						const removeButton = $("<button class='btn btn-outline-danger'>삭제</button>");
-						foodReplyMediaObject.find(".media-body").append(removeButton);
-						removeButton.click(function(){
+						//const removeButton = $(".btn.btn-outline-danger");
+						//foodReplyMediaObject.find(".food_get_body_main_box_comment_txt_media-body").append(removeButton);
+						$(".recoment_remove_button").click(function(){
 							if(confirm("삭제하시겠습니까?")){
 								$.ajax({
 									url : appRoot + "/foodReply/" + list[i].id,
@@ -144,66 +153,158 @@ $(document).ready(function(){
 <title>Insert title here</title>
 </head>
 <body>
-<!-- .container>.row>.col>h1{게시물 조회}-->
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>게시물 조회</h1>
-			<!-- .form-group*3>label[for=input$]+input.form-control#input$[readonly] -->
-			<div class="form-group">
-				<label for="input1">제목</label>
-				<input type="text" class="form-control" id="input1" value="${food.title }" readonly="">
-			</div>
-			<div class="form-group">
-				<label for="input2">작성자</label>
-				<input type="text" class="form-control" id="input2" value="${food.writer }" readonly="">
-			</div>
-			<div class="form-group">
-				<label for="input3">내용</label>
-				<tr>
-					<td>${food.contents }</td>
-				</tr>
-			</div>
-			
-			<a href="foodList" class="btn btn-outline-secondary">
-				목록
-			</a>
-			
-			<a href="foodModify?id=${food.id }" class="btn btn-outline-secondary">
-				수정 / 삭제
-			</a>
-			
-		</div>
-	</div>
+
+<div class="food_get_body_container">
+	<tag:nav></tag:nav>
+   <!-- 공지사항 -->
+   <div class="food_get_body_main_wrapper">
+     <div class="food_get_body_top_info">
+         <div class="food_get_body_top_info_title">
+             맛집 공유
+         </div>
+         <div class="food_get_body_sub_top_info">
+             <div class="food_get_body_top_info_content_mainicon">
+                 <img src="${pageContext.request.contextPath }/resource/img/foodImg/dragon_head_food.png" alt="" class="food_get_body_top_info_content_mainicon_iconimage">
+             </div>
+             <div class="food_get_body_top_info_content">
+                 용피리에게 다양한 맛집을 알려주세요~
+             </div>
+         </div>
+     </div>
+     <!-- 게시판 제목 -->
+    <div class="food_get_body_wrapper">
+        <div class="food_get_body_main_box">
+            <div class="food_get_main_box_title">
+                <div class="food_get_body_foodBoardTitle">
+                    용피리 골목식당
+                </div>
+            </div>
+            <div class="food_get_body_main_box_backList">
+                <a href="foodList">목록으로</a>
+            </div>
+        </div>
+        <!-- 게시글 제목, 날짜, 조회수, 댓글수  -->
+        <div class="food_get_body_main_box">
+            <div class="food_get_body_main_discriptionBox">
+                <div class="food_get_body_sub_discriptionBox">
+                    <div class="food_get_body_main_box_bTitle" >
+                     ${food.title }
+                    </div>
+                </div>
+                 <div class="food_get_body_sub_discriptionBox">
+                     <div class="food_get_body_sub_sub_discriptionBox">
+                         <div class="food_get_body_main_box_bWriter">
+                             작성자 : ${food.writer } | ${food.customInserted }
+                         </div>
+                         <div class="food_get_body_main_box_bDate">
+                         </div>
+                         <div class="food_get_body_main_box_bCnt_bComentCnt">
+                            조회수 : ${food.boardCnt } |
+                            댓글 : 
+                            <c:if test="${food.foodReplyCount > 0 }">
+                            	${food.foodReplyCount }
+                            </c:if>
+                         </div>
+                     </div>
+
+                 </div>
+            </div>
+        </div>
+        <!-- 게시글 내용 -->
+        <div class="food_get_body_main_box">
+            <div class="food_get_body_main_box_content_text">
+               <tr>
+               	  <td>${food.contents }</td>
+               </tr>
+            </div>
+        </div>
+     
+        <!-- 입력된 주소 / 주소 이미지(4) -->
+        <div class="food_get_body_main_box">
+             <div class="food_get_body_main_box_address_text_part">
+                 <div class="food_get_body_main_box_address_title_text">
+                     주소 : 
+                 </div>
+                 <div class="food_get_body_main_box_address_content_text">
+                     샘플 서울시 강남구 어쩌구 저쩌구 123-12
+                 </div>
+             </div>
+             <div class="food_get_body_main_box_address_image_part">
+                 <div class="food_get_body_main_box_address_image">
+                     샘플 imge
+                 </div>
+             </div>
+         </div>
+
+        <!-- 리스트 이동 버튼 -->
+        <div class="food_get_body_main_box">
+            <div class="food_get_body_main_box_bottomList">
+                <button class="food_foodlist_sub_button" onclick="location.href='foodModify?id=${food.id }'">수정 / 삭제</button>
+            </div>
+        </div>
+        <!-- 댓글 개수 -->
+        <div class="food_get_body_main_box">
+            <div class="food_get_body_main_box_comment">
+                댓글 ${food.foodReplyCount }개
+            </div>
+        </div>
+        
+        <!-- 댓글 작성 구역 -->
+        <c:if test="${not empty sessionScope.loggedUser }">
+        <div class="food_get_body_main_box">
+            <div class="food_get_body_comment_title_frame">
+                <div class="food_get_body_comment_write">
+                 
+                </div>
+            </div>
+            <div class="food_get_body_comment_textarea_frame">
+                <textarea name="" id="replyTextarea" class="food_get_body_comment_textarea"></textarea>
+            </div>
+            <div class="food_get_body_comment_button_frame">
+                <div class="food_get_body_comment_button_sub_frame">
+                 <button id="sendReply" class="food_comment_sub_button">댓글작성</button>
+                </div>
+            </div>
+        </div>
+        </c:if>
+        
+        <!-- 댓글 리스트 -->
+        <div class="food_get_body_main_box">
+             <div class="food_get_body_main_discriptionBox">
+                 
+                 <div class="food_get_body_main_box_comment_writer">
+                 </div>
+                 <div id="foodReplyListContainer" class="food_get_body_main_box_comment_txt">
+                 </div>
+                 <div class="food_get_body_main_box_comment_date">
+                 </div>
+             </div>
+        </div>
+        
+        <!-- get 페이지 하단 -->
+        <div class="food_get_body_main_bottom_box">
+            <div class="food_get_main_bottom_box_title">
+                <div class="food_get_main_bottom_foodBoardTitle">
+                    용피리 골목식당
+                </div>
+            </div>
+            <div class="food_get_main_bottom_mainicon">
+                <div class="food_get_main_bottom_mainicon">
+                     <img src="${pageContext.request.contextPath }/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="food_get_main_bottom_iconimage">
+                </div>
+            </div>   
+        </div>
+    </div>
+ </div>
 </div>
 
-<c:if test="${not empty sessionScope.loggedUser }">
-<!-- 댓글 작성 -->
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<hr>
-			<div class="input-group">
-				<textarea name="" id="replyTextarea" class="form-control"></textarea>
-				<div class="iput-group-append">
-					<button class="btn-outline-secondary" id="sendReply"><i class="far fa-comment-dots fa-lg"></i></button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</c:if>
 
-<!-- 댓글 container -->
-<hr>
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<div id="foodReplyListContainer"></div>
-		</div>
-	</div>
-</div> 
 
+
+
+
+<tag:footer></tag:footer>
+<tag:menu></tag:menu>
  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>

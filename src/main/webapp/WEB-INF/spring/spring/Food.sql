@@ -41,6 +41,7 @@ DROP TABLE FoodFile;
 DESC FoodFile;
 DESC File;
 DESC Food;
+DESC FoodReply
 
 
 -- id, foodFileUrl
@@ -163,3 +164,40 @@ where
 like concat('%','123','%')
 ;
 
+-- 선택 게시물 파일이름 조회
+SELECT * FROM Food ORDER BY id DESC;
+SELECT id, imageKey FROM Food WHERE id ORDER BY id DESC;
+UPDATE Board
+   SET content = concat(content,',','추가값2') WHERE id = 2051;
+SELECT * FROM Board;
+
+-- 사진 update ImageKey값 추가 해서 넣기
+UPDATE Food SET imageKey = concat(imageKey, 'test123.jpg') WHERE id = 263;
+UPDATE Food SET imageKey = 'board/456.jsp,board/789.jsp' WHERE id = 257;
+
+	UPDATE
+		Food
+	SET
+		title = 'test01',
+		contents = 'test01',
+		writer = 'tester',
+		updated = NOW(),
+        imageKey = concat( ifnull(imageKey,'0'), ',' '456.gif' )
+	WHERE
+		id = 274;
+
+	SELECT
+		f.id,
+		f.title,
+		f.writer,
+		f.contents,
+		f.inserted,
+		f.boardCnt,
+		f.imageKey,
+		f.updated,
+		COUNT(fr.id) foodReplyCount
+	FROM
+		Food f
+			LEFT JOIN
+		FoodReply fr ON f.id = fr.foodBoardId
+	WHERE f.id = 284;
