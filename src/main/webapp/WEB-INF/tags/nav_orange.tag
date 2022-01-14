@@ -1,9 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ attribute name="active"%>
-
-<header class="header_container">
+<header class="header_container2">
     <div class="header_box">
         <div class="header_menu_btn">
             <i class="fas fa-bars"></i>

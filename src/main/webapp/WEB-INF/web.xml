@@ -33,12 +33,9 @@
     <filter-name>encoding</filter-name>
     <servlet-name>appServlet</servlet-name>
   </filter-mapping>
-
   <listener>
     <listener-class>com.pj.listener.AppListener</listener-class>
   </listener>
-
-	<!--FoodFilter  -->
   <filter>
     <display-name>FoodCheckLogInFilter</display-name>
     <filter-name>FoodCheckLogInFilter</filter-name>
@@ -50,9 +47,6 @@
     <url-pattern>/food/foodRegister</url-pattern>
     <url-pattern>/food/foodModify</url-pattern>
   </filter-mapping>
-  
-  <!--resell Filter  -->
- 
   <filter>
     <display-name>CheckLoginFilter</display-name>
     <filter-name>CheckLoginFilter</filter-name>
@@ -63,7 +57,18 @@
     <url-pattern>/CheckLoginFilter</url-pattern>
     <url-pattern>/resellMarket/resellBoard/resellBoardRegister</url-pattern>
   </filter-mapping>
-  
-  
-
+  <filter>
+  	<display-name>CheckUserLogInFilter</display-name>
+  	<filter-name>CheckUserLogInFilter</filter-name>
+  	<filter-class>com.pj.filter.userFilter.CheckUserLogInFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>CheckUserLogInFilter</filter-name>
+  	<url-pattern>/CheckUserLogInFilter</url-pattern>
+  	<url-pattern>/user/userDetail/*</url-pattern>
+  	<url-pattern>/user/user/userDelete</url-pattern>
+  	<url-pattern>/user/edit</url-pattern>
+  	<url-pattern>/user/logout</url-pattern>
+  	<url-pattern>/admin/adminDetail/*</url-pattern>
+  </filter-mapping>
 </web-app>

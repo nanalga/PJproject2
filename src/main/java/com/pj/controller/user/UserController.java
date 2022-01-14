@@ -70,18 +70,8 @@ public class UserController {
 		String access_token = (String) session.getAttribute("access_token");
 		UserVO vo = (UserVO) session.getAttribute("loggedUser");
 		String social = vo.getSocial();
-		
-		if(social.equals("naver")) {
-			boolean ok = logOutNaverUser(access_token);
-			if(ok) {
-				System.out.println("로그아웃 성공(네이버)");
-				rttr.addFlashAttribute("success","로그아웃되었습니다.");
-			}else {
-				System.out.println("로그아웃 실패(네이버)");
-				rttr.addFlashAttribute("fail","로그아웃에 실패했습니다.");
-			}
-		}
-		else if(social.equals("kakao")) {
+
+		if(social.equals("kakao")) {
 			boolean ok = logOutKakaoUser(access_token);
 			if(ok) {
 				System.out.println("로그아웃 성공(카카오)");
@@ -90,6 +80,10 @@ public class UserController {
 				System.out.println("로그아웃 실패(카카오)");
 				rttr.addFlashAttribute("fail","로그아웃에 실패했습니다.");
 			}
+		}else if(social.equals("naver")) {
+			rttr.addFlashAttribute("success","로그아웃 되었습니다.");
+		}else if(social.equals("local")) {
+			rttr.addFlashAttribute("success","로그아웃 되었습니다.");
 		}
 		session.invalidate();
 		return "redirect:/";
@@ -212,9 +206,14 @@ public class UserController {
 	
 	@PostMapping("/userDelete")
 	public String userDetele(String email,HttpSession session,RedirectAttributes rttr) {
-		boolean ok = userService.deleteUserEmail(email);
-		System.out.println(ok);
-		if(ok) {
+		String access_token = (String) session.getAttribute("access_token");
+		UserVO vo = (UserVO) session.getAttribute("loggedUser");
+		boolean ok1 = false;
+		if(vo.getSocial().equals("naver")) {
+			ok1 = logOutNaverUser(access_token);
+		}
+		boolean ok2 = userService.deleteUserByUserId(vo.getId());
+		if(ok1&&ok2) {
 			session.invalidate();
 			rttr.addFlashAttribute("success","계정이 삭제되었습니다.");
 			return "redirect:/";
