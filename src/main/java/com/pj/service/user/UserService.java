@@ -32,6 +32,7 @@ public class UserService {
 	}
 	
 	public boolean insert(UserVO vo) {
+		System.out.println(vo);
 		return userMapper.insert(vo) == 1;
 	}
 
@@ -69,15 +70,14 @@ public class UserService {
 
 	@Transactional
 	public boolean deleteUserByUserId(Integer id) throws RuntimeException{
-		int count1 = userMapper.selectCount("FoodReply","userId",id);
-		int count2 = userMapper.selectCount("rReply", "userId", id);
-		int count3 = userMapper.deleteReplyByUserId(id);
-		System.out.println("count1 :"+count1);
-		System.out.println("count2 :"+count2);
-		System.out.println("count3 :"+count3);
-		if((count1+count2) != count3) {
-			throw new RuntimeException("deleteReplyByUserId query error");
-		}
+		/*
+		 * int count1 = userMapper.selectCount("FoodReply","userId",id); int count2 =
+		 * userMapper.selectCount("rReply", "userId", id); int count3 =
+		 * userMapper.deleteReplyByUserId(id); System.out.println("count1 :"+count1);
+		 * System.out.println("count2 :"+count2); System.out.println("count3 :"+count3);
+		 * if((count1+count2) != count3) { throw new
+		 * RuntimeException("deleteReplyByUserId query error1"); }
+		 */
 		
 		List<UserFoodVO> foodVOs = userMapper.getFoodListByUserId(id);
 		for(UserFoodVO foodVO : foodVOs) {
@@ -90,10 +90,16 @@ public class UserService {
 		
 		int count4 = userMapper.selectCount("Food", "memberId", id);
 		int count5 = userMapper.selectCount("ResellBoard", "memberId", id);
-		int count6 = userMapper.deleteBoardByUserId(id);
+		int count6 = userMapper.deleteFoodByUserId(id);
+		int count7 = userMapper.deleteResellByUserId(id);
 		
-		if((count4+count5) != count6) {
-			throw new RuntimeException("deleteBoardByUserId query error");
+		System.out.println("count4 :"+count4);
+		System.out.println("count5 :"+count5);
+		System.out.println("count6 :"+count6);
+		System.out.println("count7 :"+count7);
+		
+		if((count4+count5) != (count6+count7)) {
+			throw new RuntimeException("deleteBoardByUserId query error2");
 		}
 		
 		return userMapper.deleteUserByUserId(id) == 1;

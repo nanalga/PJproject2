@@ -155,11 +155,12 @@ public class UserController {
 	
 	@PostMapping("/join")
 	public String postJoin(UserVO vo,RedirectAttributes rttr) {
+		System.out.println(vo);
 		vo.setSocial("local");
 		vo.setAdmin(false);
 		if(userService.insert(vo)) {
 			rttr.addFlashAttribute("success","회원가입되었습니다.");
-			return "redirect:/";
+			return "redirect:/user/login";
 		}else {
 			rttr.addFlashAttribute("fail","회원가입에 실패하였습니다.");
 			return "redirect:/user/join";
@@ -192,12 +193,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/update")
-	public String update(UserVO vo,HttpSession session,RedirectAttributes rttr) {
+	public String update(String nickName,UserVO vo,HttpSession session,RedirectAttributes rttr) {
+		System.out.println(nickName);
+		System.out.println(vo);
 		boolean ok = userService.update(vo);
 		if(ok) {
 			session.setAttribute("loggedUser", userService.getUserEmail(vo.getEmail()));
 			rttr.addFlashAttribute("success","업데이트되었습니다");
-			return "redirect:/";
+			return "redirect:/user/userDetail";
 		}else {
 			rttr.addFlashAttribute("fail","업데이트에 실패했습니다.");
 			return "redirect:/user/userDetail";
@@ -208,11 +211,19 @@ public class UserController {
 	public String userDetele(String email,HttpSession session,RedirectAttributes rttr) {
 		String access_token = (String) session.getAttribute("access_token");
 		UserVO vo = (UserVO) session.getAttribute("loggedUser");
-		boolean ok1 = false;
+		boolean ok1 = true;
+		boolean ok2 = false;
 		if(vo.getSocial().equals("naver")) {
 			ok1 = logOutNaverUser(access_token);
 		}
-		boolean ok2 = userService.deleteUserByUserId(vo.getId());
+		if(vo.getSocial().equals("kakao")) {
+			ok1 = logOutKakaoUser(access_token);
+		}
+		try {
+			ok2 = userService.deleteUserByUserId(vo.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if(ok1&&ok2) {
 			session.invalidate();
 			rttr.addFlashAttribute("success","계정이 삭제되었습니다.");

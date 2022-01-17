@@ -24,15 +24,15 @@
                 <div class="admin_detail_wrapper">
                     <span class="admin_detail_title">Admin Detail</span>
                     <div class="admin_detail_box">
-                        <label for="admin_detail_input1" class="admin_detail_label">Name</label>
+                        <label for="admin_detail_input1" class="admin_detail_label">이름</label>
                         <input type="text" class="admin_detail_input" id="admin_detail_input1" value="${sessionScope.loggedUser.name}" readonly/>
                     </div>
                     <div class="admin_detail_box">
-                        <label for="admin_detail_input2" class="admin_detail_label">Eamil</label>
+                        <label for="admin_detail_input2" class="admin_detail_label">이메일</label>
                         <input type="text" class="admin_detail_input" id="admin_detail_input2" value="${sessionScope.loggedUser.email}"  readonly/>
                     </div>
                     <div class="admin_detail_box">
-                        <label for="admin_detail_input3" class="admin_detail_label">Password</label>
+                        <label for="admin_detail_input3" class="admin_detail_label">비밀번호</label>
                         <input type="text" class="admin_detail_input" id="admin_detail_input3" value="${sessionScope.loggedUser.password}" readonly/>
                     </div>
                 </div>

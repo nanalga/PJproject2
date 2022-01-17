@@ -8,7 +8,7 @@
         </div>
         <div class="flash_message_box">
             <span class="flash_message_title">성공!!</span>
-            <span class="flash_message_content">지금 아주 좋아요 아주 잘되고있어용~</span>
+            <span class="flash_message_content">${success }</span>
         </div>
 	</div>
 </c:if>
@@ -19,7 +19,7 @@
         </div>
         <div class="flash_message_box">
             <span class="flash_message_title">실패..ㅠㅠ</span>
-            <span class="flash_message_content">솔직히 말해서 나도 왜 이 에러가 뜨는지 잘 모르겠다..</span>
+            <span class="flash_message_content">${fail }</span>
         </div>
 	</div>
 </c:if>

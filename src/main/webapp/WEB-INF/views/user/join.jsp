@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>join page</title>
 </head>
 <body>
@@ -42,7 +43,7 @@
                     <span>회원가입</span>
                     <form method="post" class="join_main_form">
                         <div class="join_main_input_group">
-                            <label for="join_input1">*이름</label>
+                            <label for="join_input1">이름*</label>
                             <input type="text" id="join_input1" name="name" class="join_name" required/>
                         </div>
                         <div class="join_main_input_group">
@@ -50,7 +51,7 @@
                             <input type="text" id="join_input2" name="nickName" class="join_nickName" />
                         </div>
                         <div class="join_main_input_group">
-                            <label for="join_input3">*이메일</label>
+                            <label for="join_input3">이메일*</label>
                             <div class="join_input_group">
                             <input type="email" id="join_input2" name="email" class="join_email" required/>
                             <input type="button" class="join_email_check" value="Check">
@@ -58,16 +59,16 @@
                         </div>
                         </div>
                         <div class="join_main_input_group">
-                            <label for="join_input4">*비밀번호</label>
+                            <label for="join_input4">비밀번호*</label>
                             <input type="text" id="join_input4" name="password" class="join_pw" required/>
                         </div>
                         <div class="join_main_input_group">
-                            <label for="join_input5">*비밀번호 확인</label>
+                            <label for="join_input5">비밀번호 확인*</label>
                             <input type="text" id="join_input5" class="join_pw_check" required/>
                         </div>
                         <div class="join_main_input_group">
                             <label for="join_input6">주소</label>
-                            <input type="text" id="join_input6" class="join_address"/>
+                            <input type="text" id="join_input6" name="address" class="join_address"/>
                         </div>
                         <input type="submit" class="join_submit" value="Join" disabled />
                     </form>

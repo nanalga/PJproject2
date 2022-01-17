@@ -262,6 +262,9 @@ img{
 }
 
 .content_box{
+
+}
+.main_content_text_link_box{
     position: relative;
     height: 350px;
     display: flex;
@@ -325,26 +328,18 @@ img{
 .main_content_text_box{
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 1;
 }
-
-
-
-.main_content_text_link_box{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.main_content_text_link_box>h2{
+.main_content_text_box>h2{
     font-size: 30px;
     line-height: 40px;
     font-family: 'Vitro_core';
 }
 
-.main_content_text_link_box>p{
+.main_content_text_box>p{
     font-size: 24px;
     line-height: 40px;
     font-family: 'KyoboHand';

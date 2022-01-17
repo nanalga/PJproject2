@@ -6,8 +6,8 @@
 <mapper namespace="com.pj.mapper.user.UserMapper">
 	<insert id="insert">
 		INSERT INTO 
-		User(name,nickName,email,password,social,admin)
-		VALUES(#{name},#{nickName},#{email},#{password},#{social},#{admin})
+		User(name,nickName,email,password,address,social,admin)
+		VALUES(#{name},#{nickName},#{email},#{password},#{address},#{social},#{admin})
 	</insert>
 	
 	<select id="getUserInfo" resultType="string">
@@ -122,8 +122,10 @@
 			User
 		SET
 			name=#{name},
+			nickName=#{nickName},
 			email=#{email},
 			password=#{password},
+			address=#{address},
 			updated = NOW()
 		WHERE
 			id = #{id}
@@ -178,6 +180,20 @@
 		WHERE 
 			f.memberId = #{id} 
 		AND r.memberId = #{id}; 
+	</delete>
+	<delete id="deleteFoodByUserId">
+		DELETE
+		FROM 
+			Food
+		WHERE 
+			memberId = #{id}
+	</delete>
+	<delete id="deleteResellByUserId">
+		DELETE
+		FROM 
+			ResellBoard
+		WHERE 
+			memberId = #{id}
 	</delete>
 	<delete id="deleteFoodReplyByFoodId">
 		DELETE
