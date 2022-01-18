@@ -30,6 +30,8 @@ public class ResellBoardVO {
 	private Integer replyCount;
 	private Integer boardCount;
 	private String imageKey;
+	private String nowDate;
+
 	
 	public String getCustomInserted() {
 		//현재 일시

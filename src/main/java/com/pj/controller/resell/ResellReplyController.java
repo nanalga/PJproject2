@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.pj.domain.resell.ResellMemberVO;
+
 import com.pj.domain.resell.ResellReplyVO;
 import com.pj.domain.user.UserVO;
 import com.pj.service.resell.ResellReplyService;
@@ -37,8 +37,10 @@ public class ResellReplyController {
 	public List<ResellReplyVO>  list( @PathVariable Integer boardId, HttpSession session) {
 		UserVO logged = (UserVO) session.getAttribute("loggedUser");
 		
+		
 		List<ResellReplyVO> list = service.list(boardId);
 		
+		System.out.println(list);
 		System.out.println("User/login: " + logged );
 		
 		if (logged != null) {
@@ -102,15 +104,19 @@ public class ResellReplyController {
 	public ResponseEntity<String> remove(@PathVariable Integer id, @SessionAttribute(value = "loggedUser", required = false) UserVO logged) {
 		// 로그인한 멤버
 //		UserVO logged = (UserVO) session.getAttribute("loggedUser");
-		
 		// 댓글 조회
 		ResellReplyVO old = service.readById(id);
 		
 		if (logged != null && logged.getId() == (old.getUserId())) {
 			// 삭제
-			service.delete(id);
-
-			return ResponseEntity.ok("");
+			boolean TaF = service.delete(id);
+			
+			if (TaF) {
+				return ResponseEntity.ok("");				
+			} else {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+			}
+			
 		} else {
 			// 권한 없음
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

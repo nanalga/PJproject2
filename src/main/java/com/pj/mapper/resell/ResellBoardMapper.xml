@@ -5,32 +5,36 @@
 
 <mapper namespace="com.pj.mapper.resell.ResellBoardMapper">
 	
+	<select  id="getBoardTotalCnt" resultType="Integer">
+		SELECT COUNT(id) FROM Resell
+	</select>
+	
 	
 	
 	<select id="selectImageKeyByBoardId" resultType="String">
-	SELECT imageKey FROM ResellBoard WHERE id = #{id};
+	SELECT imageKey FROM Resell WHERE id = #{id};
 	</select>
 
 	<update id="boardPlusCnt">
-	UPDATE ResellBoard SET boardCount = (boardCount + 1) WHERE id = #{id}
+	UPDATE Resell SET boardCount = (boardCount + 1) WHERE id = #{id}
 	</update>
 	
-	<delete id = "deleteByUserId">
-		DELETE FROM ResellBoard WHERE nickName = #{userId}
-	</delete>
+<!-- 	<delete id = "deleteByUserId">
+		DELETE FROM Resell WHERE nickName = #{userId}
+	</delete> -->
 
 	<select  id="getCount" resultType="int"> 
-	SELECT COUNT(id) FROM ResellBoard
+	SELECT COUNT(b.id) FROM Resell b JOIN User u ON b.memberId = u.id
  	<if test="searchType != null">
 		<if test="searchType == 'all'.toString()">
-			WHERE ( title  LIKE CONCAT('%', #{keyword}, '%') OR
-			nickName LIKE CONCAT('%', #{keyword}, '%'))
+			WHERE ( b.title  LIKE CONCAT('%', #{keyword}, '%') OR
+			u.nickName LIKE CONCAT('%', #{keyword}, '%'))
 		</if>
-		<if test="searchType == 't'.toString()">
-			WHERE title LIKE CONCAT('%', #{keyword}, '%')
+		<if test="searchType == 'title'.toString()">
+			WHERE b.title LIKE CONCAT('%', #{keyword}, '%')
 		</if>
-		<if test="searchType == 'w'.toString()">
-			WHERE nickName LIKE CONCAT('%', #{keyword}, '%')
+		<if test="searchType == 'writer'.toString()">
+			WHERE u.nickName LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 	</if> 
 	
@@ -39,18 +43,18 @@
 	
 
 	<select id="getCountRows" resultType="int">
-	SELECT COUNT(id) FROM ResellBoard 
+	SELECT COUNT(id) FROM Resell b JOIN User u ON b.memberId = u.id
 	 	<!-- 검색 조건이 null이 아니라면 검색조건에 따른 데이터 조회-->
  	<if test="searchType != null">
 		<if test="searchType == 'all'.toString()">
-			WHERE ( title  = CONCAT('%', #{keyword}, '%') OR
-			nickName LIKE CONCAT('%', #{keyword}, '%'))
+			WHERE ( b.title  = CONCAT('%', #{keyword}, '%') OR
+			u.nickName LIKE CONCAT('%', #{keyword}, '%'))
 		</if>
-		<if test="searchType == 't'.toString()">
-			WHERE title LIKE CONCAT('%', #{keyword}, '%')
+		<if test="searchType == 'title'.toString()">
+			WHERE b.title LIKE CONCAT('%', #{keyword}, '%')
 		</if>
-		<if test="searchType == 'w'.toString()">
-			WHERE nickName LIKE CONCAT('%', #{keyword}, '%')
+		<if test="searchType == 'writer'.toString()">
+			WHERE u.nickName LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 	</if> 
 	
@@ -60,42 +64,42 @@
 	
 	<select id="getListPage" resultType="com.pj.domain.resell.ResellBoardVO">
 SELECT 
-	    rb.id,
-	    rb.title,
-	    rb.content,
-	    rb.nickName,
-	    rb.memberId,
-	    rb.address,
-	    rb.price,
-	    rb.inserted,
-	    rb.updated,
-	    rb.memberId,
-        rr.userId,
-       count(rr.id) replyCount,
-       rb.boardCount
+	    b.id,
+	    b.title,
+	    b.content,
+	    u.nickName,
+	    b.memberId,
+	    b.address,
+	    b.price,
+	    b.inserted,
+	    b.updated,
+        count(r.id) AS replyCount,
+        b.boardCount
  FROM   
-	    ResellBoard  rb
-        		LEFT JOIN
-       rReply rr On rb.id = rr.boardId
-      			LEFT JOIN  
-			User u On u.id=rr.userId
-	WHERE
-		(rb.id >0 )
+	    Resell  b
+LEFT JOIN
+       ResellReply r 
+On b.id = r.boardId
+JOIN  
+	   User u 
+On u.id = b.memberId
+WHERE
+	(b.id >0)
  <!-- 검색 조건이 null이 아니라면 검색조건에 따른 데이터 조회--> 
 	<if test="searchType != null">
 		<if test="searchType == 'all'.toString()">
-			AND ( title  LIKE CONCAT('%', #{keyword}, '%') OR
-			rb.nickName LIKE CONCAT('%', #{keyword}, '%'))
+			AND ( b.title  LIKE CONCAT('%', #{keyword}, '%') OR
+			u.nickName LIKE CONCAT('%', #{keyword}, '%'))
 		</if>
-		<if test="searchType == 't'.toString()">
-			AND title LIKE CONCAT('%', #{keyword}, '%')
+		<if test="searchType == 'title'.toString()">
+			AND b.title LIKE CONCAT('%', #{keyword}, '%')
 		</if>
-		<if test="searchType == 'w'.toString()">
-			AND rb.nickName LIKE CONCAT('%', #{keyword}, '%')
+		<if test="searchType == 'writer'.toString()">
+			AND u.nickName LIKE CONCAT('%', #{keyword}, '%')
 		</if>
 	</if>	       
-GROUP BY rb.id
-ORDER BY rb.id DESC
+GROUP BY b.id
+ORDER BY b.id DESC
 LIMIT #{from}, #{items}
 	</select>
 	
@@ -103,57 +107,66 @@ LIMIT #{from}, #{items}
 	<!--getList 모든 게시물 조회 -->
 	<select id="getList" resultType="com.pj.domain.resell.ResellBoardVO">
 	SELECT 
-	    id,
-	    title,
-	    content,
-	    nickName,
-	    memberId,
-	    address,
-	    price,
-	    inserted,
-	    updated,
-	    boardCount
+	    b.id,
+	    b.title,
+	    b.content,
+	    u.nickName,
+	    b.memberId,
+	    b.address,
+	    b.price,
+	    b.inserted,
+	    b.updated,
+	    b.boardCount
 	FROM
-	    ResellBoard  
+	    Resell b  
+	JOIN 
+		User u
+	ON b.memberId = u.id
 	ORDER BY id DESC
 	</select>
 
 	<!--id(pk)로 하나의 게시물 조회-->
 	<select id="select" resultType="com.pj.domain.resell.ResellBoardVO">
 	SELECT 
-	    id,
-	    title,
-	    content,
-	    nickName,
-	    memberId,
-	    address,
-	    price,
-	    inserted,
-	    updated,
-	    boardCount,
-	    imageKey
+	    b.id,
+	    b.title,
+	    b.content,
+	    u.nickName,
+	    b.memberId,
+	    b.address,
+	    b.price,
+	    b.inserted,
+	    b.updated,
+	    b.boardCount,
+	    b.imageKey,
+	    COUNT(r.id) replyCount
 	FROM
-	    ResellBoard 
+	    Resell b
+	LEFT JOIN
+	  	ResellReply r 
+	On b.id = r.boardId  
+	JOIN
+		User u
+	ON b.memberId = u.id
 	WHERE 
-		id = #{id}  
+		b.id = #{id}  
 	</select>
 	
 	<!--insert  &get generated key-->
 	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 	INSERT INTO
-		ResellBoard (title, content,nickName,memberId,address ,price, imageKey)
+		Resell(title, content,memberId,address ,price, imageKey)
 	VALUES
-		(#{title}, #{content}, #{nickName}, #{memberId},#{address},#{price}, #{imageKey})	
+		(#{title}, #{content}, #{memberId},#{address},#{price}, #{imageKey})	
 	</insert>
 	
 	<!--update 하나의 게시물 수정  -->
 	<update id="update">
 	UPDATE
-		ResellBoard
+		Resell
 	SET
 		title = #{title},
 		content = #{content},
-		nickName = #{nickName},
 		address = #{address},
 		price = #{price},
 		updated = NOW(),
@@ -164,7 +177,7 @@ LIMIT #{from}, #{items}
 	
 	<!--delete 하나의 게시물 수정삭제  -->
 	<delete id="delete">
-	DELETE FROM ResellBoard WHERE id = #{id}
+	DELETE FROM Resell WHERE id = #{id}
 	</delete>
 
 

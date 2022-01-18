@@ -6,22 +6,22 @@
 <mapper namespace="com.pj.mapper.resell.ResellReplyMapper">
 	
 	<delete id="deleteByUserId">
-	DELETE FROM rReply WHERE userId = #{userid}
+	DELETE FROM ResellReply WHERE userId = #{userId}
 	</delete>
 	
 	
 	<delete id="deleteByBoardId">
-	DELETE FROM rReply WHERE boardId = #{boardId}
+	DELETE FROM ResellReply WHERE boardId = #{boardId}
 	</delete>
 	
 	<delete id="delete">
-	DELETE FROM rReply WHERE id= #{id}
+	DELETE FROM ResellReply WHERE id= #{id}
 	
 	</delete>
 
 
 	<update id="update">
-	UPDATE rReply
+	UPDATE ResellReply
 	SET
 		replyText = #{replyText},
 		updated = NOW()
@@ -31,16 +31,16 @@
 	</update>
 
 	<select  id="selectById"  resultType="com.pj.domain.resell.ResellReplyVO">
-	SELECT id, boardId, memberId, userId, replyText, inserted, updated
-	FROM rReply
+	SELECT id, boardId, userId, replyText, inserted, updated
+	FROM ResellReply
 	WHERE id = #{id}	
 	
 	</select>
 
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		INSERT INTO rReply (boardId, memberId, userId, replyText)
-		VALUES (#{boardId},#{memberId} ,#{userId}, #{replyText})
+		INSERT INTO ResellReply (boardId, userId, replyText)
+		VALUES (#{boardId},#{userId} , #{replyText})
 
 	</insert> 
 
@@ -50,17 +50,16 @@
  SELECT
 	rr.id,
     rr.boardId,
-    rr.memberId,
     rr.userId,
     rr.replyText,
     rr.inserted,
     rr.updated,
-    up.name
+    up.nickName
 FROM
-	rReply rr left JOIN User up
+	ResellReply rr left JOIN User up
     ON
 		rr.userId = up.id
-    JOIN ResellBoard rb 
+    JOIN Resell rb 
 	ON	
 	rr.boardId = rb.id
 WHERE

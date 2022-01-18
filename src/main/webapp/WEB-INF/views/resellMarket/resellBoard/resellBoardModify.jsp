@@ -17,6 +17,7 @@
 
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/kocss/modify.css">
 
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4312ec82fed74fec65ab6c6ffa59a5c8&libraries=services,clusterer,drawing"></script>
@@ -41,99 +42,121 @@
 	<div class="body_wrapper">
 		<tag:nav></tag:nav>
 		<!-- .contatiner>.row>.col>h1{게시물 수정} -->
-		<div class="main_container">
-			<div class="row" style="width: 80%">
-				<div class="col">
-					<h1>게시물 수정</h1>
-					<!-- form>.form-group*4>label[for=input$]+input.form-control#input$ -->
-					<form id="modifyForm" name="modifyForm" method="post" enctype="multipart/form-data">
-						<!-- input:hidden[value][name=id] -->
-						<input type="hidden" name="id" value="${resellBoard.id }">
-						<input type="hidden" name="name" value="${sessionScope.loggedUser.name }">
-						<input type="hidden" name="memberId" value="${sessionScope.loggedUser.id }">
-						<%-- <input type="hidden" name="imageKey" value="${resellBoard.imageKey }"> --%>
-						<div class="form-group">
-							<label for="titleInput">제목</label>
-							<input type="text" class="form-control" id="titleInput" value="${resellBoard.title }" name="title">
-						</div>
-						<div class="form-group">
-							<label for="contentInput">내용</label>
-							<textarea class="form-control" id="summernote" name="content">${resellBoard.content }</textarea>
-						</div>
 
-						<div class="form-group">
-							<label for="writerInput">작성자</label>
-							<input type="text" class="form-control" id="writerInput" value="${resellBoard.nickName }" name="nickName" readonly>
-						</div>
-						<div class="form-group">
-							<label for="addressInput">주소</label>
-							<input type="text" class="form-control" id="addressInput" required name="address" value="${resellBoard.address }">
-						</div>
-						<div class="form-group">
-							<label for="priceInput">가격</label>
-							<input type="text" class="form-control" id="priceInput" value="${resellBoard.price }" name="price">
-						</div>
-						<div class="form-group">
-							<div id="map" style="width: 500px; height: 280px; margin-top: 10px;"></div>
-							<div id="clickLatlng" style="display: none"></div>
-						</div>
-						<a class="btn btn-outline-primary" id="modifyA" data-toggle="modal">수정하기</a>
-				<!-- <button id="modifyA" class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#modifyModal">수정</button> -->
+        <div class="main_container">
+            <!-- header -->
+			
+            <div class="main_register_head_container">
+                <div class="main_register_head_wrapper">
+                    <div class="main_register_head_title">중고 장터</div>
+                    <div class="main_register_head_box">
+                        <div class="main_register_head_mainicon">
+                           <img src="${pageContext.request.contextPath }/resource/img/foodImg/resellBoardImage.png"  alt="" class="main_register_head_mainicon_iconimage">
+                        </div>
+                        <div class="main_register_head_content">용피리와 함께하는 아나바다.....</div>
+                    </div>
+                </div>
+            </div>
 
 
-						<button id="removeSubmitButton" class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#deleteModal">삭제</button>
-						<button class="btn btn-outline-primary" style="float: right;">
-							<a href="javascript:history.back();">뒤로가기</a>
-						</button>
-					</form>
-				</div>
-			</div>
+
+        <!-- 게시판 -->
+        <div class="main_register_container">
+            <div class="main_register_wrapper">
+                <div class="item main_register_PageName_container">
+                    <div class="main_register_PageName_wrapper">
+                        <div class="main_register_PageName_input">용필이 장터</div>
+                    </div>
+                </div>
+
+                <form id="modifyForm" name="modifyForm" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="${resellBoard.id }"/>
+                    <input type="hidden" name="name" value="${sessionScope.loggedUser.name }"/>
+                    <input type="hidden" name="memberId" value="${sessionScope.loggedUser.id }"/>
+
+
+                    <div class="item main_register_titlePrice_container">
+                        <div class="main_register_titlePrice_titleWrapper">
+                            <div class="main_register_titlePrice_titleName">제 목 :</div>
+                            <div class="main_register_titlePrice_titleInput">
+                                <input type="text" class="titlePrice_titleInput" id="titleInput" value="${resellBoard.title }"  name="title"/>
+                            </div>
+                        </div>
+                        <div class="main_register_titlePrice_priceWrapper">
+                            <div class="main_register_titlePrice_priceName">가격 :</div>
+                            <div class="main_register_titlePrice_priceInput">
+                                <input type="text" class="titlePrice_priceInput"  id="priceInput" value="${resellBoard.price }" name="price"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item main_register_nickNameDate_container">
+                        <div class="main_register_nickNameDate_nickNameWrapper">
+                            <div class="main_register_nickNameDate_nickName">작성자 :</div>
+                            <div class=" main_register_nickNameDate_nickNameInput">
+                                <input type="text" class="nickNameDate_nickNameInput" id="writerInput" value="${resellBoard.nickName }" name="nickName" readonly value="${sessionScope.loggedUser.nickName }"/>
+                            </div>
+                        </div>
+                        <div class="main_register_nickNameDate_dateWrapper">
+                            <div class="main_register_nickNameDate_dateName">날짜 :</div>
+                                <div class="main_register_nickNameDate_dateInput">
+                                     <input type="text" class="nickNameDate_DateInput" id="date" name="date" readonly value="${nowDate }"/>			
+                                </div>
+                            </div>
+                        </div>
+                    <div class="item main_register_summernote_container">
+                        <div class="main_register_summernote">
+                            <textarea class="form-control" id="summernote" name="content">
+                                ${resellBoard.content }
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="item main_register_address_container">
+                        <div class="main_register_address_wrapper">
+                            <div class="main_register_address_addressName">주 소 :</div>
+                            <div class="main_register_address_addressInput">
+                                <input type="text" class="address_addressInput" id="addressInput" required name="address" value="${resellBoard.address }"/>
+                            </div>
+                        </div>
+                        <!-- <div class="main_register_address_wrapper2"></div> -->
+                    </div>
+                    <div class="item main_register_addressImage_container">
+                        <div class="main_register_addressImage_wrapper">
+                            <div class="main_register_addressImage_addressImageInput">
+                                <div id="map" style="width: 500px; height: 300px; "></div>
+                                <div id="clickLatlng" style="display: none"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item main_register_button_container">
+                        <div class="main_register_button_wrapper">
+                           	<div class="main_register_deleteBtn">
+                                <button id="removeSubmitButton" class="btn delete" type="submit" >삭제</button>
+                           	</div>
+                            <div class="main_register_registerBtn">
+                                <button class="btn submit" id="modifyA" name="submitBtn" type="submit" >수정하기</button>
+                                <button class="btn back" style="float: right;">
+                                    <a href="javascript:history.back();">뒤로가기</a>
+                                </button>
+                           	</div>
+                        </div>
+                    </div>
+                </form>
+		         <div class="food_get_body_main_bottom_box">
+		            <div class="food_get_main_bottom_box_title">
+		                <div class="food_get_main_bottom_foodBoardTitle">
+		                    용피리 중고장터
+		                </div>
+		            </div>
+		            <div class="food_get_main_bottom_mainicon">
+		                <div class="food_get_main_bottom_mainicon">
+		                     <img src="/controller/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="food_get_main_bottom_iconimage">
+		                </div>
+		            </div>   
+		        </div> 
+		    </div>    
 		</div>
 	</div>
 
-	<!-- 수정Modal -->
-	<div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabelmodify">수정확인</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>수정하시겠습니까?</p>
-				</div>
-				<div class="modal-footer">
-					<button id="modifyModalButton" type="button" class="btn btn-secondary" data-dismiss="modal">수정하기</button>
-					<button id="notModifyModalButton" type="button" class="btn btn-primary" data-toggle="modal">취소</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<!-- 삭제Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabeldelete">삭제 확인</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>정말로 삭제 하시겠습니까?</p>
-				</div>
-				<div class="modal-footer">
-					<button id="removeModalButton" type="button" class="btn btn-secondary" data-dismiss="modal">"삭제하기"</button>
-					<button id="notRemoveModalButton" type="button" class="btn btn-primary" data-toggle="modal">삭제 취소</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 
 
@@ -151,6 +174,16 @@
 			history.replaceState("hello",null);
 		}
 		
+		
+		$("#removeSubmitButton").click(function (e) {
+			e.preventDefault();	// 기본 동작을 진행하지 않도록 함
+			$("#modifyForm").attr("action", "resellBoardRemove").submit();
+		});	
+		
+		$("#modifyA").click(function (e) {
+			e.preventDefault();
+			$("#modifyForm").attr("action", "resellBoardModify").submit();
+		});
 		
 /*ㅇㅇㅇ  */		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -194,6 +227,11 @@
 		        		var resultDiv = document.getElementById('clickLatlng'); 
 		        		resultDiv.innerHTML = message;
 		        		
+		                var iwContent = '<div style="padding:5px 10px 5px 5px; font-size: small;white-space: nowrap;">'+addressMap+'<br><a href="https://map.kakao.com/link/map/'+addressMap+','+result[0].y+','+result[0].x+
+		                '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+addressMap+
+		                ','+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		                iwPosition = new kakao.maps.LatLng(result[0].y, result[0].x);		        		
+		        		
 		                // 결과값으로 받은 위치를 마커로 표시합니다
 		                var marker = new kakao.maps.Marker({
 		                    map: map,
@@ -202,7 +240,8 @@
 
 		                // 인포윈도우로 장소에 대한 설명을 표시합니다
 		                var infowindow = new kakao.maps.InfoWindow({
-		                    content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
+		                	position : iwPosition,
+		                    content: iwContent
 		                });
 		                infowindow.open(map, marker);
 
@@ -243,9 +282,15 @@
 		                        position: coords
 		                    });
 
+			                var iwContent = '<div style="padding:5px 10px 5px 5px; font-size: small;white-space: nowrap;">'+addressMap+'<br><a href="https://map.kakao.com/link/map/'+addressMap+','+result[0].y+','+result[0].x+
+			                '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+addressMap+
+			                ','+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+			                iwPosition = new kakao.maps.LatLng(result[0].y, result[0].x);	
+		                    
 		                    // 인포윈도우로 장소에 대한 설명을 표시합니다
 		                    var infowindow = new kakao.maps.InfoWindow({
-		                        content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
+			                	position : iwPosition,
+			                    content: iwContent
 		                    });
 		                    infowindow.open(map, marker);
 
@@ -272,28 +317,20 @@
 </script>
 
 
-	<script>
+<script>
 $(document).ready(function() {
 	const appRoot = '${pageContext.request.contextPath}';
 	
 	$("#removeModalButton").click(function(e) {
 		e.preventDefault();  // 기본동작을 진행 안함
-		$("#modifyForm").attr("action","ResellBoardRemove").submit();
+		$("#modifyForm").attr("action","resellBoardRemove").submit();
 	});
 	
 	$("#modifyModalButton").click(function(e){
 		e.preventDefault();
 		$("#modifyForm").attr("action","resellBoardModify").submit();
-	});
-	$("#notRemoveModalButton").click(function(e) {
-		e.preventDefault();
-		$("#deleteModal").modal("hide");
-	})
 	
-	$("#notModifyModalButton").click(function(e) {
-		e.preventDefault();
-		$("#modifyModal").modal("hide");
-	})
+	});
 
 	// summerNote
 	var fontList = ['맑은 고딕', '돋움', '궁서', '굴림', '굴림체', '궁서체', '나눔 고딕', '바탕', '바탕체',
@@ -312,8 +349,8 @@ $(document).ready(function() {
 		['view', ['fullscreen', 'codeview', 'help']]
 	];
 	var setting = {
-			 placeholder: 'Hello stand alone ui',
-			 height: 400,
+			 placeholder: "Don't turn your back. Don't look away, and don't blink. Good luck.",
+			 height: 300,
 	         lang : 'ko-KR',
 			 minHeight: null,
 			 maxHeight: null,
@@ -423,19 +460,9 @@ $(document).ready(function() {
 	
 	
 });
-/* 	$(document).ready(function() {
-		$("#removeSubmitButton").click(function(e) {
-			e.preventDefault();  // 기본동작을 진행 안함
-			$("#modifyForm").attr("action","ResellBoardRemove").submit();
-		});
-		
-		$("#modifySubmitButton").click(function(e){
-			e.preventDefault();
-			$("#modifyForm").attr("action","resellBoardModify").submit();
-		});
-		
-	}); */
+
 </script>
+
 
 </body>
 </html>
