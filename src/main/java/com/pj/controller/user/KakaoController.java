@@ -77,6 +77,7 @@ public class KakaoController {
 		
 		UserVO vo = userService.getUserEmail(kakaoProfile.getKakao_account().getEmail());
 		if(vo != null) {
+			rttr.addFlashAttribute("fail","회원가입된 유저입니다.");
 			return "redirect:/user/login";
 		}
 		
@@ -90,7 +91,7 @@ public class KakaoController {
 		if(ok) {
 			session.setAttribute("loggedUser", vo);
 			rttr.addFlashAttribute("success","회원가입되었습니다.");
-			return "redirect:/";
+			return "redirect:/user/login";
 		}else {
 			rttr.addFlashAttribute("fail","회원가입에 실패했습니다.");
 			return "redirect:/user/join";

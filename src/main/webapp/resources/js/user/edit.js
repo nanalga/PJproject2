@@ -1,14 +1,18 @@
 const updateBtn = document.querySelector(".user_edit_updateBtn");
 const deleteBtn = document.querySelector(".user_edit_deleteBtn");
 const submitBtn = document.querySelector(".user_edit_submitBtn");
+const nickNameInput = document.querySelector(".user_edit_nickName");
 const emailCheckBtn = document.querySelector(".edit_email_check");
 const emailInput = document.querySelector("#user_edit_input2");
 const passwordInput = document.querySelector(".user_edit_password");
 const passwordCheckInput = document.querySelector(".user_edit_password_check");
+const addressInput = document.querySelector(".user_edit_address");
 
 const contextPathInfoElem = document.querySelector(".contextPath");
 const firstEamilValueElem = document.querySelector(".firstEamilValue");
+const firstNickNameValueElem = document.querySelector(".firstNickNameValue")
 const firstPasswordValueElem = document.querySelector(".firstPasswordValue");
+const firstAddressValueElem = document.querySelector(".firstAddressValue");
 
 const hiddenForm = document.querySelector(".user_edit_hidden_form");
 const emailAlertMessage = document.querySelector(".edit_email_message");
@@ -20,19 +24,23 @@ let currentInputValue
 
 let firstPwValue
 
+let firstNickNameValue;
+
+let firstAddressValue;
+
 let httpRequest
 
 let canUseEamil = true;
 let canUsePassword = true;
 
 const changeFormActionPathAndSubmit = (path) =>{
-	console.log(`${path} is work`)
 	form.action = contextPathInfo+path;
 	submitBtn.click();
 }
 
 const updateHandler = (e) =>{
-	e.preventDefault()
+	e.preventDefault();
+	//console.log(nickNameInput.value)
 	changeFormActionPathAndSubmit("/user/update");
 }
 
@@ -56,10 +64,10 @@ const emailValueCheckHandler = (e) =>{
 const checkCanPushSubmitBtn = () =>{
 	const ok1 = passwordInput.value == firstPwValue; 	
 	const ok2 = emailInput.value == firstEamilValue;
-	const isPwSame = ok1&&ok2
-	console.log("5")
-	console.log(isPwSame);
-	if(canUseEamil&&canUsePassword&&!isPwSame){
+	const ok3 = nickNameInput.value == firstNickNameValue;
+	const ok4 = addressInput.value == firstAddressValue;
+	const isAllSame = ok1&&ok2&&ok3&&ok4
+	if(canUseEamil&&canUsePassword&&!isAllSame){
 		updateBtn.disabled = false;
 	}else{
 		updateBtn.disabled = true;
@@ -104,18 +112,23 @@ const passwordCheckHandler = () =>{
 	let pw1Value = passwordInput.value;
 	let pw2Value = passwordCheckInput.value;
 	if(pw1Value == firstPwValue){
-		console.log("1")
 		canUsePassword= true;
 	}else{
-		console.log("2")
 		canUsePassword= false;
 	}
-	console.log("3")
 	if(pw1Value == pw2Value){
-		console.log("4")
 		canUsePassword = true;
 	}
 	checkCanPushSubmitBtn();
+}
+
+const  addressHandler = async () =>{
+	new daum.Postcode({
+    oncomplete: function(data) {
+        addressInput.value = data.address;
+		checkCanPushSubmitBtn();
+    }
+    }).open();
 }
 
 const init = () =>{
@@ -124,19 +137,17 @@ const init = () =>{
 	emailInput.addEventListener("input",emailValueCheckHandler);
 	passwordInput.addEventListener("input",passwordCheckHandler);
 	passwordCheckInput.addEventListener("input",passwordCheckHandler);
+	nickNameInput.addEventListener("input",checkCanPushSubmitBtn);
+	addressInput.addEventListener("click",addressHandler);
+	
 }
 
-/*window.onload = () =>{
-	firstEmailValue = emailInput.value;
-	console.log(firstEmailValue)
-}*/
-
 if(updateBtn!=null){
-	console.log("edit.js file work")
 	contextPathInfo = contextPathInfoElem.value;
 	firstEamilValue = firstEamilValueElem.value;
 	firstPwValue = firstPasswordValueElem.value;
+	firstNickNameValue = firstNickNameValueElem.value;
+	firstAddressValue = firstAddressValueElem.value;
 	
 	init();	
-	setInterval(()=>console.log(canUseEamil,canUsePassword),1000)
 }

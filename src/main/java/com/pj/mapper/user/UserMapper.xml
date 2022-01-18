@@ -6,21 +6,13 @@
 <mapper namespace="com.pj.mapper.user.UserMapper">
 	<insert id="insert">
 		INSERT INTO 
-		User(name,nickName,email,password,social,admin)
-		VALUES(#{name},#{nickName},#{email},#{password},#{social},#{admin})
+		User(name,nickName,email,password,address,social,admin)
+		VALUES(#{name},#{nickName},#{email},#{password},#{address},#{social},#{admin})
 	</insert>
 	
-	<select id="getUserInfo" resultType="string">
-		SELECT 
-			title
-		FROM 
-			checkDB
-		WHERE
-			id = 1
-	</select>
 	<select id="getUserList" resultType="com.pj.domain.user.UserVO">
 		SELECT
-			id,name,email,password,created
+			id,name,nickName,email,password,created
 		FROM 
 			User
 		ORDER BY id DESC
@@ -42,7 +34,7 @@
 		SELECT
 			r.id,r.title,u.name,r.price,r.updated
 		FROM
-		 	ResellBoard r
+		 	Resell r
 		 JOIN 
 		 	User u
 		 ON 
@@ -100,7 +92,7 @@
 		SELECT
 			r.id,r.title,u.name,r.price,r.updated
 		FROM
-		 	ResellBoard r
+		 	Resell r
 		 JOIN 
 		 	User u
 		 ON 
@@ -122,8 +114,10 @@
 			User
 		SET
 			name=#{name},
+			nickName=#{nickName},
 			email=#{email},
 			password=#{password},
+			address=#{address},
 			updated = NOW()
 		WHERE
 			id = #{id}
@@ -153,43 +147,35 @@
 	<delete id="deleteResellByResellId">
 		DELETE
 		FROM
-			ResellBoard
+			Resell
 		WHERE
 			id =#{id}
 	</delete>
-	<delete id="deleteReplyByUserId">
-		DELETE 
-			f,r 
+	<delete id="deleteFoodByUserId">
+		DELETE
 		FROM 
-			FoodReply f 
-		JOIN 
-			rReply r 
+			Food
 		WHERE 
-			f.userId = #{id} 
-		AND r.userId = #{id}
+			memberId = #{id}
 	</delete>
-	<delete id="deleteBoardByUserId">
-		DELETE 
-			f,r 
+	<delete id="deleteResellByUserId">
+		DELETE
 		FROM 
-			Food f 
-		JOIN 
-			ResellBoard r 
+			Resell
 		WHERE 
-			f.memberId = #{id} 
-		AND r.memberId = #{id}; 
+			memberId = #{id}
 	</delete>
 	<delete id="deleteFoodReplyByFoodId">
 		DELETE
 		FROM
 			FoodReply
 		WHERE
-			foodBoardId = #{id}
+			boardId = #{id}
 	</delete>
 	<delete id="deleteResellReplyByResellId">
 		DELETE
 		FROM
-			rReply
+			ResellReply
 		WHERE
 			boardId = #{id}
 	</delete>

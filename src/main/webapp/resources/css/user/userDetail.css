@@ -48,7 +48,7 @@
 .user_detail_label{
     font-size: 25px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     font-family: 'Vitro_core';
     margin-right: 5px;

@@ -21,7 +21,9 @@ public class FoodVO {
 	private Integer boardCnt; 
 	private Integer memberId;
 	private Integer foodReplyCount;	
+	private Integer foodBoardTotalCount;
 	private String imageKey;
+	private String address;
 	
 	public String getCustomInserted() {
 		// 현재일시

@@ -24,15 +24,15 @@
                 <div class="admin_detail_wrapper">
                     <span class="admin_detail_title">Admin Detail</span>
                     <div class="admin_detail_box">
-                        <label for="admin_detail_input1" class="admin_detail_label">Name</label>
+                        <label for="admin_detail_input1" class="admin_detail_label">이름</label>
                         <input type="text" class="admin_detail_input" id="admin_detail_input1" value="${sessionScope.loggedUser.name}" readonly/>
                     </div>
                     <div class="admin_detail_box">
-                        <label for="admin_detail_input2" class="admin_detail_label">Eamil</label>
+                        <label for="admin_detail_input2" class="admin_detail_label">이메일</label>
                         <input type="text" class="admin_detail_input" id="admin_detail_input2" value="${sessionScope.loggedUser.email}"  readonly/>
                     </div>
                     <div class="admin_detail_box">
-                        <label for="admin_detail_input3" class="admin_detail_label">Password</label>
+                        <label for="admin_detail_input3" class="admin_detail_label">비밀번호</label>
                         <input type="text" class="admin_detail_input" id="admin_detail_input3" value="${sessionScope.loggedUser.password}" readonly/>
                     </div>
                 </div>
@@ -54,6 +54,7 @@
 	                            <div class="admin_power_content_bar">
 	                                <span class="admin_power_content_bar_id">ID</span>
 	                                <span class="admin_power_content_bar_name">이름</span>
+	                                <span class="admin_power_content_bar_nickName">닉네임</span>
 	                                <span class="admin_power_content_bar_email">이메일</span>
 	                                <span class="admin_power_content_bar_password">비밀번호</span>
 	                                <span class="admin_power_content_bar_created">가입일</span>
@@ -61,11 +62,12 @@
 	                            </div>
 	                            <c:forEach items="${userList }" var="userVO">
 									<div class="admin_power_content_info">
-	                                <span type="text" class="admin_power_conent_id">${userVO.id }</span>
-	                                <span type="text" class="admin_power_conent_name">${userVO.name }</span>
-	                                <span type="text" class="admin_power_conent_email">${userVO.email }</span>
-	                                <span type="text" class="admin_power_conent_password">${userVO.password }</span>
-	                                <span type="text" class="admin_power_conent_created">${userVO.userCreated }</span>
+	                                <span class="admin_power_conent_id">${userVO.id }</span>
+	                                <span class="admin_power_conent_name">${userVO.name }</span>
+	                                <span class="admin_power_content_nickName">${userVO.nickName }</span>
+	                                <span class="admin_power_conent_email">${userVO.email }</span>
+	                                <span class="admin_power_conent_password">${userVO.password }</span>
+	                                <span class="admin_power_conent_created">${userVO.userCreated }</span>
 	                                <input type="hidden" class="hiddenInfo">
 	                                <a href="${adminUrl}/adminDetail/delete/user/${page}/${userVO.id}" class="admin_power_delete"><i class="fas fa-times"></i></a>
 	                            </div>                            

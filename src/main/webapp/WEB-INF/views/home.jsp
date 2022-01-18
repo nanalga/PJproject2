@@ -45,35 +45,35 @@
                         </div>
 	                </div>   
 	                <div class="main_title_content_box">
-	                    <p>용피리 월드에 오신걸 환영합니다</p>
-                        <p>이제부터 용피리와 함께 양산시에 대해 알아보아용</p>
+	                    <p>용필이 월드에 오신걸 환영합니다</p>
+                        <p>이제부터 용필이와 함께 양산시에 대해 알아보아용</p>
 	                </div>
             	</div>
             	<div class="main_content_box">
                 	<div class="main_content_food_box content_box">
-                        <div class="main_content_box_background1 display_none"></div>
-                    	<div class="main_content_img_box1">
-                        	<img src="${ContextPath}/resource/img/foodIcon.png" alt="">
-                    	</div>
-                    	<div class="main_content_text_box">
-                            <a class="main_content_text_link_box" href="${ContextPath }/food/foodList">
-                                <h2>맛집</h2>
-                                <p>배고프죠? 용피리와 함께 맛집을 찾아떠나요~</p>
-                            </a>
-                    	</div>     
+                        <a class="main_content_text_link_box" href="${ContextPath }/food/foodList">
+	                        <div class="main_content_box_background1 display_none"></div>
+	                    	<div class="main_content_img_box1">
+	                        	<img src="${ContextPath}/resource/img/foodIcon.png" alt="">
+	                    	</div>
+	                    	<div class="main_content_text_box">
+	                                <h2>용필이의 골목식당</h2>
+	                                <p>배고프죠? 용필이와 함께 맛집을 찾아떠나요~</p>
+	                    	</div>     
+                        </a>
                 	</div>
 	                <div class="main_content_resell_box content_box">
-                        <div class="main_content_box_background2 display_none"></div>
-                        <div class="main_content_img_box2">
-                        	<img src="${ContextPath}/resource/img/resellIcon.png" alt="">
-                    	</div>
-	                    <div class="main_content_text_box">
-                            <a class="main_content_text_link_box" href="${ContextPath }/resellMarket/resellBoard/resellBoardList">
-                                <h2>중고장터</h2>
-                                <p>쓰지 않는 물건이 있다면</p>
-                                <p>버리지말고 용피리와 함께 팔아보아요~</p>
-                            </a>
-                    	</div>
+                        <a class="main_content_text_link_box" href="${ContextPath }/resellMarket/resellBoard/resellBoardList">
+	                        <div class="main_content_box_background2 display_none"></div>
+	                        <div class="main_content_img_box2">
+	                       	<img src="${ContextPath}/resource/img/resellIcon.png" alt="">
+		                   	</div>
+		                    <div class="main_content_text_box">
+		                               <h2>용필이의 중고장터</h2>
+		                               <p>쓰지 않는 물건이 있다면</p>
+		                               <p>버리지말고 용필이와 함께 팔아보아요~</p>
+		                   	</div>
+                        </a>
                 	</div>
             	</div>
         	</div>

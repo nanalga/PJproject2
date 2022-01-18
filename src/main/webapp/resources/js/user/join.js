@@ -5,17 +5,10 @@ const submitBtn = document.querySelector(".join_submit");
 const email = document.querySelector(".join_email");
 const emailCheckBtn = document.querySelector(".join_email_check");
 const emailAlertMessage = document.querySelector(".join_email_message")
+const addressInput = document.querySelector(".join_address");
 const joinMainBox = document.querySelector(".join_main_box");
 
-/*const flashMessage = $(`
-	<div class="flash_box">
-	    <div class="flash_message_box">
-	        <span class="flash_message_title">fail</span>
-	        <span class="flash_message_content">회원정보를 입력해주세요</span>
-	    </div>
-	</div>
-`)
-*/
+
 let httpRequest;
 
 let canUseEamil = false;
@@ -101,10 +94,19 @@ const checkInsertInputValue = () =>{
 	}
 }
 
+const addressHandler = () =>{
+	new daum.Postcode({
+    oncomplete: function(data) {
+        addressInput.value = data.address;
+    }
+    }).open();
+}
+
 const init = () =>{
     pw2.addEventListener("keyup",checkPw);
 	pw1.addEventListener("keyup",checkPw);
 	emailCheckBtn.addEventListener("click",checkInsertInputValue);
+	addressInput.addEventListener("click",addressHandler);
 }
 
 if(joinMainBox!=null){

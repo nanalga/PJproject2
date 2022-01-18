@@ -126,7 +126,7 @@
 .admin_power_content_info{
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 3fr 5fr 3fr 2fr 1fr;
+    grid-template-columns: 1fr 3fr 3fr 6fr 3fr 2fr 1fr;
     justify-items: center;
     align-items: center;
 }

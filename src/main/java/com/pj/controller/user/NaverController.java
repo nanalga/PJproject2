@@ -189,8 +189,7 @@ public class NaverController {
 		Profile profile = naverRequestInfo.getResponse();
 		UserVO vo = userService.getUserEmail(profile.getEmail());
 		if(vo != null) {
-			System.out.println("회원가입 된 유저");
-			rttr.addFlashAttribute("fail", "회원가입된 유저 입니다.");
+			rttr.addFlashAttribute("fail", "회원가입된 유저입니다.");
 			return "redirect:/user/login";
 		}
 		

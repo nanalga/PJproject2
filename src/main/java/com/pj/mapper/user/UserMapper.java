@@ -57,6 +57,10 @@ public interface UserMapper {
 
 	public int selectCount(@Param("boardName")String string,@Param("columnName") String string2,@Param("id") Integer id);
 
+	public int deleteFoodByUserId(Integer id);
+
+	public int deleteResellByUserId(Integer id);
+
 
 	
 //	public List<FoodVO> getFoodList();

@@ -63,7 +63,7 @@
 .join_main_input_group label{
     font-size: 25px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     font-family: 'Vitro_core';
     margin-right: 5px;
@@ -72,7 +72,7 @@
 .join_main_input_group:nth-child(3) label{
     height: 50px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
