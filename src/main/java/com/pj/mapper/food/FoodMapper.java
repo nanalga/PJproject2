@@ -25,9 +25,15 @@ public interface FoodMapper {
 	public Integer getFoodCountRows(@Param("searchType") String searchType, @Param("keyword") String keyword);
 
 	public int foodPlusCount(Integer id);
-
+	
 	public int insert(String string);
 
 	String[] selectNameByBoardId(Integer id);
+
+	public int insert(FoodVO food, String nowDate);
+
+	public int modify(FoodVO food, String nowDate);
+
+	public int getFoodListCnt();
 	
 }
