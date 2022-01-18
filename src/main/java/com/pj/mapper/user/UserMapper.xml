@@ -20,7 +20,7 @@
 	</select>
 	<select id="getUserList" resultType="com.pj.domain.user.UserVO">
 		SELECT
-			id,name,email,password,created
+			id,name,nickName,email,password,created
 		FROM 
 			User
 		ORDER BY id DESC

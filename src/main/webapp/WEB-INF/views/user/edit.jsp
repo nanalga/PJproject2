@@ -29,26 +29,26 @@
                         <div class="user_edit_box">
                             <label for="user_edit_input1" class="user_edit_label">이름*</label>
                             <div class="user_edit_input_group">
-                                <input type="text" name="name" class="user_edit_input1" id="user_edit_input1" value="${sessionScope.loggedUser.name}" required/>
+                                <input type="text" name="name" class="user_edit_input1" id="user_edit_input1" value="${sessionScope.loggedUser.name}" maxlength="10" required/>
                             </div>
                         </div>
                         <div class="user_edit_box">
                             <label for="user_edit_input2" class="user_edit_label">이메일*</label>
                             <div class="user_edit_input_group">
-                                <input type="email" name="email" class="user_edit_input2" id="user_edit_input2" value="${sessionScope.loggedUser.email}"  required/>
+                                <input type="email" name="email" class="user_edit_input2" id="user_edit_input2" value="${sessionScope.loggedUser.email}" maxlength="30"  required/>
                                 <input type="button" class="edit_email_check" value="check"/>
                         		<div class="edit_email_message"></div>
                             </div>
                         </div>
                         <div class="user_edit_box">
                             <label for="user_edit_input5" class="user_edit_label">닉네임</label>
-                            <input type="text" name="nickName" class="user_edit_nickName" id="user_edit_input5" value="${sessionScope.loggedUser.nickName}" required/>
+                            <input type="text" name="nickName" class="user_edit_nickName" id="user_edit_input5" value="${sessionScope.loggedUser.nickName}" maxlength="30" required/>
                         </div>
                         <div class="user_edit_box">
                             <label for="user_edit_input3" class="user_edit_label">비밀번호*</label>
                             <label for="user_edit_input4" class="user_edit_label">비밀번호 확인*</label>
-                            <input type="text" name="password" class="user_edit_input3 user_edit_password" id="user_edit_input3" value="${sessionScope.loggedUser.password}" required/>
-                            <input type="text" class="user_edit_input4 user_edit_password_check" id="user_edit_input4"/>
+                            <input type="text" name="password" class="user_edit_input3 user_edit_password" id="user_edit_input3" value="${sessionScope.loggedUser.password}" maxlength="20" required/>
+                            <input type="text" class="user_edit_input4 user_edit_password_check" id="user_edit_input4" maxlength="20"/>
                         </div>
                         <div class="user_edit_box">
                             <label for="user_edit_input6" class="user_edit_label">주소</label>
