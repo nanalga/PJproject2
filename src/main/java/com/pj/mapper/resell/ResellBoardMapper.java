@@ -30,15 +30,21 @@ public interface ResellBoardMapper {
 
 	public Integer getCountRows();
 
-	public int deleteByUserId(String userId);
+//	public int deleteByUserId(String userId);
 
 	public int boardPlusCnt(Integer id);
 
-	public Integer getCount();
+	/* public Integer getCount(); */
 
 	public Integer getCount(@Param("searchType") String searchType,@Param("keyword") String keyword);
 
 	public String[] selectImageKeyByBoardId(Integer id);
+
+	public int insert(ResellBoardVO resellBoard, @Param("nowDate") String nowDate);
+
+	public int update(ResellBoardVO resellBoard, String nowDate);
+
+	public Integer getBoardTotalCnt();
 
 
 

@@ -131,6 +131,10 @@ public class ResellBoardService {
 		return mapper.insert(resellBoard) == 1;
 	}
 	
+	public boolean register(ResellBoardVO resellBoard, String nowDate) {
+		return mapper.insert(resellBoard,nowDate) == 1;
+	}
+	
 	public ResellBoardVO get(Integer id ) {
 		
 		return mapper.select(id);
@@ -138,9 +142,14 @@ public class ResellBoardService {
 	
 	public boolean modify(ResellBoardVO resellBoard) {
 		
-		
 		return mapper.update(resellBoard) == 1;
 	}
+	
+	public boolean modify(ResellBoardVO resellBoard,String nowDate) {
+		
+		return mapper.update(resellBoard,nowDate) == 1;
+	}
+	
 	
 	@Transactional
 	public boolean remove(Integer id) {
@@ -152,26 +161,35 @@ public class ResellBoardService {
 		System.out.println( "files :" + files.toString());
 		
 		if ( files != null) {
-			
-			for (String file : files  ) {
-				String[] keys = file.split(",");
-				System.out.println("keys :" + keys);
-				for ( String key : keys) {
-					System.out.println("key :" + key);
-					deleteObject(key);
+				for (String file : files  ) {
+					try {						
+						String[] keys = file.split(",");
+						System.out.println("keys :" + keys);
+						for ( String key : keys) {
+							System.out.println("key :" + key);
+							deleteObject(key);
+						}
+					} catch (NullPointerException e) {
+						e.printStackTrace();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
 				}
-				
-			}
+
 		}
+		
 				
 				
 		// 2. 게시물 지우기
 		
 		return mapper.delete(id) == 1;
+		
 	}
 	
 	
 	public List<ResellBoardVO> getList() {
+		
 		return mapper.getList();
 	}
 
@@ -223,12 +241,16 @@ public class ResellBoardService {
 		return mapper.boardPlusCnt(id) == 1;
 	}
 
-	public int count() {
+	
+	public Integer getBoardTotalCnt() {
 		// TODO Auto-generated method stub
-		return 0;
+		return mapper.getBoardTotalCnt();
 	}
 
+
 	public ResellPageInfoVO getPageInfoSearch(Integer page, Integer numberPerPage, String searchType, String keyword) {
+		
+
 		
 		// 총 게시물 수
 		Integer countRows = mapper.getCount(searchType, keyword);
@@ -278,6 +300,7 @@ public class ResellBoardService {
 		
 		return pageInfo;
 	}
+
 
 
 

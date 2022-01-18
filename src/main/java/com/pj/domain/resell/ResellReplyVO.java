@@ -22,7 +22,7 @@ public class ResellReplyVO {
 	
 	private Integer memberId;
 	
-	private String name;
+	private String nickName;
 	
 	private boolean own;
 	

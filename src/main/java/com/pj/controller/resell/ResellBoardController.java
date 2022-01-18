@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,21 +54,10 @@ public class ResellBoardController implements WebMvcConfigurer {
 		System.out.println(" resellMarket/resellBoard test");
 	}
 	
-	@RequestMapping("/test")
-	public void example() {
-		
-	}
-	
-	@RequestMapping("/test2")
-	public void example2() {
 
-	}
 	
-	@RequestMapping("/test3")
-	public void example3 () {
-		
-	}
-	
+/*
+	// 위에 꺼 테스트용
 	@GetMapping("/resellBoardSearch")
 	public void searchPageList(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,
@@ -93,45 +85,37 @@ public class ResellBoardController implements WebMvcConfigurer {
 		System.out.println("---------");
 		System.out.println("pageinfo : " + pageInfoSearch);
 	}	
+ * */	
 	
 	@GetMapping("/resellBoardList")
 	public void list(HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") Integer page,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			Model model) {
-
-// if (page == null) { page =1; }
-		System.out.println("resellBoardList 도착");
 		
-		System.out.println(searchType + ", " + keyword);
-		System.out.println("boardlistpage : " + page);
-		
-		System.out.println("");
 		Integer numberPerPage = 10; // 한 페이지의 row 수
-		
-		
 		
 		// 3. 비즈니스 로직
 		//게시물 목록 조회
-//		List<ResellBoardVO> list = service.getList();
 		List<ResellBoardVO> list = service.getListPage(page, numberPerPage, searchType, keyword);
+		Integer BoardTotalCnt = service.getBoardTotalCnt();
 		
 		ResellPageInfoVO pageInfo = service.getPageInfoSearch(page, numberPerPage, searchType, keyword);
 		// 4. add attribute
 		model.addAttribute("resellList", list);
 		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("BoardTotalCnt", BoardTotalCnt);
 		// 5 . forward, redirect
 		
 		//jsp path : /WEB-INF/views/resellMarket/list
-		System.out.println("---------");
-		System.out.println("pageinfo : " + pageInfo);
 	}
 		
 	
 	
 	//resellBoard/get?id=10
 	@GetMapping({"/resellBoardGet","resellBoardModify"})
-	public void get(@RequestParam("id") Integer id, Model model, MultipartFile file) {
+	public void get(@RequestParam("id") Integer id, Model model, MultipartFile file,
+			@RequestParam(value= "nowDate", required = false) String nowDate) {
 		System.out.println("resellBoardGet or Modify 도착");
 		
 		ResellBoardVO resellBoard = service.get(id);
@@ -139,8 +123,14 @@ public class ResellBoardController implements WebMvcConfigurer {
 		
 		service.boardPlusCnt(id);
 		
+		//현재 일시
+		LocalDateTime now = LocalDateTime.now(ZoneId.of("+09:00"));
+		DateTimeFormatter dateTimeFormatter = 
+				DateTimeFormatter.ofPattern("YYYY-MM-dd hh:mm");
+		String nowString = now.format(dateTimeFormatter);
 		
-
+		model.addAttribute("nowDate", nowString);
+		
 		model.addAttribute("resellBoard", resellBoard);
 		
 	}
@@ -163,8 +153,18 @@ public class ResellBoardController implements WebMvcConfigurer {
 	
 
 	@GetMapping("/resellBoardRegister")
-	public void register() {
+	public void register(RedirectAttributes rttr,Model model, @RequestParam(value= "nowDate", required = false) String nowDate) {
 		System.out.println("resellBoardRegister도착");
+		
+		//현재 일시
+		LocalDateTime now = LocalDateTime.now(ZoneId.of("+09:00"));
+		DateTimeFormatter dateTimeFormatter = 
+				DateTimeFormatter.ofPattern("YYYY-MM-dd hh:mm");
+		String nowString = now.format(dateTimeFormatter);
+		
+		model.addAttribute("nowDate", nowString);
+		
+		
 	}
 	
 	@PostMapping("/resellBoardRegister")
@@ -173,7 +173,9 @@ public class ResellBoardController implements WebMvcConfigurer {
 		
 		// 2. request 분석 가공 dispatcherServlcet이 해줌
 		resellBoard.setMemberId(logged.getId());
+		
 	
+		
 		// 3. 비즈니스 로직
 		service.register(resellBoard);
 		
@@ -185,9 +187,9 @@ public class ResellBoardController implements WebMvcConfigurer {
 		return "redirect:/resellMarket/resellBoard/resellBoardList";
 	}
 	
-	@PostMapping("/ResellBoardRemove")
+	@PostMapping("/resellBoardRemove")
 	public String remove(@RequestParam("id") Integer id, ResellBoardVO resellBoard, RedirectAttributes rttr) {
-		
+		System.out.println("삭제 도착");
 		if (service.remove(id)) {
 			rttr.addFlashAttribute("result", id + "번 게시글이 삭제되었습니다.");
 		}

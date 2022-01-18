@@ -1,0 +1,534 @@
+@font-face {
+    font-family: 'Vitro_core';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Vitro_core.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KyoboHand';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ONE-Mobile-POP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*----------------------------------------------------*/
+
+
+
+
+
+
+/*---------------------------------------------------*/
+
+
+
+/* div {
+    border: solid 1px #FFBCBC;
+} */
+
+.resell_page {
+	background-color : #fff2dc;
+}
+
+
+
+
+
+.resell_list_body_container {
+       /* 빼기 */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #fff2dc;
+}
+
+.resell_list_body_main_wrapper {
+    width: 80%;
+    height: 100%;
+    min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.resell_list_body_top_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 110px;
+    padding-bottom: 20px;
+    border-radius: 10px 10px 20px 20px;
+}
+.resell_list_body_top_info>
+.resell_list_body_top_info_title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #FEA82F;
+    height: 100%;
+    padding-left: 20px;
+    border-radius: 10px 10px 0px 0px;
+    font-family: ONE-Mobile-POP;
+    font-size: large;
+}
+.resell_list_body_main_wrapper>
+.resell_list_body_top_info>
+.resell_list_body_sub_top_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-left: 20px;
+    height: 60px;
+    border-radius: 0px 0px 10px 10px;
+    background-color: rgb(255, 255, 255);;
+}
+.resell_list_body_top_info_content_mainicon_iconimage {
+    padding-top: 3px;
+    border: none;
+}
+.resell_list_body_top_info_content {
+    display: flex;
+    padding-top: 20px;
+    padding-left: 10px;
+    font-family: KyoboHand;
+}
+
+.resell_list_body_main1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
+    border-top: 4px solid #FEA82F;
+}
+.resell_list_board_top_menu1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    width: 85%;
+    padding-left: 20px;
+}
+.resell_list_board_top_board_count {
+    width: 25%;
+}
+.resell_list_board_top_board_count {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 18.5%;
+    height: 100%;
+    align-items: center;
+    font-family: KyoboHand;
+}
+.search_area {
+    height: 35px;
+    font-family: KyoboHand;
+}
+.search-input {
+    height: 35px;
+    font-family: KyoboHand;
+}
+.resell_list_board_top_board_search {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+.resell_list_board_top_board_register {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-right: 20px;
+}
+
+.resell_list_board_top_menu2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    height: 100%;
+    width: 72%;
+    align-items: center;
+}
+.resell_list_board_top_search {
+	display: flex;
+}
+.resell_list_board_top_board_search {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-right: 20px;
+}
+.resell_list_board_search_submit_button {
+    width: 90px;
+    font-family: KyoboHand;
+    font-size: large;
+    background-color: #FEA82F;
+}
+
+.resell_list_body_main2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+/* table */
+.resell_list_table_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.resell_list_table_thread {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    border-bottom: 4px solid #FEA82F;
+    border-top: 4px solid #FEA82F;
+}
+.resell_list_table_thread_tr {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding-right: 20px;
+    font-family: 'KyoboHand';
+    font-size: 22px;
+}
+
+
+
+.resell_list_table_thread_th_id {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+    align-content: center;
+}
+.resell_list_table_thread_th_title {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    height: 100%;
+    align-items: center;
+}
+.resell_list_table_thread_th_writer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+}
+.resell_list_table_thread_th_date {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+}
+.resell_list_table_thread_th_boardcnt {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+}
+/* resell_list_table_tbody */
+.resell_list_table_tbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    /* height: 50px; */
+    font-family: 'KyoboHand';
+    font-size: larger;
+    padding-top: 10px;
+}
+.resell_list_table_tbody_tr {
+	display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* padding-left: 20px; */
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    height: 100%;
+    border-bottom: 1px solid #FEA82F;
+}
+.resell_list_table_tbody_td_id {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 10%;
+    height: 100%;
+    align-items: center;
+}
+.resell_list_table_tbody_td_title {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    height: 100%;
+    align-items: center;
+}
+.resell_list_table_tbody_td_writer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 15%;
+    align-items: center;
+    height: 100%;
+}
+.resell_list_table_tbody_td_date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+}
+.resell_list_table_tbody_td_boardcnt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+}
+
+.resell_list_body_main3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    border-top: 4px solid #FEA82F;
+    border-bottom: 4px solid #FEA82F;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.resell_list_body_button_register {
+    padding-right: 20px;
+}
+.resell_list_register_button {
+    height: 35px;
+    width: 100px;
+    font-family: KyoboHand;
+    font-size: large;
+    background-color: #FEA82F;
+}
+
+/* 페이징 부분 */
+.resell_list_body_main4 {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+.resell_list_body_main4>
+.resell_list_body_main4_pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.resell_list_page_link_previous {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #fff2e2;
+    background-color: #FEA82F;
+    border: 1px solid #fff2e2;
+    font-family: 'Vitro_core';
+    font-size: medium;
+}
+.resell_list_page_link_previous :hover {
+    background-color: #f0c99a;
+    color: rgb(255, 255, 255);
+}
+.resell_list_page_link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #fff2e2;
+    background-color: #FEA82F;
+    border: 1px solid #fff2e2;
+    font-family: 'Vitro_core';
+    font-size: medium;
+}
+.resell_list_page_link:hover {
+    background-color: #f0c99a;
+    color: rgb(255, 255, 255);
+}
+.resell_list_page_link_next {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #fff2e2;
+    background-color: #FEA82F;
+    border: 1px solid #fff2e2;
+    font-family: 'Vitro_core';
+    font-size: medium;
+}
+.resell_list_page_link_next:hover {
+    background-color: #f0c99a;
+    color: rgb(255, 255, 255);
+}
+
+/* list 하단 */
+.resell_list_body_main_bottom_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    border-radius: 0px 0px 20px 20px;
+    background-color: #FEA82F;
+}
+.resell_list_body_main_bottom_box>
+.resell_list_main_bottom_box_title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-right: 10px;
+    font-family: ONE-Mobile-POP;
+    font-size: large;
+}
+.resell_list_body_main_bottom_box>
+.resell_list_main_bottom_mainicon {
+    display: flex;
+    padding-top: 5px;
+}
+.resell_list_main_bottom_iconimage {
+    display: flex;
+    width: 70px;
+    height: 70px;
+    border: none;
+}
+
+
+a {
+	color :black
+}
+
+/* resell list 수정 */
+.resell_list_col-md-1-id_id {
+    width: 100%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-left: 20px;
+}
+.resell_list_col-md-1-id_th_title {
+    width: 100%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.resell_list_col-md2-title_title {
+    width: 300px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+.resell_list_table_col-md3-price_th_price {
+    width: 100px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+}
+.resell_list_col-md4-writer_writer {
+    width: 150px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 15px;
+}
+.resell_list_col-md5-date_date {
+    width: 52px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: flex-start;
+}
+.resell_list_col-md1-td_id{
+    width: 100%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.resell_list_col-md2-td_title {
+    width: 300px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    padding-left: 10px;
+}
+.resell_list_col-md3-td-price {
+    width: 100px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    /* padding-left: 15px; */
+    padding-right: 10px;
+}
+.resell_list_col-md4-td-writer {
+    width: 150px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+

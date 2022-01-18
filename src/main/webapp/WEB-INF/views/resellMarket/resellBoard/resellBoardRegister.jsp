@@ -16,8 +16,7 @@
 
 <c:set value="${pageContext.request.contextPath }" var="ContextPath"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
-
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/kocss/registerCopy.css">
 
 <!-- summernote -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -37,7 +36,7 @@
 
 
 
-<title>resellBoardRegister</title>
+<title>resellBoardRegisterCopy</title>
 </head>
 <body>
 
@@ -45,69 +44,124 @@
 		<tag:nav></tag:nav>
 
 		<!-- .contatiner>.row>.col>h1{게시물 작성} -->
-		<div class="main_container">
-			<div class="row" style="width: 80%; margin: auto;">
-				<div class="col">
-					<h1>게시물 작성</h1>
-					<input type="hidden" name="id" value="${resellBoard.id }">
-					<input type="hidden" name="name" value="${sessionScope.loggedUser.name }">
-					<input type="hidden" name="memberId" value="${sessionScope.loggedUser.id }">
+		<div class="main_container resell_page">
+			<!-- header -->
 
-					<!-- form>.form-group*4>label[for=input$]+input.form-control#input$ -->
+				<div class="main_register_head_container">
+					<div class="main_register_head_wrapper">
+						<div class="main_register_head_title">맛집 공유</div>
+						<div class="main_register_head_box">
+							<div class="main_register_head_mainicon">
+								<img src="${pageContext.request.contextPath }/resource/img/foodImg/resellBoardImage.png"  alt="" class="main_register_head_mainicon_iconimage">
+							</div>
+							<div class="main_register_head_content">용피리와 함께하는 아나바다.....</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			<!-- 게시판 -->
+			<div class="main_register_container">
+				<div class="main_register_wrapper">
+					<div class="item main_register_PageName_container">
+						<div class="main_register_PageName_wrapper">
+							<div class="main_register_PageName_input">용필이 장터</div>
+						</div>
+					</div>
+
 					<form id="resellFormRegister" method="post" enctype="multipart/form-data">
-						<div class="form-group">
-							<label for="titleInput">제목</label>
-							<input type="text" class="form-control" id="titleInput" name="title">
-						</div>
-						<div class="form-group">
-							<label for="contentInput">내용</label>
-							<textarea class="form-control" id="summernote" name="content"></textarea>
-						</div>
-						<!-- .form-group>label[for=input4]+input[type=file].form-control-file#input4[name=files] -->
-						<div class="form-group">
-							<label for="writerInput">작성자</label>
-							<input type="text" class="form-control" id="writerInput" name="nickName" readonly value="${sessionScope.loggedUser.nickName }">
-						</div>
-
-						<div class="form-group">
-							<label for="addressInput">주소</label>
-							<input type="text" class="form-control" id="addressInput" required name="address" value="${loggedUser.address }">
-						</div>
-						<div class="form-group">
-							<div id="map" style="width: 350px; height: 280px; margin-top: 10px;"></div>
-							<%--
- 					 <div id="map" style="width:400px;height:400px;"></div> 
-   --%>
-							<div id="clickLatlng" style="display: none"></div>
-
-						</div>
+						<input type="hidden" name="id" value="${resellBoard.id }">
+						<input type="hidden" name="name" value="${sessionScope.loggedUser.name }">
+						<input type="hidden" name="memberId" value="${sessionScope.loggedUser.id }">
 
 
-						<div class="form-group">
-							<label for="priceInput">가격</label>
-							<input type="text" class="form-control" id="priceInput" name="price">
+						<div class="item main_register_titlePrice_container">
+							<div class="main_register_titlePrice_titleWrapper">
+								<div class="main_register_titlePrice_titleName">제 목 :</div>
+								<div class="main_register_titlePrice_titleInput">
+									<input type="text" class="titlePrice_titleInput" id="titleInput" name="title">
+								</div>
+							</div>
+							<div class="main_register_titlePrice_priceWrapper">
+								<div class="main_register_titlePrice_priceName">가격 :</div>
+								<div class="main_register_titlePrice_priceInput">
+									<input type="text" class="titlePrice_priceInput"  id="priceInput" name="price">
+								</div>
+							</div>
 						</div>
-						<button class="btn btn-outline-primary" id="submitButton1">등록</button>
-						<button class="btn btn-outline-primary" style="float: right;">
-							<a href="javascript:history.back();">뒤로가기</a>
-						</button>
-						<%--
-				<input id="subBtn" type="submit" value="글 목록" style="float: right;" onclick="${history.go(-1)}"/>
-		 --%>
+						<div class="item main_register_nickNameDate_container">
+							<div class="main_register_nickNameDate_nickNameWrapper">
+								<div class="main_register_nickNameDate_nickName">작성자 :</div>
+								<div class=" main_register_nickNameDate_nickNameInput">
+									<input type="text" class="nickNameDate_nickNameInput" id="writerInput" name="nickName" readonly value="${sessionScope.loggedUser.nickName }">
+								</div>
+							</div>
+							<div class="main_register_nickNameDate_dateWrapper">
+								<div class="main_register_nickNameDate_dateName">날짜 :</div>
+									<div class="main_register_nickNameDate_dateInput">
+										${nowDate }				
+									</div>
+								</div>
+							</div>
+						<div class="item main_register_summernote_container">
+							<div class="main_register_summernote">
+								<textarea class="form-control" id="summernote" name="content"></textarea>
+							</div>
+						</div>
+						<div class="item main_register_address_container">
+							<div class="main_register_address_wrapper">
+								<div class="main_register_address_addressName">주 소 :</div>
+								<div class="main_register_address_addressInput">
+									<input type="text" class="address_addressInput" id="addressInput" required name="address" value="${loggedUser.address }">
+								</div>
+							</div>
+							<!-- <div class="main_register_address_wrapper2"></div> -->
+						</div>
+						<div class="item main_register_addressImage_container">
+							<div class="main_register_addressImage_wrapper">
+								<div class="main_register_addressImage_addressImageInput">
+									<div id="map" style="width: 500px; height: 300px; margin-top: 10px;"></div>
+									<div id="clickLatlng" style="display: none"></div>
+								</div>
+							</div>
+						</div>
+						<div class="item main_register_button_container">
+							<div class="main_register_button_wrapper">
+								<div class="main_register_registerBtn">
+									<button class="btn submit" id="submitButton1" name="submitBtn">등록</button>
+									<button class="btn back" style="float: right;">
+										<a href="javascript:history.back();">뒤로가기</a>
+									</button>
+								</div>
+							</div>
+						</div>
 					</form>
+		         <div class="food_get_body_main_bottom_box">
+		            <div class="food_get_main_bottom_box_title">
+		                <div class="food_get_main_bottom_foodBoardTitle">
+		                    용피리 중고장터
+		                </div>
+		            </div>
+		            <div class="food_get_main_bottom_mainicon">
+		                <div class="food_get_main_bottom_mainicon">
+		                     <img src="/controller/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="food_get_main_bottom_iconimage">
+		                </div>
+		            </div>   
+		        </div> 
 				</div>
 			</div>
-		</div>
-	</div>
 
-	<tag:footer></tag:footer>
-	<tag:menu></tag:menu>
+			<!-- 여기까지 -->
 
-	<script>
+			<tag:footer></tag:footer>
+			<tag:menu></tag:menu>
+
+			<script>
     
 </script>
 
-	<script>
+			<script>
 $(document).ready(function(){
 	
 	
@@ -205,16 +259,20 @@ $('#summernote').summernote(setting);
 		// submit 버튼 활성화 조건 변수
 		
 		const confirmFunction = function() {
+			console.log('confirm func');
 			const titleValue = titleInput.val();
 			const contentValue = contentInput.val();
 			const priceValue = priceInput.val();
 			
-		if ( (titleValue != "") && (contentValue != "")  ) {
-			submitButton.removeAttr("disabled");
-		} else {
-			submitButton.attr("disable", true);
+			console.log(titleValue);
+			console.log(priceValue);
 			
-		}
+			if ( (titleValue != "") && (priceValue != "")  ) {
+				submitButton.removeAttr("disabled");
+			} else {
+				submitButton.attr("disable", true);
+				
+			}
 	};
 		
 
@@ -280,7 +338,7 @@ const mapHandler = () => {
 
                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                     var infowindow = new kakao.maps.InfoWindow({
-                        content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
+                        content: '<div style="width:130px;text-align:center;padding:6px 0;">장소</div>'
                     });
                     infowindow.open(map, marker);
 
@@ -289,7 +347,7 @@ const mapHandler = () => {
                 } 
             })
             
-			document.querySelector("input[name=price]").focus();
+			document.querySelector("button[name=submitBtn]").focus();
 		//   document.querySelector("input[name=addressDetail]").focus(); //상세입력 포커싱
         }
 
@@ -302,13 +360,37 @@ const mapHandler = () => {
 
 })
 </script>
+<script>
+
+    // 단위를 넣지 않으려면 '원' 표시를 지우세요
+    var prefix = "원"
+                    var wd
+                    function parseelement(thisone) {
+                        if (thisone.value.charAt(0) == "원")
+                            return
+                        wd = "w"
+                        var tempnum = thisone.value
+                        for (i = 0; i < tempnum.length; i++) {
+                            if (tempnum.charAt(i) == ".") {
+                                wd = "d"
+                                break
+                            }
+                        }
+
+                        if (tempnum.charAt(tempnum.length - 2) == ".") {
+                            thisone.value = tempnum + "0" + prefix
+                        }
+                        else {
+                            tempnum = Math.round(tempnum * 100) / 100
+                            thisone.value = tempnum + prefix
+                        }
+                    }
+
+ </script>
 
 
-
-	<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-
-
+			<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
 </html>
 
