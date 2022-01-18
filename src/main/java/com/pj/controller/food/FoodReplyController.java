@@ -59,7 +59,7 @@ public class FoodReplyController {
 	public ResponseEntity<String> write(FoodReplyVO reply,@SessionAttribute(value = "loggedUser", required = false)UserVO logged) {
 		// 로그인한 멤버
 //		UserVO logged = (UserVO) session.getAttribute("loggedUser");
-		
+		System.out.println("reply : " + reply);
 		if(logged != null && logged.getId() == reply.getUserId()) {
 			service.foodReplyInsert(reply);
 			return ResponseEntity.status(HttpStatus.OK).build();
@@ -97,6 +97,7 @@ public class FoodReplyController {
 		// 로그인된 멤버의 아이디와 댓글 작성한 사람 아이디가 같을 때만
 		if(logged != null && logged.getId() == old.getUserId()) {
 			// 댓글 삭제
+			System.out.println(id);
 			service.foodReplyDelete(id);	// 댓글 업데이트
 			
 			return ResponseEntity.ok("");

@@ -1,4 +1,5 @@
 USE test;
+USE pjproject;
 
 -- FoodReply 테이블 생성
 CREATE TABLE FoodReply (
@@ -41,7 +42,8 @@ DROP TABLE FoodFile;
 DESC FoodFile;
 DESC File;
 DESC Food;
-DESC FoodReply
+DESC ResellBoard;
+DESC FoodReply;
 
 
 -- id, foodFileUrl
@@ -56,6 +58,7 @@ SELECT * FROM User;
 SELECT * FROM Food ORDER BY inserted DESC;
 DESC Food;
 SELECT * FROM FoodReply ORDER BY id DESC;
+SELECT * FROM User ORDER BY id DESC;
 
 -- 컬럼명 변경
 ALTER TABLE FoodReply CHANGE replyWriter userName VARCHAR(50) NOT NULL;
@@ -69,6 +72,7 @@ ALTER TABLE FoodReply DROP userId;
 ALTER TABLE FoodReply ADD userId INT NOT NULL;
 ALTER TABLE Food ADD memberId INT NOT NULL;
 ALTER TABLE Food ADD imageKey VARCHAR(500);
+ALTER TABLE Food ADD address VARCHAR(100);
 
 -- 테이블 조회
 SELECT * FROM Food ORDER BY id DESC;
@@ -198,6 +202,14 @@ UPDATE Food SET imageKey = 'board/456.jsp,board/789.jsp' WHERE id = 257;
 		COUNT(fr.id) foodReplyCount
 	FROM
 		Food f
-			LEFT JOIN
-		FoodReply fr ON f.id = fr.foodBoardId
+			
 	WHERE f.id = 284;
+    
+    	SELECT
+
+        COUNT(id)
+	FROM
+		Food
+	ORDER BY id DESC;
+    
+    SELECT COUNT(*) FROM Food;

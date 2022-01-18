@@ -19,6 +19,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/styles.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/food/foodGet.css" />
 
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4312ec82fed74fec65ab6c6ffa59a5c8&libraries=services,clusterer,drawing"></script>
+
+<!--주소화면 외부js  -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="<%=request.getContextPath()%>/resource/js/address.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <script>
 $(document).ready(function(){
 	// contextPath
@@ -43,6 +51,7 @@ $(document).ready(function(){
 									<span class="reply-name"> \${list[i].name} </span>님이 \${list[i].customInserted}에 작성
 								</h5>
 							</div>
+							
 							<div class="food_reply_input_group" style="display:none">
 								<textarea name="" id="replyTextarea\${list[i].id}" class="form-control"></textarea>
 								<div class="input_group_append_button">
@@ -85,7 +94,7 @@ $(document).ready(function(){
 					if (list[i].own) {	// own true(로그인)경우 버튼 추가
 						// 본인이 작성한 것만 수정버튼 추가
 						//const modifyButton = $(".btn btn-outline-secondary");
-						$(".recoment_modify_button").click(function(){
+						foodReplyMediaObject.find(".recoment_modify_button").click(function(){
 							$(this).parent().find('.food_reply_body').hide();
 							$(this).parent().parent().find('.food_reply_input_group').show();
 						});
@@ -95,7 +104,7 @@ $(document).ready(function(){
 						// 삭제버튼 추가
 						//const removeButton = $(".btn.btn-outline-danger");
 						//foodReplyMediaObject.find(".food_get_body_main_box_comment_txt_media-body").append(removeButton);
-						$(".recoment_remove_button").click(function(){
+						foodReplyMediaObject.find(".recoment_remove_button").click(function(){
 							if(confirm("삭제하시겠습니까?")){
 								$.ajax({
 									url : appRoot + "/foodReply/" + list[i].id,
@@ -124,7 +133,7 @@ $(document).ready(function(){
 		const data = {
 			replyText : replyText,
 			userId : userId,
-			foodBoardId : foodBoardId
+			boardId : foodBoardId
 		};
 		$.ajax({
 			url : appRoot + "/foodReply/foodReplyWrite",
@@ -201,10 +210,10 @@ $(document).ready(function(){
                          </div>
                          <div class="food_get_body_main_box_bCnt_bComentCnt">
                             조회수 : ${food.boardCnt } |
-                            댓글 : 
-                            <c:if test="${food.foodReplyCount > 0 }">
-                            	${food.foodReplyCount }
-                            </c:if>
+                            댓글 : <c:if test="${food.foodReplyCount >= 0 }">
+				                		${food.foodReplyCount }
+				                   </c:if>
+									개
                          </div>
                      </div>
 
@@ -223,16 +232,17 @@ $(document).ready(function(){
         <!-- 입력된 주소 / 주소 이미지(4) -->
         <div class="food_get_body_main_box">
              <div class="food_get_body_main_box_address_text_part">
-                 <div class="food_get_body_main_box_address_title_text">
+                 <div class="food_get_body_main_box_address_title_text" >
                      주소 : 
                  </div>
-                 <div class="food_get_body_main_box_address_content_text">
-                     샘플 서울시 강남구 어쩌구 저쩌구 123-12
+                 <div class="food_get_body_main_box_address_content_text" id="" name="address" >
+                    <input type="text" class="food_get_body_main_box_address_content_addressInput" id="addressInput" readonly value="${food.address }"> 
                  </div>
              </div>
              <div class="food_get_body_main_box_address_image_part">
                  <div class="food_get_body_main_box_address_image">
-                     샘플 imge
+                     <div id="map" style="width: 500px; height: 280px; margin-top: 10px;"></div>
+					 <div id="clickLatlng" style="display: none"></div>
                  </div>
              </div>
          </div>
@@ -240,13 +250,19 @@ $(document).ready(function(){
         <!-- 리스트 이동 버튼 -->
         <div class="food_get_body_main_box">
             <div class="food_get_body_main_box_bottomList">
-                <button class="food_foodlist_sub_button" onclick="location.href='foodModify?id=${food.id }'">수정 / 삭제</button>
+	            <c:if test="${sessionScope.loggedUser.id eq food.memberId }">
+	                <button class="food_foodlist_sub_button" onclick="location.href='foodModify?id=${food.id }'">수정 | 삭제</button>
+	            </c:if>
             </div>
         </div>
         <!-- 댓글 개수 -->
         <div class="food_get_body_main_box">
             <div class="food_get_body_main_box_comment">
-                댓글 ${food.foodReplyCount }개
+                댓글
+                	<c:if test="${food.foodReplyCount >= 0 }">
+                		${food.foodReplyCount }
+                	</c:if>
+				개
             </div>
         </div>
         
@@ -297,14 +313,91 @@ $(document).ready(function(){
  </div>
 </div>
 
-
-
-
-
-
 <tag:footer></tag:footer>
 <tag:menu></tag:menu>
- 
+
+<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+<script>
+	$(document).ready(function() {
+		const mapInput = document.querySelector("#addressInput");
+		
+		/* 지도 스크립트 */		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		
+		mapOption = {
+		    center: new kakao.maps.LatLng(37.499817, 127.030277), // 지도의 중심좌표
+		    level: 3 // 지도의 확대 레벨
+		};  
+
+		//지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		
+		//주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		var addressMap = $("#addressInput").val();
+		console.log(addressMap);
+		
+		//주소로 좌표를 검색합니다
+		const mapHandler = () => {
+		
+		//카카오 지도 발생
+    	const mapValue = mapInput.value; // 주소 넣기
+       
+	        geocoder.addressSearch(mapValue, function(result, status) {
+	            // 정상적으로 검색이 완료됐으면 
+	             
+	                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	        		var message = 'latlng: new kakao.maps.LatLng(' + result[0].y + ', ';
+	        		message += result[0].x + ')';
+	        		
+	        		console.log(result[0].y + "," + result[0].x);
+	        		
+	        		console.log(message);
+	        		
+	        		var resultDiv = document.getElementById('clickLatlng'); 
+	        		resultDiv.innerHTML = message;
+	        		
+	                // 결과값으로 받은 위치를 마커로 표시합니다
+	                var marker = new kakao.maps.Marker({
+	                    map: map,
+	                    position: coords
+	                });
+	                
+	                var iwContent = '<div style="padding:5px 10px 5px 5px; font-size: small;white-space: nowrap;">'+addressMap+'<br><a href="https://map.kakao.com/link/map/'+addressMap+','+result[0].y+','+result[0].x+
+	                '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+addressMap+
+	                ','+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	                iwPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+	                // 인포윈도우로 장소에 대한 설명을 표시합니다
+	                var infowindow = new kakao.maps.InfoWindow({
+	                	position : iwPosition,
+	                    content: iwContent
+	                });
+	                infowindow.open(map, marker);
+	
+	                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	                map.setCenter(coords);
+			})
+
+		}
+		setTimeout(mapHandler,1000);
+
+		})
+		
+</script>
+ 
 </body>
 </html>

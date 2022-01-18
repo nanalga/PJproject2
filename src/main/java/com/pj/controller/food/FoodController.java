@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,13 +54,18 @@ public class FoodController implements WebMvcConfigurer {
 			@RequestParam(value = "searchType", defaultValue = "title") String searchType,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword, Model model) {
 		System.out.println("foodList Controller 접근");
-				
-		Integer numberPerPage = 20;
+		FoodVO food = new FoodVO();
+		System.out.println("foodBoardTotal : " + food.getFoodBoardTotalCount());
+		
+		Integer numberPerPage = 10;
 		
 		List<FoodVO> list = new ArrayList<FoodVO>();
-//		List<FoodVO> list = service.getList(); // 게시글만 조회
+		
+		int foodListCnt = service.getFoodListCnt(); // 게시글만 조회
+		
 		list = service.getFoodListPage(page, numberPerPage, searchType, keyword);
 		model.addAttribute("list", list);
+		model.addAttribute("foodBoardTotalCount", foodListCnt);
 		
 //		listSearch = service.searchPageInfo();
 		
@@ -68,27 +75,39 @@ public class FoodController implements WebMvcConfigurer {
 		
 		pageInfo = service.getFoodPageInfo(page, numberPerPage, searchType, keyword);
 		model.addAttribute("pageInfo", pageInfo);
-		
 	}
 	
-//	@GetMapping("/foodGet_test")
-//	public void foodGet_test () {
-//		System.out.println("controller foodget_test접근");
-//	}
-	
-	@GetMapping({ "/foodGet", "/foodModify" })
-	public void foodGet(@RequestParam("id") Integer id, Model model) {
+	@GetMapping({ "/foodGet", "/foodModify", "/foodRemove" })
+	public void foodGet(@RequestParam("id") Integer id, Model model,
+			@RequestParam(value= "nowDate", required = false) String nowDate) {
 		System.out.println("controller foodget접근");
 		FoodVO food = service.get(id);
-		System.out.println("foodGet : "+ food.getFoodReplyCount());
+//		System.out.println("foodGet : "+ food.getFoodReplyCount());
 		service.foodPlusCount(id);
+		
+		
+		//현재 일시
+		LocalDateTime now = LocalDateTime.now(ZoneId.of("+09:00"));
+		DateTimeFormatter dateTimeFormatter = 
+				DateTimeFormatter.ofPattern("YYYY-MM-dd hh:mm");
+		String nowString = now.format(dateTimeFormatter);
+		
+		model.addAttribute("nowDate", nowString);
+		
 
 		model.addAttribute("food", food);
 	}
 
 	@GetMapping("/foodRegister")
-	public void foodRegister() {
+	public void foodRegister(RedirectAttributes rttr,Model model, @RequestParam(value= "nowDate", required = false) String nowDate) {
 		System.out.println("controller foodRegister 접근");
+		//현재 일시
+		LocalDateTime now = LocalDateTime.now(ZoneId.of("+09:00"));
+		DateTimeFormatter dateTimeFormatter = 
+		DateTimeFormatter.ofPattern("YYYY-MM-dd hh:mm");
+		String nowString = now.format(dateTimeFormatter);
+		
+		model.addAttribute("nowDate", nowString);
 	}
 
 	@PostMapping("/foodModify")
@@ -104,7 +123,14 @@ public class FoodController implements WebMvcConfigurer {
 
 		return "redirect:/food/foodList";
 	}
-
+	
+//	@GetMapping("/foodRemove")
+//	public void foodRemove(@RequestParam(value = "id", required = true) Integer id,  RedirectAttributes rttr) {
+//		if (service.remove(id)) {
+//			rttr.addFlashAttribute("result", id + "번 게시물이 삭제되었습니다.");
+//		}
+//	}
+	
 	@PostMapping("/foodRemove")
 	public String foodRemove(@RequestParam(value = "id", required = true) Integer id, FoodVO food, RedirectAttributes rttr) {
 		if (service.remove(id)) {
@@ -126,11 +152,6 @@ public class FoodController implements WebMvcConfigurer {
 		
 		return "redirect:/food/foodList";
 	}
-	
-//	@RequestMapping("/gisTest")
-//	public void gisTest() {
-//		
-//	}
 
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8" )
 	@ResponseBody

@@ -20,6 +20,7 @@ import com.pj.mapper.food.FoodMapper;
 import com.pj.mapper.food.FoodReplyMapper;
 
 import lombok.Setter;
+import software.amazon.awssdk.annotations.NotThreadSafe;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -105,6 +106,14 @@ public class FoodService {
 
 		return mapper.insert(food) == 1;
 	}
+	
+	
+	public boolean register(FoodVO food, String nowDate) {
+		System.out.println("Service RegisterFood : " + food);
+
+		return mapper.insert(food,nowDate) == 1;
+	}
+	
 
 	public FoodVO get(Integer id) {
 		return mapper.selectRead(id);
@@ -114,7 +123,13 @@ public class FoodService {
 		
 		return mapper.modify(food) == 1;
 	}
-
+	
+	public boolean modify(FoodVO food, String nowDate) {
+		
+		return mapper.modify(food,nowDate) == 1;
+	}
+	
+	@Transactional
 	public boolean remove(Integer id) {
 		// 게시물에 달린 댓글 지우기
 		replyMapper.foodDeleteByBoardId(id);
@@ -126,11 +141,17 @@ public class FoodService {
 		if (files != null) {
 			for (String file : files) {
 				
-				String[] keys = file.split(",");
-				
-				for(String key : keys) {
-					System.out.println("remove 게시물 : " + id + " / imageKey : " + key);
-					deleteObject(key);
+				try {
+					String[] keys = file.split(",");
+					
+					for(String key : keys) {
+						System.out.println("remove 게시물 : " + id + " / imageKey : " + key);
+						deleteObject(key);
+					}
+				} catch (NullPointerException ne) {
+					ne.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
@@ -215,6 +236,11 @@ public class FoodService {
 
 	public boolean foodPlusCount(Integer id) {
 		return mapper.foodPlusCount(id) == 1;
+	}
+
+	public int getFoodListCnt() {
+		
+		return mapper.getFoodListCnt();
 	}
 
 }

@@ -5,6 +5,10 @@
 
 <mapper namespace="com.pj.mapper.food.FoodMapper">
 	
+	<select id="getFoodListCnt" resultType="int">
+	SELECT COUNT(*) FROM Food
+	</select>
+	
 	<select id="selectNameByBoardId" resultType="String">
 	SELECT imageKey FROM Food WHERE id = #{id}
 	</select>
@@ -47,7 +51,7 @@
  	FROM
  		Food f
 			LEFT JOIN 
-		FoodReply fr ON f.id = fr.foodBoardId
+		FoodReply fr ON f.id = fr.boardId
 
  	WHERE
  		(f.id > 0)
@@ -81,6 +85,7 @@
 		title = #{title},
 		contents = #{contents},
 		writer = #{writer},
+		address = #{address},
 		updated = NOW(),
 		imageKey = concat( imageKey, ',' , ifnull(#{imageKey }, '')  )
 	WHERE
@@ -89,9 +94,9 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 	INSERT INTO
-		Food (title, contents, writer, memberId, imageKey)
+		Food (title, contents, writer, memberId, imageKey, address)
 	VALUES
-		(#{title}, #{contents}, #{writer}, #{memberId}, #{imageKey})		
+		(#{title}, #{contents}, #{writer}, #{memberId}, #{imageKey}, #{address})		
 	</insert>
 	
 	<select id="selectRead" resultType="com.pj.domain.food.FoodVO">
@@ -99,16 +104,18 @@
 		f.id,
 		f.title,
 		f.writer,
+		f.memberId,
 		f.contents,
 		f.inserted,
 		f.boardCnt,
 		f.imageKey,
+		f.address,
 		f.updated,
 		COUNT(fr.id) foodReplyCount
 	FROM
 		Food f
 			LEFT JOIN
-		FoodReply fr ON f.id = fr.foodBoardId
+		FoodReply fr ON f.id = fr.boardId
 	WHERE f.id = #{id}
 	</select>
 
@@ -119,8 +126,9 @@
 		contents,
 		writer,
 		boardCnt,
-		foodReplyCount,
+		address,
 		inserted,
+		COUNT(id) foodBoardTotalCount
 		updated
 	FROM
 		Food
