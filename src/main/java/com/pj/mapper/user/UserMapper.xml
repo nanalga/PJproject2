@@ -10,14 +10,6 @@
 		VALUES(#{name},#{nickName},#{email},#{password},#{address},#{social},#{admin})
 	</insert>
 	
-	<select id="getUserInfo" resultType="string">
-		SELECT 
-			title
-		FROM 
-			checkDB
-		WHERE
-			id = 1
-	</select>
 	<select id="getUserList" resultType="com.pj.domain.user.UserVO">
 		SELECT
 			id,name,nickName,email,password,created
@@ -42,7 +34,7 @@
 		SELECT
 			r.id,r.title,u.name,r.price,r.updated
 		FROM
-		 	ResellBoard r
+		 	Resell r
 		 JOIN 
 		 	User u
 		 ON 
@@ -100,7 +92,7 @@
 		SELECT
 			r.id,r.title,u.name,r.price,r.updated
 		FROM
-		 	ResellBoard r
+		 	Resell r
 		 JOIN 
 		 	User u
 		 ON 
@@ -155,31 +147,9 @@
 	<delete id="deleteResellByResellId">
 		DELETE
 		FROM
-			ResellBoard
+			Resell
 		WHERE
 			id =#{id}
-	</delete>
-	<delete id="deleteReplyByUserId">
-		DELETE 
-			f,r 
-		FROM 
-			FoodReply f 
-		JOIN 
-			rReply r 
-		WHERE 
-			f.userId = #{id} 
-		AND r.userId = #{id}
-	</delete>
-	<delete id="deleteBoardByUserId">
-		DELETE 
-			f,r 
-		FROM 
-			Food f 
-		JOIN 
-			ResellBoard r 
-		WHERE 
-			f.memberId = #{id} 
-		AND r.memberId = #{id}; 
 	</delete>
 	<delete id="deleteFoodByUserId">
 		DELETE
@@ -191,7 +161,7 @@
 	<delete id="deleteResellByUserId">
 		DELETE
 		FROM 
-			ResellBoard
+			Resell
 		WHERE 
 			memberId = #{id}
 	</delete>
@@ -200,12 +170,12 @@
 		FROM
 			FoodReply
 		WHERE
-			foodBoardId = #{id}
+			boardId = #{id}
 	</delete>
 	<delete id="deleteResellReplyByResellId">
 		DELETE
 		FROM
-			rReply
+			ResellReply
 		WHERE
 			boardId = #{id}
 	</delete>

@@ -89,7 +89,7 @@ public class UserService {
 		}
 		
 		int count4 = userMapper.selectCount("Food", "memberId", id);
-		int count5 = userMapper.selectCount("ResellBoard", "memberId", id);
+		int count5 = userMapper.selectCount("Resell", "memberId", id);
 		int count6 = userMapper.deleteFoodByUserId(id);
 		int count7 = userMapper.deleteResellByUserId(id);
 		
