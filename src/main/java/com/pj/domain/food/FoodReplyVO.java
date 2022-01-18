@@ -9,7 +9,7 @@ import lombok.Data;
 public class FoodReplyVO {
 
 	private Integer id;
-	private Integer foodBoardId;
+	private Integer boardId;
 	private String replyText;
 	private Integer userId;	// user의 ID와 JOIN
 	private LocalDateTime inserted;

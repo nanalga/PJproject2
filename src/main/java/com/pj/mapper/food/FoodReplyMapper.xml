@@ -6,7 +6,7 @@
 <mapper namespace="com.pj.mapper.food.FoodReplyMapper">
 	
 	<delete id="foodDeleteByBoardId">
-	DELETE FROM FoodReply WHERE foodBoardId = #{foodBoardId}
+	DELETE FROM FoodReply WHERE boardId = #{boardId}
 	</delete>
 	
 	<delete id="foodReplyDelete">
@@ -23,20 +23,20 @@
 	</update>
 	
 	<select id="foodSelectById" resultType="com.pj.domain.food.FoodReplyVO">
-	SELECT id, foodBoardId, userId, replyText, inserted, updated
+	SELECT id, boardId, userId, replyText, inserted, updated
   	FROM FoodReply
   	WHERE id = #{id}
 	</select>
 	
 	<insert id="foodReplyInsert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-	INSERT INTO FoodReply (foodBoardId, userId, replyText)
-	VALUES (#{foodBoardId}, #{userId}, #{replyText})
+	INSERT INTO FoodReply (boardId, userId, replyText)
+	VALUES (#{boardId}, #{userId}, #{replyText})
 	</insert>
 	
 	<select id="foodReplyList" resultType="com.pj.domain.food.FoodReplyVO">
 	SELECT
 		fr.id,
-		fr.foodBoardId,
+		fr.boardId,
 		fr.replyText,
 		fr.inserted,
 		fr.updated,
@@ -47,7 +47,7 @@
 	ON
 		fr.userId = u.id
 	WHERE
-		fr.foodBoardId = #{foodBoardId}
+		fr.boardId = #{boardId}
 	ORDER BY
 		id DESC;
 	</select>
