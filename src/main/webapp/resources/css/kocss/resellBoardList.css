@@ -512,6 +512,8 @@ a {
     justify-content: center;
     flex-direction: row-reverse;
     padding-left: 10px;
+        overflow: hidden;
+    white-space: nowrap;
 }
 .resell_list_col-md3-td-price {
     width: 100px;
@@ -530,5 +532,8 @@ a {
     justify-content: center;
 }
 
-
+.resell_list_col-md2-td_title > a {
+	    overflow: hidden;
+    text-overflow: ellipsis;
+}
 

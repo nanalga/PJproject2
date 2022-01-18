@@ -36,10 +36,9 @@
 		<tag:nav></tag:nav>
 
 		<!-- .container>.row>.col>h1{게시물 목록} -->
-		<div class="main_container resell_page">
-			
+		<div class="main_container resell_page ">
+
 			<div class="resell_list_body_container">
-				<tag:nav></tag:nav>
 				<div class="resell_list_body_main_wrapper">
 					<!-- 게시판 상단 메인 안내 -->
 					<div class="resell_list_body_top_info">
@@ -83,13 +82,13 @@
 						<table class="resell_list_table_main">
 							<thead class="resell_list_table_thread">
 								<tr class="resell_list_table_thread_tr">
-						            <th class="resell_list_col-md-1-id_id">번호</th>
-	                                <th class="resell_list_col-md2-title_title">제목</th>
-	                                <th class="resell_list_table_col-md3-price_th_price">가격</th>
-	                                <th class="resell_list_col-md4-writer_writer">작성자</th>
-	                                <th class="resell_list_col-md5-date_date">날짜</th>
-	                                <th class="resell_list_col-md5-date_block"></th>
-	                                <th class="resell_list_table_thread_th_boardcnt">조회수</th>
+									<th class="resell_list_col-md-1-id_id">번호</th>
+									<th class="resell_list_col-md2-title_title">제목</th>
+									<th class="resell_list_table_col-md3-price_th_price">가격</th>
+									<th class="resell_list_col-md4-writer_writer">작성자</th>
+									<th class="resell_list_col-md5-date_date">날짜</th>
+									<th class="resell_list_col-md5-date_block"></th>
+									<th class="resell_list_table_thread_th_boardcnt">조회수</th>
 								</tr>
 							</thead>
 							<tbody class="resell_list_table_tbody">
@@ -108,12 +107,8 @@
 										<td class="resell_list_col-md4-td-writer">
 											<c:out value="${resellBoard.nickName }"></c:out>
 										</td>
-										<td class="resell_list_table_tbody_td_date">
-											${resellBoard.customInserted }
-										</td>
-										<td class="resell_list_table_tbody_td_boardcnt">
-											${resellBoard.boardCount }
-										</td>
+										<td class="resell_list_table_tbody_td_date">${resellBoard.customInserted }</td>
+										<td class="resell_list_table_tbody_td_boardcnt">${resellBoard.boardCount }</td>
 									</tr>
 
 								</c:forEach>
@@ -170,31 +165,33 @@
 						</div>
 					</div>
 
-			<!-- get 페이지 하단 -->
-			<div class="resell_list_body_main_bottom_box">
-				<div class="resell_list_main_bottom_box_title">
-					<div class="resell_list_main_bottom_resellBoardTitle">용피리 중고장터</div>
-				</div>
-				<div class="resell_list_main_bottom_mainicon">
-					<div class="resell_list_main_bottom_mainicon">
-						<img src="${pageContext.request.contextPath }/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="resell_list_main_bottom_iconimage">
+					<!-- get 페이지 하단 -->
+					<div class="resell_list_body_main_bottom_box">
+						<div class="resell_list_main_bottom_box_title">
+							<div class="resell_list_main_bottom_resellBoardTitle">용피리 중고장터</div>
+						</div>
+						<div class="resell_list_main_bottom_mainicon">
+							<div class="resell_list_main_bottom_mainicon">
+								<img src="${pageContext.request.contextPath }/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="resell_list_main_bottom_iconimage">
+							</div>
+						</div>
 					</div>
+
 				</div>
 			</div>
-			
 		</div>
 	</div>
 
-			<tag:footer></tag:footer>
-			<tag:menu></tag:menu>
+	<tag:footer></tag:footer>
+	<tag:menu></tag:menu>
 
 
-			<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
+	<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
 
-			<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
+	<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
 
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-			<script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+	<script>
 		$(document).ready(function() {
 			if (history.state == null) {
 				$("#staticBackdrop").modal('show');

@@ -139,6 +139,7 @@ LIMIT #{from}, #{items}
 	    b.updated,
 	    b.boardCount,
 	    b.imageKey,
+	    u.address,
 	    COUNT(r.id) replyCount
 	FROM
 	    Resell b
