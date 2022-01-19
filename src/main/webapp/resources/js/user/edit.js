@@ -122,7 +122,7 @@ const passwordCheckHandler = () =>{
 	checkCanPushSubmitBtn();
 }
 
-const  addressHandler = async () =>{
+const  addressHandler = () =>{
 	new daum.Postcode({
     oncomplete: function(data) {
         addressInput.value = data.address;

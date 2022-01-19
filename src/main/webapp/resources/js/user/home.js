@@ -15,6 +15,7 @@ const mainContentBox = document.querySelector(".main_content_box");
 
 
 const openMenuHandler = () =>{
+	console.log("work")
     menuContainer.classList.remove("transfrom");
 }
 
@@ -23,6 +24,7 @@ const clostMenuHandler = () =>{
 }
 
 const menuinit = () =>{
+	console.log(menuOpenBtn)
     menuOpenBtn.addEventListener("click",openMenuHandler)
     menuCloseBtn.addEventListener("click",clostMenuHandler)
 }
@@ -43,7 +45,6 @@ const foodBackGroundHandler = () =>{
 }
 
 const resellBackGroundHandler = () =>{
-    console.log("work");
     resellBackGround.classList.remove("display_none");
     resellBackGround.classList.add("transfrom_scale");
     resellContentBox.removeEventListener("mouseover",resellBackGroundHandler);

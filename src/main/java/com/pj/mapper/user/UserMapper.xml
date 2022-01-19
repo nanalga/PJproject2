@@ -74,7 +74,7 @@
 		SELECT 
 			count(id)
 		FROM
-			ResellBoard
+			Resell
 	</select>
 	<select id="getFoodListByUserId" resultType="com.pj.domain.user.food.UserFoodVO">
 		SELECT 
