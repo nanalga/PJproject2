@@ -93,7 +93,7 @@ $(document).ready(function() {
 							});
 						});
 						
-						resellReplyMediaObject.find(".reply-name").text(list[i].name);
+						resellReplyMediaObject.find(".reply-name").text(list[i].nickName);
 						resellReplyMediaObject.find(".resell_reply_body").text(list[i].replyText);
 						resellReplyMediaObject.find(".form-control").text(list[i].replyText);
 						resellReplyMediaObject.find(".cancel-button").click(function(){
@@ -182,160 +182,159 @@ $(document).ready(function() {
 
 	<div class="body_wrapper">
 		<tag:nav></tag:nav>
-<div class="resell_get_body_container">
-	<tag:nav></tag:nav>
-   <!-- 공지사항 -->
-   <div class="resell_get_body_main_wrapper">
-     <div class="resell_get_body_top_info">
-         <div class="resell_get_body_top_info_title">
-             중고 거래
-         </div>
-         <div class="resell_get_body_sub_top_info">
-             <div class="resell_get_body_top_info_content_mainicon">
-                 <img src="${pageContext.request.contextPath }/resource/img/foodImg/resellBoardImage.png" alt="" class="resell_get_body_top_info_content_mainicon_iconimage">
-             </div>
-             <div class="resell_get_body_top_info_content">
-                 용필이에게 다양한 아나바다...
-             </div>
-         </div>
-     </div>
-     <!-- 게시판 제목 -->
-    <div class="resell_get_body_wrapper">
-        <div class="resell_get_body_main_box">
-            <div class="resell_get_main_box_title">
-                <div class="resell_get_body_resellBoardTitle">
-                    용필이 중고장터
-                </div>
-            </div>
-            <div class="resell_get_body_main_box_backList">
-                <a href="resellBoardList" class="resell_get_body_main_box_backList_reselllist">목록으로</a>
-            </div>
-        </div>
-        <!-- 게시글 제목, 날짜, 조회수, 댓글수  -->
-        <div class="resell_get_body_main_box">
-            <div class="resell_get_body_main_discriptionBox">
-                <div class="resell_get_body_sub_discriptionBox">
-                    <div class="resell_get_body_main_box_bTitle" >
-                    	<div class="resell_get_body_title_price">
-                    		<div class="resellBoard_title">
-			                     ${resellBoard.title }     
-                    		</div>
-							<div class="resellBoard_price">
-			                     <i class="fas fa-won-sign money" >　</i> ${resellBoard.price }원
-							</div>		                     
-                    	</div>
-                    </div>
-                </div>
-                 <div class="resell_get_body_sub_discriptionBox">
-                     <div class="resell_get_body_sub_sub_discriptionBox">
-                         <div class="resell_get_body_main_box_bWriter">
-                             작성자 : ${resellBoard.nickName } | ${resellBoard.customInserted }
-                         </div>
-                         <div class="resell_get_body_main_box_bDate">
-                         </div>
-                         <div class="resell_get_body_main_box_bCnt_bComentCnt">
-                            조회수 : ${resellBoard.boardCount } |
-                            댓글 : <c:if test="${resellBoard.replyCount >= 0 }">
-				                		${resellBoard.replyCount }
-				                   </c:if>
-									개
-                         </div>
-                     </div>
-
-                 </div>
-            </div>
-        </div>
-        <!-- 게시글 내용 -->
-        <div class="resell_get_body_main_box">
-            <div class="resell_get_body_main_box_content_text">
-               <tr>
-               	  <td>${resellBoard.content }</td>
-               </tr>
-            </div>
-        </div>
-     
-        <!-- 입력된 주소 / 주소 이미지(4) -->
-        <div class="resell_get_body_main_box">
-             <div class="resell_get_body_main_box_address_text_part">
-                 <div class="resell_get_body_main_box_address_title_text" >
-                     주소 : 
-                 </div>
-                 <div class="resell_get_body_main_box_address_content_text" id="" name="address" >
-                    <input type="text" class="resell_get_body_main_box_address_content_addressInput" id="addressInput" readonly value="${resellBoard.address }"> 
-                 </div>
-             </div>
-             <div class="resell_get_body_main_box_address_image_part">
-                 <div class="resell_get_body_main_box_address_image">
-                     <div id="map" style="width: 500px; height: 280px; margin-top: 10px;"></div>
-					 <div id="clickLatlng" style="display: none"></div>
-                 </div>
-             </div>
-         </div>
-
-        <!-- 리스트 이동 버튼 -->
-        <div class="resell_get_body_main_box">
-            <div class="resell_get_body_main_box_bottomList">
-            	<c:if test="${sessionScope.loggedUser.id eq resellBoard.memberId }">
-                	<button class="resell_reselllist_sub_button" onclick="location.href='resellBoardModify?id=${resellBoard.id }'">수정 | 삭제</button>
-            	</c:if>
-            </div>
-        </div>
-        <!-- 댓글 개수 -->
-        <div class="resell_get_body_main_box">
-            <div class="resell_get_body_main_box_comment">
-                댓글
-                	<c:if test="${resellBoard.replyCount >= 0 }">
-                		${resellBoard.replyCount }
-                	</c:if>
-				개
-            </div>
-        </div>
-        
-        <!-- 댓글 작성 구역 -->
-        <c:if test="${not empty sessionScope.loggedUser }">
-        <div class="resell_get_body_main_box">
-<!--        <div class="resell_get_body_comment_title_frame">
-                <div class="resell_get_body_comment_write"></div>
-            </div> -->
-            <div class="resell_get_body_comment_textarea_frame">
-                <textarea name="" id="replyTextarea" class="resell_get_body_comment_textarea"></textarea>
-            </div>
-            <div class="resell_get_body_comment_button_frame">
-                <div class="resell_get_body_comment_button_sub_frame">
-                 <button id="sendReply" class="resell_comment_sub_button">댓글작성</button>
-                </div>
-            </div>
-        </div>
-        </c:if>
-        
-        <!-- 댓글 리스트 -->
-        <div class="resell_get_body_main_box">
-             <div class="resell_get_body_main_discriptionBox">
-                 
-                 <div class="resell_get_body_main_box_comment_writer">
-                 </div>
-                 <div id="resellReplyListContainer" class="resell_get_body_main_box_comment_txt">
-                 </div>
-                 <div class="resell_get_body_main_box_comment_date">
-                 </div>
-             </div>
-        </div>
-        
-        <!-- get 페이지 하단 -->
-        <div class="resell_get_body_main_bottom_box">
-            <div class="resell_get_main_bottom_box_title">
-                <div class="resell_get_main_bottom_resellBoardTitle">
-                    용필이 중고장터
-                </div>
-            </div>
-            <div class="resell_get_main_bottom_mainicon">
-                <div class="resell_get_main_bottom_mainicon">
-                     <img src="${pageContext.request.contextPath }/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="resell_get_main_bottom_iconimage">
-                </div>
-            </div>   
-        </div>
-    </div>
- </div>
+	<div class="resell_get_body_container">
+	   <!-- 공지사항 -->
+	   <div class="resell_get_body_main_wrapper">
+	     <div class="resell_get_body_top_info">
+	         <div class="resell_get_body_top_info_title">
+	             중고 거래
+	         </div>
+	         <div class="resell_get_body_sub_top_info">
+	             <div class="resell_get_body_top_info_content_mainicon">
+	                 <img src="${pageContext.request.contextPath }/resource/img/foodImg/resellBoardImage.png" alt="" class="resell_get_body_top_info_content_mainicon_iconimage">
+	             </div>
+	             <div class="resell_get_body_top_info_content">
+	                 용피리에게 다양한 아나바다...
+	             </div>
+	         </div>
+	     </div>
+	     <!-- 게시판 제목 -->
+	    <div class="resell_get_body_wrapper">
+	        <div class="resell_get_body_main_box">
+	            <div class="resell_get_main_box_title">
+	                <div class="resell_get_body_resellBoardTitle">
+	                    용피리 중고장터
+	                </div>
+	            </div>
+	            <div class="resell_get_body_main_box_backList">
+	                <a href="resellBoardList" class="resell_get_body_main_box_backList_reselllist">목록으로</a>
+	            </div>
+	        </div>
+	        <!-- 게시글 제목, 날짜, 조회수, 댓글수  -->
+	        <div class="resell_get_body_main_box">
+	            <div class="resell_get_body_main_discriptionBox">
+	                <div class="resell_get_body_sub_discriptionBox">
+	                    <div class="resell_get_body_main_box_bTitle" >
+	                    	<div class="resell_get_body_title_price">
+	                    		<div class="resellBoard_title">
+				                     ${resellBoard.title }     
+	                    		</div>
+								<div class="resellBoard_price">
+				                     <i class="fas fa-won-sign money" >　</i> ${resellBoard.price }원
+								</div>		                     
+	                    	</div>
+	                    </div>
+	                </div>
+	                 <div class="resell_get_body_sub_discriptionBox">
+	                     <div class="resell_get_body_sub_sub_discriptionBox">
+	                         <div class="resell_get_body_main_box_bWriter">
+	                             작성자 : ${resellBoard.nickName } | ${resellBoard.customInserted }
+	                         </div>
+	                         <div class="resell_get_body_main_box_bDate">
+	                         </div>
+	                         <div class="resell_get_body_main_box_bCnt_bComentCnt">
+	                            조회수 : ${resellBoard.boardCount } |
+	                            댓글 : <c:if test="${resellBoard.replyCount >= 0 }">
+					                		${resellBoard.replyCount }
+					                   </c:if>
+										개
+	                         </div>
+	                     </div>
+	
+	                 </div>
+	            </div>
+	        </div>
+	        <!-- 게시글 내용 -->
+	        <div class="resell_get_body_main_box">
+	            <div class="resell_get_body_main_box_content_text">
+	               <tr>
+	               	  <td>${resellBoard.content }</td>
+	               </tr>
+	            </div>
+	        </div>
+	     
+	        <!-- 입력된 주소 / 주소 이미지(4) -->
+	        <div class="resell_get_body_main_box">
+	             <div class="resell_get_body_main_box_address_text_part">
+	                 <div class="resell_get_body_main_box_address_title_text" >
+	                     주소 : 
+	                 </div>
+	                 <div class="resell_get_body_main_box_address_content_text" id="" name="address" >
+	                    <input type="text" class="resell_get_body_main_box_address_content_addressInput" id="addressInput" readonly value="${resellBoard.address }"> 
+	                 </div>
+	             </div>
+	             <div class="resell_get_body_main_box_address_image_part">
+	                 <div class="resell_get_body_main_box_address_image">
+	                     <div id="map" style="width: 500px; height: 280px; margin-top: 10px;"></div>
+						 <div id="clickLatlng" style="display: none"></div>
+	                 </div>
+	             </div>
+	         </div>
+	
+	        <!-- 리스트 이동 버튼 -->
+	        <div class="resell_get_body_main_box">
+	            <div class="resell_get_body_main_box_bottomList">
+	            	<c:if test="${sessionScope.loggedUser.id eq resellBoard.memberId }">
+	                	<button class="resell_reselllist_sub_button" onclick="location.href='resellBoardModify?id=${resellBoard.id }'">수정 | 삭제</button>
+	            	</c:if>
+	            </div>
+	        </div>
+	        <!-- 댓글 개수 -->
+	        <div class="resell_get_body_main_box">
+	            <div class="resell_get_body_main_box_comment">
+	                댓글
+	                	<c:if test="${resellBoard.replyCount >= 0 }">
+	                		${resellBoard.replyCount }
+	                	</c:if>
+					개
+	            </div>
+	        </div>
+	        
+	        <!-- 댓글 작성 구역 -->
+	        <c:if test="${not empty sessionScope.loggedUser }">
+	        <div class="resell_get_body_main_box">
+	<!--        <div class="resell_get_body_comment_title_frame">
+	                <div class="resell_get_body_comment_write"></div>
+	            </div> -->
+	            <div class="resell_get_body_comment_textarea_frame">
+	                <textarea name="" id="replyTextarea" class="resell_get_body_comment_textarea"></textarea>
+	            </div>
+	            <div class="resell_get_body_comment_button_frame">
+	                <div class="resell_get_body_comment_button_sub_frame">
+	                 <button id="sendReply" class="resell_comment_sub_button">댓글작성</button>
+	                </div>
+	            </div>
+	        </div>
+	        </c:if>
+	        
+	        <!-- 댓글 리스트 -->
+	        <div class="resell_get_body_main_box">
+	             <div class="resell_get_body_main_discriptionBox">
+	                 
+	                 <div class="resell_get_body_main_box_comment_writer">
+	                 </div>
+	                 <div id="resellReplyListContainer" class="resell_get_body_main_box_comment_txt">
+	                 </div>
+	                 <div class="resell_get_body_main_box_comment_date">
+	                 </div>
+	             </div>
+	        </div>
+	        
+	        <!-- get 페이지 하단 -->
+	        <div class="resell_get_body_main_bottom_box">
+	            <div class="resell_get_main_bottom_box_title">
+	                <div class="resell_get_main_bottom_resellBoardTitle">
+	                    용피리 중고장터
+	                </div>
+	            </div>
+	            <div class="resell_get_main_bottom_mainicon">
+	                <div class="resell_get_main_bottom_mainicon">
+	                     <img src="${pageContext.request.contextPath }/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="resell_get_main_bottom_iconimage">
+	                </div>
+	            </div>   
+	        </div>
+	    </div>
+	 </div>
 </div>
 	<!--확인 Modal -->
 	<c:if test="${not empty result }">
@@ -447,7 +446,10 @@ $(document).ready(function() {
 		
 		setTimeout(mapHandler,2000);
 
-		})
+});
+		
+		
+		
 		
 </script>
 

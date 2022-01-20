@@ -101,7 +101,7 @@ public class ResellBoardService {
 	
 	public String uploadToS3(String key, MultipartFile file) throws IOException {
 //		String key = "";
-		putObject("resell/" + key, file.getSize(), file.getInputStream());
+		putObject("board/" + key, file.getSize(), file.getInputStream());
 		//String resellFileUrl = "resell" + key;
 		//filemapper.fileUrlInsert(resellFileUrl);
 		
@@ -117,7 +117,7 @@ public class ResellBoardService {
 		
 		deleteObject(key);
 		
-		putObject("resell/" + key, file.getSize(), file.getInputStream());
+		putObject("board/" + key, file.getSize(), file.getInputStream());
 		
 		System.out.println("key2 : " + key);
 		
