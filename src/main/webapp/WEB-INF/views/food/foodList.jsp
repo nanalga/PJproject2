@@ -83,9 +83,13 @@
                       <tr class="food_list_table_tbody_tr">
                           <td class="food_list_table_tbody_td_id">${food.id }</td>
                           <td class="food_list_table_tbody_td_title">
-                          	<a href="foodGet?id=${food.id }">
-								<c:out value="${food.title }" />
-							</a>
+	                          	<a class="food_list_td_title_a" href="foodGet?id=${food.id }">
+									<c:out value="${food.title }" />
+								</a>&nbsp; &nbsp;
+								
+								<c:if test="${food.foodReplyCount > 0 }">
+									<i class="far fa-comment-dots"></i> ${food.foodReplyCount }									
+								</c:if>
                           </td>
                           <td class="food_list_table_tbody_td_writer">${food.writer }</td>
                           <td class="food_list_table_tbody_td_date">${food.customInserted }</td>

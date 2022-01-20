@@ -763,6 +763,13 @@ div {
 	padding-left: 10px;
 }
 
+#submitButton2:hover {
+	background : rgb(243, 60, 60);
+    border: 0;
+    outline:none;
+    cursor: pointer;
+}
+
 .main_register_registerBtn_submit_back {
     display: flex;
     flex-direction: row;

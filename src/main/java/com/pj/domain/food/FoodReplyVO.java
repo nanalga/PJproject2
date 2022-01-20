@@ -16,6 +16,7 @@ public class FoodReplyVO {
 	private LocalDateTime updated;
 	
 	private String name;	// user의 name(nickName 역할)
+	private String nickName;
 	
 	private Boolean own;
 	
