@@ -319,6 +319,13 @@
     width: 40%;
     height: 100%;
     align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.food_list_td_title_a {
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
 .food_list_table_tbody_td_writer {
     display: flex;

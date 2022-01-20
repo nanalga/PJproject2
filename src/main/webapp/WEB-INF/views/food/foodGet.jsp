@@ -39,6 +39,7 @@ $(document).ready(function(){
 		$.ajax({
 			url : appRoot + "/foodReply/food/${food.id}",
 			success : function(list){
+				console.log(list);
 				for(let i = 0; i < list.length; i++){
 					const foodReplyMediaObject =$(`
 								
@@ -48,7 +49,7 @@ $(document).ready(function(){
 								<p class="food_reply_body" style="white-space: pre;"></p>
 								<h5 class="food_reply_mt">
 									<i class="far fa-comment"></i> 
-									<span class="reply-name"> \${list[i].name} </span>님이 \${list[i].customInserted}에 작성
+									<span class="reply-name"> \${list[i].nickName} </span>님이 \${list[i].customInserted}에 작성
 								</h5>
 							</div>
 							
@@ -82,7 +83,7 @@ $(document).ready(function(){
 						});
 					});
 					
-					foodReplyMediaObject.find(".reply-name").text(list[i].name);
+					foodReplyMediaObject.find(".reply-name").text(list[i].nickName);
 					foodReplyMediaObject.find(".food_reply_body").text(list[i].replyText);
 					foodReplyMediaObject.find(".form-control").text(list[i].replyText);
 					foodReplyMediaObject.find(".cancel-button").click(function(){

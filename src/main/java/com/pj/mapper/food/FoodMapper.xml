@@ -111,11 +111,13 @@
 		f.imageKey,
 		f.address,
 		f.updated,
+		u.nickName,
 		COUNT(fr.id) foodReplyCount
 	FROM
 		Food f
 			LEFT JOIN
 		FoodReply fr ON f.id = fr.boardId
+		JOIN User u ON f.memberId = u.id
 	WHERE f.id = #{id}
 	</select>
 

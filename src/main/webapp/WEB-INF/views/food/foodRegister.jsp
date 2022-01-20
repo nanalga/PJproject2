@@ -80,7 +80,7 @@
 							<div class="main_register_titlePrice_titleWrapper">
 								<div class="main_register_titlePrice_titleName">제 목 :</div>
 								<div class="main_register_titlePrice_titleInput">
-									<input type="text" class="titlePrice_titleInput" id="titleInput" name="title">
+									<input type="text" maxlength='30' class="titlePrice_titleInput" id="titleInput" name="title">
 								</div>
 							</div>
 							<div class="main_register_titlePrice_priceWrapper">
@@ -95,7 +95,7 @@
 							<div class="main_register_nickNameDate_nickNameWrapper">
 								<div class="main_register_nickNameDate_nickName">작성자 :</div>
 								<div class=" main_register_nickNameDate_nickNameInput">
-									<input type="text" class="nickNameDate_nickNameInput" id="writerInput" name="writer" readonly value="${sessionScope.loggedUser.name }">
+									<input type="text" class="nickNameDate_nickNameInput" id="writerInput" name="writer" readonly value="${sessionScope.loggedUser.nickName }">
 								</div>
 							</div>
 							

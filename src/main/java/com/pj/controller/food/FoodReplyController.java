@@ -35,14 +35,13 @@ public class FoodReplyController {
 	@GetMapping("/food/{foodBoardId}")
 	public List<FoodReplyVO> list(@PathVariable Integer foodBoardId, HttpSession session){
 		UserVO loggedIn = (UserVO) session.getAttribute("loggedUser");
-		
 		List<FoodReplyVO> list = service.foodReplyList(foodBoardId);
 		
 		if(loggedIn != null) {
 			for(FoodReplyVO reply : list) {
 				int writerId = reply.getUserId();	// 작성자 아이디
 				int loginId = loggedIn.getId();		// 로그인 아이디
-				System.out.println("writerId : " + writerId + ", loginId : " + loginId);
+				System.out.println("writerId : " + writerId + ", loginId : " + loginId + ", nickName : " + loggedIn.getNickName());
 				if(writerId == loginId) {
 					reply.setOwn(true);
 				} else {
@@ -51,7 +50,7 @@ public class FoodReplyController {
 				
 			}
 		}
-		
+		System.out.println(list);
 		return list;
 	}
 	

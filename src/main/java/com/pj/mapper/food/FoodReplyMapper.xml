@@ -41,7 +41,7 @@
 		fr.inserted,
 		fr.updated,
         fr.userId,
-		u.name
+        u.nickName
 	FROM
 		FoodReply fr JOIN User u
 	ON
