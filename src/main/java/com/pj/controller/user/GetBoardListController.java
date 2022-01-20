@@ -56,12 +56,14 @@ public class GetBoardListController {
 		try {
 			ok = userService.deleteFoodByFoodId(id);
 		} catch (Exception e) {
+			System.out.println("error");
+			e.printStackTrace();
 			ok = false;
 		}
 		if(ok) {
 			return ResponseEntity.ok("");
 		}else {
-			return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 	}
 	
@@ -71,12 +73,14 @@ public class GetBoardListController {
 		try {
 			ok = userService.deleteResellByResellId(id);
 		} catch (Exception e) {
+			System.out.println("error");
+			e.printStackTrace();
 			ok = false;
 		}
 		if(ok) {
 			return ResponseEntity.ok("");
 		}else {
-			return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 	}
 	

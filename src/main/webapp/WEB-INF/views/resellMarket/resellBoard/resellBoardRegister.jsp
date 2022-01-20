@@ -86,7 +86,7 @@
 							<div class="main_register_titlePrice_priceWrapper">
 								<div class="main_register_titlePrice_priceName">가격 :</div>
 								<div class="main_register_titlePrice_priceInput">
-									<input type="text" class="titlePrice_priceInput" maxlength='10'  id="priceInput" name="price">
+									<input type="number" class="titlePrice_priceInput" maxlength='10'  id="priceInput" name="price">
 								</div>
 							</div>
 						</div>

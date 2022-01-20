@@ -107,9 +107,8 @@ public class UserService {
 	
 	@Transactional
 	public boolean deleteFoodByFoodId(Integer id) throws RuntimeException{
-		int count1 = userMapper.selectCount("FoodReply","foodBoardId",id);
+		int count1 = userMapper.selectCount("FoodReply","boardId",id);
 		int count2 = userMapper.deleteFoodReplyByFoodId(id);
-		
 		if(count1 != count2) {
 			throw new RuntimeException("deleteFoodReply query error");
 		}
@@ -119,7 +118,7 @@ public class UserService {
 	
 	@Transactional
 	public boolean deleteResellByResellId(Integer id) throws RuntimeException{
-		int count1 = userMapper.selectCount("rReply","boardId",id);
+		int count1 = userMapper.selectCount("ResellReply","boardId",id);
 		int count2 = userMapper.deleteResellReplyByResellId(id);
 		
 		if(count1 != count2) {
