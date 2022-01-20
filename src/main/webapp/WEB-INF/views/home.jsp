@@ -45,8 +45,8 @@
                         </div>
 	                </div>   
 	                <div class="main_title_content_box">
-	                    <p>용필이 월드에 오신걸 환영합니다</p>
-                        <p>이제부터 용필이와 함께 양산시에 대해 알아보아용</p>
+	                    <p>용피리 월드에 오신걸 환영합니다</p>
+                        <p>이제부터 용피리와 함께 양산시에 대해 알아보아용</p>
 	                </div>
             	</div>
             	<div class="main_content_box">
@@ -57,8 +57,8 @@
 	                        	<img src="${ContextPath}/resource/img/foodIcon.png" alt="">
 	                    	</div>
 	                    	<div class="main_content_text_box">
-	                                <h2>용필이의 골목식당</h2>
-	                                <p>배고프죠? 용필이와 함께 맛집을 찾아떠나요~</p>
+	                                <h2>용피리 골목식당</h2>
+	                                <p>배고프죠? 용피리와 함께 맛집을 찾아떠나요~</p>
 	                    	</div>     
                         </a>
                 	</div>
@@ -69,9 +69,9 @@
 	                       	<img src="${ContextPath}/resource/img/resellIcon.png" alt="">
 		                   	</div>
 		                    <div class="main_content_text_box">
-		                               <h2>용필이의 중고장터</h2>
+		                               <h2>용피리 중고장터</h2>
 		                               <p>쓰지 않는 물건이 있다면</p>
-		                               <p>버리지말고 용필이와 함께 팔아보아요~</p>
+		                               <p>버리지말고 용피리와 함께 팔아보아요~</p>
 		                   	</div>
                         </a>
                 	</div>

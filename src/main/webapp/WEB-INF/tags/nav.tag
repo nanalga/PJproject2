@@ -10,7 +10,7 @@
         </div>
         <a class="header_home_link" href="${pageContext.request.contextPath }/">
             <!-- <img src="./resource/잘생긴용피리.png" alt=""> -->
-            <span>용필이월드</span>
+            <span>용피리월드</span>
         </a>
     </div>
 </header>

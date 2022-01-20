@@ -57,12 +57,17 @@
 }
 
 .menu_list_box{
-    margin-bottom: 30px;
+    margin-bottom: 70px;
 }
 
 .menu_list_box a{
     font-size: 40px;
     font-family: 'KyoboHand';
+}
+
+.menu_list_box a:hover{
+	text-decoration: none;
+	font-weight: 600;
 }
 
 .menu_list_box>div{
