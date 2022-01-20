@@ -86,7 +86,7 @@
 							<div class="main_register_titlePrice_priceWrapper">
 								<div class="main_register_titlePrice_priceName">가격 :</div>
 								<div class="main_register_titlePrice_priceInput">
-									<input type="number" class="titlePrice_priceInput" maxlength='10'  id="priceInput" name="price">
+									<input type="number" class="titlePrice_priceInput" maxlength='9' oninput="maxLengthCheck(this)" value="0" id="priceInput" name="price" placeholder="가격을 입력해주세요">
 								</div>
 							</div>
 						</div>
@@ -160,9 +160,18 @@
 			<script>
     
 </script>
+<script type="text/javascript">
+  function maxLengthCheck(object){
+    if (object.value.length > object.maxLength){
+      object.value = object.value.slice(0, object.maxLength);
+    }    
+  }
+</script>
 
-			<script>
+<script>
 $(document).ready(function(){
+	
+	
 	
 	
 	/*섬머노트  */
