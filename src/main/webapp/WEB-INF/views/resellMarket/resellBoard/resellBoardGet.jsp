@@ -93,7 +93,7 @@ $(document).ready(function() {
 							});
 						});
 						
-						resellReplyMediaObject.find(".reply-name").text(list[i].name);
+						resellReplyMediaObject.find(".reply-name").text(list[i].nickName);
 						resellReplyMediaObject.find(".resell_reply_body").text(list[i].replyText);
 						resellReplyMediaObject.find(".form-control").text(list[i].replyText);
 						resellReplyMediaObject.find(".cancel-button").click(function(){

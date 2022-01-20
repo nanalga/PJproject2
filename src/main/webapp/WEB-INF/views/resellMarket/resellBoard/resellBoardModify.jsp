@@ -43,7 +43,7 @@
 		<tag:nav></tag:nav>
 		<!-- .contatiner>.row>.col>h1{게시물 수정} -->
 
-        <div class="main_container">
+        <div class="main_container resell_page">
             <!-- header -->
 			
             <div class="main_register_head_container">

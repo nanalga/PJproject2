@@ -541,9 +541,9 @@ a {
     text-overflow: ellipsis;
 }
 
-.resell_list_col-md3-td-price > p {
-		overfolw: hidden;
-		text-overflow: ellipsis;
-	
+#td-price {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 

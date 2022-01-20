@@ -86,7 +86,7 @@
 							<div class="main_register_titlePrice_priceWrapper">
 								<div class="main_register_titlePrice_priceName">가격 :</div>
 								<div class="main_register_titlePrice_priceInput">
-									<input type="text" class="titlePrice_priceInput"  id="priceInput" name="price">
+									<input type="text" class="titlePrice_priceInput" maxlength='10'  id="priceInput" name="price">
 								</div>
 							</div>
 						</div>
@@ -236,6 +236,7 @@ $('#summernote').summernote(setting);
 					/* const parseData = JSON.parse(d);
 					console.log("s-data:", parseData.url); */
 					//$(el).summernote('editor.insertImage', d.url);
+					
 					let imgNode = document.createElement("img");
 					$(imgNode).attr("src", d.url);
 					$(el).summernote('insertNode', imgNode);

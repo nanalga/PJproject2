@@ -105,7 +105,9 @@
 											</c:if>
 										</td>
 										<td class="resell_list_col-md3-td-price">
-													\ ${resellBoard.price }
+												<div class="td-price" id="td-price">
+												\ ${resellBoard.price }
+												</div>	
 										</td>
 										<td class="resell_list_col-md4-td-writer">
 											<c:out value="${resellBoard.nickName }"></c:out>
