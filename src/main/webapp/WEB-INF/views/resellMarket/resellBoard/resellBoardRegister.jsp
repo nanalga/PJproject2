@@ -36,7 +36,7 @@
 
 
 
-<title>resellBoardRegisterCopy</title>
+<title>resellBoardRegister</title>
 </head>
 <body>
 
@@ -49,7 +49,7 @@
 
 				<div class="main_register_head_container">
 					<div class="main_register_head_wrapper">
-						<div class="main_register_head_title">맛집 공유</div>
+						<div class="main_register_head_title">중고 장터</div>
 						<div class="main_register_head_box">
 							<div class="main_register_head_mainicon">
 								<img src="${pageContext.request.contextPath }/resource/img/foodImg/resellBoardImage.png"  alt="" class="main_register_head_mainicon_iconimage">
@@ -66,7 +66,7 @@
 				<div class="main_register_wrapper">
 					<div class="item main_register_PageName_container">
 						<div class="main_register_PageName_wrapper">
-							<div class="main_register_PageName_input">용필이 장터</div>
+							<div class="main_register_PageName_input">용피리 장터</div>
 						</div>
 					</div>
 
@@ -80,13 +80,13 @@
 							<div class="main_register_titlePrice_titleWrapper">
 								<div class="main_register_titlePrice_titleName">제 목 :</div>
 								<div class="main_register_titlePrice_titleInput">
-									<input type="text" class="titlePrice_titleInput" id="titleInput" name="title">
+									<input type="text" maxlength='30' class="titlePrice_titleInput" id="titleInput" name="title">
 								</div>
 							</div>
 							<div class="main_register_titlePrice_priceWrapper">
 								<div class="main_register_titlePrice_priceName">가격 :</div>
 								<div class="main_register_titlePrice_priceInput">
-									<input type="text" class="titlePrice_priceInput"  id="priceInput" name="price">
+									<input type="text" class="titlePrice_priceInput" maxlength='10'  id="priceInput" name="price">
 								</div>
 							</div>
 						</div>
@@ -236,6 +236,7 @@ $('#summernote').summernote(setting);
 					/* const parseData = JSON.parse(d);
 					console.log("s-data:", parseData.url); */
 					//$(el).summernote('editor.insertImage', d.url);
+					
 					let imgNode = document.createElement("img");
 					$(imgNode).attr("src", d.url);
 					$(el).summernote('insertNode', imgNode);
@@ -264,8 +265,7 @@ $('#summernote').summernote(setting);
 			const contentValue = contentInput.val();
 			const priceValue = priceInput.val();
 			
-			console.log(titleValue);
-			console.log(priceValue);
+
 			
 			if ( (titleValue != "") && (priceValue != "")  ) {
 				submitButton.removeAttr("disabled");
@@ -291,102 +291,135 @@ $('#summernote').summernote(setting);
         level: 3 // 지도의 확대 레벨
     };  
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+	/*ㅇㅇㅇ  */		
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(37.499817, 127.030277), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};  
 
-//일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-var mapTypeControl = new kakao.maps.MapTypeControl();
-
-// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-var zoomControl = new kakao.maps.ZoomControl();
-map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-var addressMap = $("#addressInput").val();
-console.log(addressMap);
-
+	/*ㅇㅇㅇ  */		
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(37.499817, 127.030277), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};  
+	//지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
-const mapHandler = () => {
+	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+	var mapTypeControl = new kakao.maps.MapTypeControl();
+	// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+	// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+	map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+	// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+	var zoomControl = new kakao.maps.ZoomControl();
+	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+	//주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	var addressMap = $("#addressInput").val();
+	console.log(addressMap);
+	//주소로 좌표를 검색합니다
 	
+	
+	const mapHandler = () => {
 	 //카카오 지도 발생
-    new daum.Postcode({
-        oncomplete: function(data) { //선택시 입력값 세팅
-            document.getElementById("addressInput").value = data.address; // 주소 넣기
-			
-            geocoder.addressSearch(data.address, function(result, status) {
-
-                // 정상적으로 검색이 완료됐으면 
-                 if (status === kakao.maps.services.Status.OK) {
-            		
-                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            		var message = 'latlng: new kakao.maps.LatLng(' + result[0].y + ', ';
-            		message += result[0].x + ')';
-            		
-            		var resultDiv = document.getElementById('clickLatlng'); 
-            		resultDiv.innerHTML = message;
-            		
-                    // 결과값으로 받은 위치를 마커로 표시합니다
-                    var marker = new kakao.maps.Marker({
-                        map: map,
-                        position: coords
-                    });
-
-                    // 인포윈도우로 장소에 대한 설명을 표시합니다
-                    var infowindow = new kakao.maps.InfoWindow({
-                        content: '<div style="width:130px;text-align:center;padding:6px 0;">장소</div>'
-                    });
-                    infowindow.open(map, marker);
-
-                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                    map.setCenter(coords);
-                } 
-            })
-            
-			document.querySelector("button[name=submitBtn]").focus();
-		//   document.querySelector("input[name=addressDetail]").focus(); //상세입력 포커싱
-        }
-
-
-    }).open();
 	
-}
+	    	const mapValue = mapInput.value; // 주소 넣기
+	       
+	        geocoder.addressSearch(mapValue, function(result, status) {
+	            // 정상적으로 검색이 완료됐으면 
+	             	var addressMap = $("#addressInput").val();
+	                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	        		var message = 'latlng: new kakao.maps.LatLng(' + result[0].y + ', ';
+	        		message += result[0].x + ')';
+	        		
+	        		var resultDiv = document.getElementById('clickLatlng'); 
+	        		resultDiv.innerHTML = message;
+	        		
+	                // 결과값으로 받은 위치를 마커로 표시합니다
+	                var marker = new kakao.maps.Marker({
+	                    map: map,
+	                    position: coords
+	                });
+	                
+	                var iwContent = '<div style="padding:5px 10px 5px 5px; font-size: small;white-space: nowrap;">'+addressMap+'<br><a href="https://map.kakao.com/link/map/'+addressMap+','+result[0].y+','+result[0].x+
+	                '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+addressMap+
+	                ','+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	                iwPosition = new kakao.maps.LatLng(result[0].y, result[0].x);		        		
+	        		
+	                // 인포윈도우로 장소에 대한 설명을 표시합니다
+	                var infowindow = new kakao.maps.InfoWindow({
+	                	position : iwPosition,
+	                    content: iwContent
+	                });
+	                infowindow.open(map, marker);
+	                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	                map.setCenter(coords);
+	})
+} 
+	
+	
+	
+	setTimeout(mapHandler,2000);
+	
+	const mapHandlerM = () => {
+		
+		 //카카오 지도 발생
+	    new daum.Postcode({
+	        oncomplete: function(data) { //선택시 입력값 세팅
+	            document.getElementById("addressInput").value = data.address; // 주소 넣기
+	            addressMap = $("#addressInput").val();
+	            geocoder.addressSearch(data.address, function(result, status) {
+	                // 정상적으로 검색이 완료됐으면 
+	                 if (status === kakao.maps.services.Status.OK) {
+	            		
+	                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	            		var message = 'latlng: new kakao.maps.LatLng(' + result[0].y + ', ';
+	            		message += result[0].x + ')';
+	            		
+	            		var resultDiv = document.getElementById('clickLatlng'); 
+	            		resultDiv.innerHTML = message;
+	            		
+	                    // 결과값으로 받은 위치를 마커로 표시합니다
+	                    var marker = new kakao.maps.Marker({
+	                        map: map,
+	                        position: coords
+	                    });
+		                var iwContent = '<div style="padding:5px 10px 5px 5px; font-size: small;white-space: nowrap;">'+addressMap+'<br><a href="https://map.kakao.com/link/map/'+addressMap+','+result[0].y+','+result[0].x+
+		                '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+addressMap+
+		                ','+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		                iwPosition = new kakao.maps.LatLng(result[0].y, result[0].x);	
+	                    
+	                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+	                    var infowindow = new kakao.maps.InfoWindow({
+		                	position : iwPosition,
+		                    content: iwContent
+	                    });
+	                    infowindow.open(map, marker);
+	                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	                    map.setCenter(coords);
+	                } 
+	            })
+	            
+			//	document.querySelector("input[name=price]").focus();
+			//   document.querySelector("input[name=addressDetail]").focus(); //상세입력 포커싱
+	        }
+	    }).open();
+		
+	}		
+	    document.getElementById("addressInput").addEventListener("click", mapHandlerM ) 
+	    //주소입력칸을 클릭하면
+	
+	
+	
+});
 
- document.getElementById("addressInput").addEventListener("click", mapHandler)//주소입력칸을 클릭하면
 
-})
+
+
 </script>
-<script>
 
-    // 단위를 넣지 않으려면 '원' 표시를 지우세요
-    var prefix = "원"
-                    var wd
-                    function parseelement(thisone) {
-                        if (thisone.value.charAt(0) == "원")
-                            return
-                        wd = "w"
-                        var tempnum = thisone.value
-                        for (i = 0; i < tempnum.length; i++) {
-                            if (tempnum.charAt(i) == ".") {
-                                wd = "d"
-                                break
-                            }
-                        }
-
-                        if (tempnum.charAt(tempnum.length - 2) == ".") {
-                            thisone.value = tempnum + "0" + prefix
-                        }
-                        else {
-                            tempnum = Math.round(tempnum * 100) / 100
-                            thisone.value = tempnum + prefix
-                        }
-                    }
-
- </script>
 
 
 			<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
