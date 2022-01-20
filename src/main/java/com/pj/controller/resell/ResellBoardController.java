@@ -203,7 +203,6 @@ public class ResellBoardController implements WebMvcConfigurer {
 	@ResponseBody
 	public String uploadSummernoteImageFile(ResellBoardVO ResellBoard,@RequestParam("file") MultipartFile multipartFile,
 			HttpServletRequest request) {
-
 		JsonObject jsonObject = new JsonObject();
 
 		/*

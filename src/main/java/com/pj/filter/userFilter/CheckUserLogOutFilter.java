@@ -1,4 +1,4 @@
-package com.pj.filter.food;
+package com.pj.filter.userFilter;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -14,14 +14,14 @@ import javax.servlet.http.HttpSession;
 import com.pj.domain.user.UserVO;
 
 /**
- * Servlet Filter implementation class FoodCheckLogInFilter
+ * Servlet Filter implementation class CheckLogInFilter
  */
-public class FoodCheckLogInFilter implements Filter {
+public class CheckUserLogOutFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public FoodCheckLogInFilter() {
+    public CheckUserLogOutFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -37,18 +37,20 @@ public class FoodCheckLogInFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
+		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
-		UserVO uservo = (UserVO)session.getAttribute("loggedUser");
+				
+		UserVO vo = (UserVO) session.getAttribute("loggedUser");
 		
-		if(uservo == null) {
-			String location = req.getContextPath() + "/user/login";
-			
+		if(vo == null) {
 			HttpServletResponse res = (HttpServletResponse) response;
+			String location = req.getContextPath() + "/user/login";
 			res.sendRedirect(location);
-		} else {
+		}else {
 			chain.doFilter(request, response);
 		}
+		
 	}
 
 	/**

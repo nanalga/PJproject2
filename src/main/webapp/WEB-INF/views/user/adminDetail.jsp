@@ -28,6 +28,10 @@
                         <input type="text" class="admin_detail_input" id="admin_detail_input1" value="${sessionScope.loggedUser.name}" readonly/>
                     </div>
                     <div class="admin_detail_box">
+                        <label for="admin_detail_input4" class="admin_detail_label">닉네임</label>
+                        <input type="text" class="admin_detail_input" id="admin_detail_input4" value="${sessionScope.loggedUser.nickName}" readonly/>
+                    </div>
+                    <div class="admin_detail_box">
                         <label for="admin_detail_input2" class="admin_detail_label">이메일</label>
                         <input type="text" class="admin_detail_input" id="admin_detail_input2" value="${sessionScope.loggedUser.email}"  readonly/>
                     </div>
