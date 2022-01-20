@@ -79,7 +79,7 @@
 					</div>
 					<!-- board List -->
 					<div class="resell_list_body_main2">
-						<table class="resell_list_table_main">
+						<table class="resell_list_table_main" >
 							<thead class="resell_list_table_thread">
 								<tr class="resell_list_table_thread_tr">
 									<th class="resell_list_col-md-1-id_id">번호</th>
@@ -93,16 +93,19 @@
 							</thead>
 							<tbody class="resell_list_table_tbody">
 								<c:forEach items="${resellList }" var="resellBoard">
-
+								
 									<tr class="resell_list_table_tbody_tr">
 										<td class="resell_list_col-md1-td_id">${resellBoard.id }</td>
 										<td class="resell_list_col-md2-td_title">
 											<a href="resellBoardGet?id=${resellBoard.id }">
 												<c:out value="${resellBoard.title }" />
-											</a>
+											</a>  &nbsp;
+											<c:if test="${resellBoard.replyCount > 0 }">
+												<i class="far fa-comments"> ${resellBoard.replyCount }</i>
+											</c:if>
 										</td>
 										<td class="resell_list_col-md3-td-price">
-											<c:out value="${resellBoard.price }"></c:out>
+													\ ${resellBoard.price }
 										</td>
 										<td class="resell_list_col-md4-td-writer">
 											<c:out value="${resellBoard.nickName }"></c:out>

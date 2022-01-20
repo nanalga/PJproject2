@@ -65,7 +65,7 @@
             <div class="main_register_wrapper">
                 <div class="item main_register_PageName_container">
                     <div class="main_register_PageName_wrapper">
-                        <div class="main_register_PageName_input">용필이 장터</div>
+                        <div class="main_register_PageName_input">용피리 장터</div>
                     </div>
                 </div>
 
@@ -124,6 +124,7 @@
                             <div class="main_register_addressImage_addressImageInput">
                                 <div id="map" style="width: 500px; height: 300px; "></div>
                                 <div id="clickLatlng" style="display: none"></div>
+                              <!--   <div id="clickLatlngM" style="display: none"></div> -->
                             </div>
                         </div>
                     </div>
@@ -207,6 +208,7 @@
 		var addressMap = $("#addressInput").val();
 		console.log(addressMap);
 		//주소로 좌표를 검색합니다
+		
 		const mapHandler = () => {
 		 //카카오 지도 발생
 		
@@ -222,16 +224,17 @@
 		        		var resultDiv = document.getElementById('clickLatlng'); 
 		        		resultDiv.innerHTML = message;
 		        		
-		                var iwContent = '<div style="padding:5px 10px 5px 5px; font-size: small;white-space: nowrap;">'+addressMap+'<br><a href="https://map.kakao.com/link/map/'+addressMap+','+result[0].y+','+result[0].x+
-		                '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+addressMap+
-		                ','+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		                iwPosition = new kakao.maps.LatLng(result[0].y, result[0].x);		        		
-		        		
 		                // 결과값으로 받은 위치를 마커로 표시합니다
 		                var marker = new kakao.maps.Marker({
 		                    map: map,
 		                    position: coords
 		                });
+		                
+		                var iwContent = '<div style="padding:5px 10px 5px 5px; font-size: small;white-space: nowrap;">'+addressMap+'<br><a href="https://map.kakao.com/link/map/'+addressMap+','+result[0].y+','+result[0].x+
+		                '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+addressMap+
+		                ','+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		                iwPosition = new kakao.maps.LatLng(result[0].y, result[0].x);		        		
+		        		
 		                // 인포윈도우로 장소에 대한 설명을 표시합니다
 		                var infowindow = new kakao.maps.InfoWindow({
 		                	position : iwPosition,
@@ -246,13 +249,14 @@
 		
 		
 		setTimeout(mapHandler,2000);
+		
 		const mapHandlerM = () => {
 			
 			 //카카오 지도 발생
 		    new daum.Postcode({
 		        oncomplete: function(data) { //선택시 입력값 세팅
 		            document.getElementById("addressInput").value = data.address; // 주소 넣기
-					
+		            addressMap = $("#addressInput").val();
 		            geocoder.addressSearch(data.address, function(result, status) {
 		                // 정상적으로 검색이 완료됐으면 
 		                 if (status === kakao.maps.services.Status.OK) {
@@ -277,7 +281,7 @@
 		                    // 인포윈도우로 장소에 대한 설명을 표시합니다
 		                    var infowindow = new kakao.maps.InfoWindow({
 			                	position : iwPosition,
-			                	 content: '<div style="width:150px;text-align:center;padding:6px 0;">♥</div>'
+			                    content: iwContent
 		                    });
 		                    infowindow.open(map, marker);
 		                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
@@ -285,7 +289,7 @@
 		                } 
 		            })
 		            
-					document.querySelector("input[name=price]").focus();
+				//	document.querySelector("input[name=price]").focus();
 				//   document.querySelector("input[name=addressDetail]").focus(); //상세입력 포커싱
 		        }
 		    }).open();
@@ -296,7 +300,7 @@
 		
 		
 		
-	})
+	});
 
 	
 </script>

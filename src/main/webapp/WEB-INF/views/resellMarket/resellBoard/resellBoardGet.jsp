@@ -194,7 +194,7 @@ $(document).ready(function() {
 	                 <img src="${pageContext.request.contextPath }/resource/img/foodImg/resellBoardImage.png" alt="" class="resell_get_body_top_info_content_mainicon_iconimage">
 	             </div>
 	             <div class="resell_get_body_top_info_content">
-	                 용필이에게 다양한 아나바다...
+	                 용피리에게 다양한 아나바다...
 	             </div>
 	         </div>
 	     </div>
@@ -203,7 +203,7 @@ $(document).ready(function() {
 	        <div class="resell_get_body_main_box">
 	            <div class="resell_get_main_box_title">
 	                <div class="resell_get_body_resellBoardTitle">
-	                    용필이 중고장터
+	                    용피리 중고장터
 	                </div>
 	            </div>
 	            <div class="resell_get_body_main_box_backList">
@@ -324,7 +324,7 @@ $(document).ready(function() {
 	        <div class="resell_get_body_main_bottom_box">
 	            <div class="resell_get_main_bottom_box_title">
 	                <div class="resell_get_main_bottom_resellBoardTitle">
-	                    용필이 중고장터
+	                    용피리 중고장터
 	                </div>
 	            </div>
 	            <div class="resell_get_main_bottom_mainicon">
