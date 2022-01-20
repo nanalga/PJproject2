@@ -219,10 +219,10 @@ public class ResellBoardController implements WebMvcConfigurer {
 		String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
 		String savedFileName = UUID.randomUUID() + extension; // 저장될 파일 명
 
-		File targetFile = new File(fileRoot + savedFileName);
+//		File targetFile = new File(fileRoot + savedFileName);
 		try {
-			InputStream fileStream = multipartFile.getInputStream();
-			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
+//			InputStream fileStream = multipartFile.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile); // 파일 저장
 //			jsonObject.addProperty("url", targetFile.getAbsolutePath()); // contextroot + resources + 저장할 내부 폴더명
 //			jsonObject.addProperty("url", "/fileupload"); // contextroot + resources + 저장할 내부 폴더명
 			jsonObject.addProperty("responseCode", "success");
