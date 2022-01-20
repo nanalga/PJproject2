@@ -85,7 +85,7 @@
                         <div class="main_register_titlePrice_priceWrapper">
                             <div class="main_register_titlePrice_priceName">가격 :</div>
                             <div class="main_register_titlePrice_priceInput">
-                                <input type="text" class="titlePrice_priceInput"  id="priceInput" value="${resellBoard.price }" name="price"/>
+                               <input type="number" class="titlePrice_priceInput" maxlength='9' oninput="maxLengthCheck(this)"  placeholder="가격을 입력해주세요" value="${resellBoard.price }" id="priceInput" name="price">
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                         <div class="main_register_address_wrapper">
                             <div class="main_register_address_addressName">주 소 :</div>
                             <div class="main_register_address_addressInput">
-                                <input type="text" class="address_addressInput" id="addressInput" required name="address" value="${resellBoard.address }"/>
+                                <input type="text" class="address_addressInput" id="addressInput" required  name="address" value="${resellBoard.address }" />
                             </div>
                         </div>
                         <!-- <div class="main_register_address_wrapper2"></div> -->
@@ -166,6 +166,25 @@
 	<script src="${pageContext.request.contextPath }/resource/js/main.js" type="module"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  function maxLengthCheck(object){
+    if (object.value.length > object.maxLength){
+      object.value = object.value.slice(0, object.maxLength);
+    }    
+  }
+  
+ 
+  
+  function priceNotNullObject() {
+	   const priceInput = $(#priceInput).val();
+	  if (priceInput == null) {
+		  priceInput = 0;
+	  }
+	  	
+  }
+  
+</script>
+
 
 	<script>
 	$(document).ready(function() {
@@ -250,7 +269,7 @@
 		
 		setTimeout(mapHandler,2000);
 		
-		const mapHandlerM = () => {
+		const mapHandlerM = () =>  {
 			
 			 //카카오 지도 발생
 		    new daum.Postcode({
@@ -295,7 +314,7 @@
 		    }).open();
 			
 		}		
-		    document.getElementById("addressInput").addEventListener("click", mapHandlerM ) 
+		    document.getElementById("addressInput").addEventListener("click", mapHandlerM ); 
 		    //주소입력칸을 클릭하면
 		
 		
@@ -310,16 +329,6 @@
 $(document).ready(function() {
 	const appRoot = '${pageContext.request.contextPath}';
 	
-	$("#removeModalButton").click(function(e) {
-		e.preventDefault();  // 기본동작을 진행 안함
-		$("#modifyForm").attr("action","resellBoardRemove").submit();
-	});
-	
-	$("#modifyModalButton").click(function(e){
-		e.preventDefault();
-		$("#modifyForm").attr("action","resellBoardModify").submit();
-	
-	});
 
 	// summerNote
 	var fontList = ['맑은 고딕', '돋움', '궁서', '굴림', '굴림체', '궁서체', '나눔 고딕', '바탕', '바탕체',
@@ -437,6 +446,7 @@ $(document).ready(function() {
 			console.log("price if");
 			alert("가격을 입력해주세요");
 			document.modifyForm.price.focus();
+			
 			return ;
 		} 
 		
