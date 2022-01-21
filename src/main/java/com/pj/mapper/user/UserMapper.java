@@ -61,6 +61,10 @@ public interface UserMapper {
 
 	public int deleteResellByUserId(Integer id);
 
+	public int deleteFoodReplyByUserId(Integer id);
+
+	public int deleteResellReplyByUserId(Integer id);
+
 
 	
 //	public List<FoodVO> getFoodList();

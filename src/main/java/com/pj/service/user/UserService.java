@@ -70,14 +70,19 @@ public class UserService {
 
 	@Transactional
 	public boolean deleteUserByUserId(Integer id) throws RuntimeException{
-		/*
-		 * int count1 = userMapper.selectCount("FoodReply","userId",id); int count2 =
-		 * userMapper.selectCount("rReply", "userId", id); int count3 =
-		 * userMapper.deleteReplyByUserId(id); System.out.println("count1 :"+count1);
-		 * System.out.println("count2 :"+count2); System.out.println("count3 :"+count3);
-		 * if((count1+count2) != count3) { throw new
-		 * RuntimeException("deleteReplyByUserId query error1"); }
-		 */
+		
+		  int count1 = userMapper.selectCount("FoodReply","userId",id); 
+		  int count2 = userMapper.selectCount("ResellReply", "userId", id); 
+		  int count3 = userMapper.deleteFoodReplyByUserId(id);
+		  int count4 = userMapper.deleteResellReplyByUserId(id);
+//		  System.out.println("count1 :"+count1);
+//		  System.out.println("count2 :"+count2); 
+//		  System.out.println("count3 :"+count3);
+//		  System.out.println("count4 :"+count4);
+		  if((count1+count2) != (count3+count4)) { 
+			  throw new RuntimeException("deleteReplyByUserId query error1"); 
+		  }
+		
 		
 		List<UserFoodVO> foodVOs = userMapper.getFoodListByUserId(id);
 		for(UserFoodVO foodVO : foodVOs) {
@@ -88,17 +93,17 @@ public class UserService {
 			userMapper.deleteResellReplyByResellId(resellVO.getId());
 		}
 		
-		int count4 = userMapper.selectCount("Food", "memberId", id);
-		int count5 = userMapper.selectCount("Resell", "memberId", id);
-		int count6 = userMapper.deleteFoodByUserId(id);
-		int count7 = userMapper.deleteResellByUserId(id);
+		int count5 = userMapper.selectCount("Food", "memberId", id);
+		int count6 = userMapper.selectCount("Resell", "memberId", id);
+		int count7 = userMapper.deleteFoodByUserId(id);
+		int count8 = userMapper.deleteResellByUserId(id);
 		
-		System.out.println("count4 :"+count4);
 		System.out.println("count5 :"+count5);
 		System.out.println("count6 :"+count6);
 		System.out.println("count7 :"+count7);
+		System.out.println("count8 :"+count8);
 		
-		if((count4+count5) != (count6+count7)) {
+		if((count5+count6) != (count7+count8)) {
 			throw new RuntimeException("deleteBoardByUserId query error2");
 		}
 		
