@@ -183,4 +183,18 @@
 		WHERE
 			boardId = #{id}
 	</delete>
+	<delete id="deleteFoodReplyByUserId">
+		DELETE
+		FROM
+			FoodReply
+		WHERE
+			userId = #{id}
+	</delete>
+	<delete id="deleteResellReplyByUserId">
+		DELETE
+		FROM
+			ResellReply
+		WHERE
+			userId = #{id}
+	</delete>
 </mapper>
