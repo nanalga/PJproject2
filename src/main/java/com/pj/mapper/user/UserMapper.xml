@@ -87,6 +87,8 @@
 			f.memberId = u.id
 		AND
 			u.id = #{id}
+		ORDER BY id
+		DESC
 	</select>
 	<select id="getResllListByUserId" resultType="com.pj.domain.user.resell.UserResellVO">
 		SELECT
@@ -99,6 +101,8 @@
 		 	r.memberId = u.id
 		 AND
 		 	u.id =	#{id}
+		 ORDER BY id
+	     DESC
 	</select>
 	<select id="selectCount" resultType="int">
 		SELECT
