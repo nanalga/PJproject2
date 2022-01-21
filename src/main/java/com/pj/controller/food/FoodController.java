@@ -181,7 +181,7 @@ public class FoodController implements WebMvcConfigurer {
 
 			// s3에 저장
 			jsonObject.addProperty("url", service.uploadToS3(savedFileName, multipartFile));
-			jsonObject.addProperty("imageKey", "board/" + savedFileName);
+			jsonObject.addProperty("imageKey", "board/food/" + savedFileName);
 
 		} catch (IOException e) {
 //			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
@@ -223,7 +223,7 @@ public class FoodController implements WebMvcConfigurer {
 
 			// s3에 수정
 			jsonObject.addProperty("url", service.modifyToS3(savedFileName, multipartFile));
-			jsonObject.addProperty("imageKey", "board/" + savedFileName);
+			jsonObject.addProperty("imageKey", "board/food/" + savedFileName);
 
 		} catch (IOException e) {
 //			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제

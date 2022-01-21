@@ -229,8 +229,8 @@ public class ResellBoardController implements WebMvcConfigurer {
 
 			// s3에 저장
 			jsonObject.addProperty("url", service.uploadToS3(savedFileName, multipartFile));
-			jsonObject.addProperty("imageKey", "resell/" + savedFileName);
-			
+			jsonObject.addProperty("imageKey", "board/resell/" + savedFileName);
+			System.out.println("urlRegisterImg :"  + savedFileName);
 		} catch (IOException e) {
 //			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
@@ -270,8 +270,8 @@ public class ResellBoardController implements WebMvcConfigurer {
 
 			// s3에 수정
 			jsonObject.addProperty("url", service.modifyToS3(savedFileName, multipartFile));
-			jsonObject.addProperty("imageKey", "resell/" + savedFileName);
-			System.out.println("urlModify :"  + savedFileName);
+			jsonObject.addProperty("imageKey", "board/resell/" + savedFileName);
+			System.out.println("urlModifyImg :"  + savedFileName);
 		} catch (IOException e) {
 //			FileUtils.deleteQuietly(targetFile); // 저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
