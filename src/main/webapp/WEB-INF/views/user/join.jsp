@@ -60,11 +60,11 @@
                         </div>
                         <div class="join_main_input_group">
                             <label for="join_input4">비밀번호*</label>
-                            <input type="text" id="join_input4" name="password" class="join_pw" maxlength="20" required/>
+                            <input type="password" id="join_input4" name="password" class="join_pw" maxlength="20" required/>
                         </div>
                         <div class="join_main_input_group">
                             <label for="join_input5">비밀번호 확인*</label>
-                            <input type="text" id="join_input5" class="join_pw_check" maxlength="20" required/>
+                            <input type="password" id="join_input5" class="join_pw_check" maxlength="20" required/>
                         </div>
                         <div class="join_main_input_group">
                             <label for="join_input6">주소</label>

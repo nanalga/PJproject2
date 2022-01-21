@@ -45,7 +45,7 @@
                         </div>
                         <div class="login_main_input_group">
                             <label for="login_main_input2">비밀번호</label>
-                            <input type="text" id="login_main_input2" name="password" class="login_input_pw"/>
+                            <input type="password" id="login_main_input2" name="password" class="login_input_pw"/>
                         </div>
                         <div class="login_submitBtn_container">
                             <div class="login_submit_empty_box"></div>
