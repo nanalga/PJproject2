@@ -145,7 +145,7 @@
 		            </div>
 		            <div class="food_get_main_bottom_mainicon">
 		                <div class="food_get_main_bottom_mainicon">
-		                     <img src="/controller/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="food_get_main_bottom_iconimage">
+		                     <img src="${pageContext.request.contextPath }/resource/img/foodImg/Dragon_Logo_food.png" alt="" class="food_get_main_bottom_iconimage">
 		                </div>
 		            </div>   
 		        </div> 
